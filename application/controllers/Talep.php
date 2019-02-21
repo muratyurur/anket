@@ -44,14 +44,12 @@ class Talep extends CI_Controller
 
         if ($this->input->post('mahalle')) {
             $where['mahalle'] = $this->input->post("mahalle");
-            $where['talep !='] = NULL;
             $viewData->set_mahalle = $this->input->post("mahalle");
             $this->session->set_userdata("where", $where);
         }
 
         if ($this->input->post('mudurluk')) {
             $where['mudurluk'] = $this->input->post("mudurluk");
-            $where['talep !='] = NULL;
             $viewData->set_mudurluk = $this->input->post("mudurluk");
             $this->session->set_userdata("where", $where);
         }
@@ -64,7 +62,6 @@ class Talep extends CI_Controller
             $ilktarih = date('Y-m-d', strtotime($ilktar));
 
             $where['talepTarihi >='] = $ilktarih;
-            $where['talep !='] = NULL;
             $viewData->set_ilktarih = $this->input->post("ilktarih");
             $this->session->set_userdata("where", $where);
         }
@@ -77,7 +74,6 @@ class Talep extends CI_Controller
             $sontarih = date('Y-m-d', strtotime($sontar));
 
             $where['talepTarihi <='] = $sontarih;
-            $where['talep !='] = NULL;
             $viewData->set_sontarih = $this->input->post("sontarih");
             $this->session->set_userdata("where", $where);
         }
@@ -97,7 +93,7 @@ class Talep extends CI_Controller
 
         $this->pagination->initialize($config);
 
-        $towns = $this->mahalle_model->get_all();
+        $towns = $this->mahalle_model->get_all(array(), "tanim ASC");
 
         $departments = $this->mudurluk_model->get_all();
 
@@ -117,6 +113,7 @@ class Talep extends CI_Controller
         $viewData->subViewFolder = "list";
         $viewData->items = $items;
         $viewData->towns = $towns;
+        $viewData->query = $this->db->last_query();
         $viewData->departments = $departments;
         $viewData->links = $this->pagination->create_links();
 
@@ -187,25 +184,19 @@ class Talep extends CI_Controller
         $this->load->library("form_validation");
 
         /** Validation Rules */
-        $this->form_validation->set_rules("adi", "Adı", "trim|required");
-        $this->form_validation->set_rules("soyadi", "Soyadı", "trim|required");
-        $this->form_validation->set_rules("dogumtarihi", "Doğum Tarihi", "trim|required");
-        $this->form_validation->set_rules("anaadi", "Anne Adı", "trim|required");
-        $this->form_validation->set_rules("babaadi", "Baba Adı", "trim|required");
-        $this->form_validation->set_rules("cinsiyeti", "Cinsiyeti", "trim|required");
-        $this->form_validation->set_rules("dogumyeri", "Doğum Yeri", "trim|required");
-        $this->form_validation->set_rules("engellimi", "Engelli mi?", "trim|required");
+        $this->form_validation->set_rules("talepeden", "Talep Eden", "trim|required");
+        $this->form_validation->set_rules("irtibat", "İrtibat No.", "trim|required");
+        $this->form_validation->set_rules("talepTarihi", "Talep Tarihi", "trim|required");
         $this->form_validation->set_rules("mahalle", "Mahalle", "trim|required");
         $this->form_validation->set_rules("sokak", "Sokak", "trim|required");
         $this->form_validation->set_rules("daire", "Daire No.", "trim|required");
         $this->form_validation->set_rules("kapi", "Kapı No.", "trim|required");
-        $this->form_validation->set_rules("tckimlikno", "Vatandaşlık No.", "trim|required|is_unique[secmen.tckimlikno]");
+        $this->form_validation->set_rules("istek", "Talep", "trim|required");
 
         /** Translate Validation Messages */
         $this->form_validation->set_message(
             array(
                 "required" => "<b>{field}</b> alanı boş bırakılamaz...",
-                "is_unique" => "Bu T.C. Kimlik No. sistemde kayıtlıdır."
             )
         );
 
@@ -216,35 +207,57 @@ class Talep extends CI_Controller
         if ($validate) {
             /** Start Insert Statement */
 
-            $var = $this->input->post("dogumtarihi");
+            $var = $this->input->post("sonucTarihi");
+            $sontar = str_replace('/', '-', $var);
+            $sonucTarihi = date('Y-m-d', strtotime($sontar));
 
-            $dogtar = str_replace('/', '-', $var);
+            $var = $this->input->post("talepTarihi");
+            $taleptar = str_replace('/', '-', $var);
+            $talepTarihi = date('Y-m-d', strtotime($taleptar));
 
-            $dogumtarihi = date('Y-m-d', strtotime($dogtar));
-
-            $insert = $this->talep_model->add(
-                array(
-                    "adi" => $this->input->post("adi"),
-                    "soyadi" => $this->input->post("soyadi"),
-                    "tckimlikno" => $this->input->post("tckimlikno"),
-                    "dogumtarihi" => $dogumtarihi,
-                    "mahalle" => $this->input->post("mahalle"),
-                    "sokak" => $this->input->post("sokak"),
-                    "kapi" => $this->input->post("kapi"),
-                    "daire" => $this->input->post("daire"),
-                    "anaadi" => $this->input->post("anaadi"),
-                    "babaadi" => $this->input->post("babaadi"),
-                    "cinsiyeti" => $this->input->post("cinsiyeti"),
-                    "dogumyeri" => $this->input->post("dogumyeri"),
-                    "engellimi" => $this->input->post("engellimi"),
-                    "tuzlakart" => $this->input->post("tuzlakartoptions"),
-                    "memnuniyet" => $this->input->post("memnuniyetoptions"),
-                    "durum" => $this->input->post("durumoptions"),
-                    "gorus" => $this->input->post("gorus"),
-                    "createdAt" => date("Y-m-d H:i:s"),
-                    "createdBy" => $user->id
-                )
-            );
+            if ($this->input->post("sonucTarihi"))
+            {
+                $insert = $this->talep_model->add(
+                    array(
+                        "secmen" => $this->input->post("secmen"),
+                        "talepeden" => $this->input->post("talepeden"),
+                        "irtibat" => $this->input->post("irtibat"),
+                        "talepTarihi" => $talepTarihi,
+                        "kaynak" => $this->input->post("kaynak"),
+                        "mahalle" => $this->input->post("mahalle"),
+                        "sokak" => $this->input->post("sokak"),
+                        "kapi" => $this->input->post("kapi"),
+                        "daire" => $this->input->post("daire"),
+                        "istek" => $this->input->post("istek"),
+                        "mudurluk" => $this->input->post("mudurluk"),
+                        "sonucDurumu" => $this->input->post("sonucDurumu"),
+                        "sonucAciklama" => $this->input->post("sonucAciklama"),
+                        "sonucTarihi" => $sonucTarihi,
+                        "createdAt" => date("Y-m-d H:i:s"),
+                        "createdBy" => $user->id
+                    )
+                );
+            } else {
+                $insert = $this->talep_model->add(
+                    array(
+                        "secmen" => $this->input->post("secmen"),
+                        "talepeden" => $this->input->post("talepeden"),
+                        "irtibat" => $this->input->post("irtibat"),
+                        "talepTarihi" => $talepTarihi,
+                        "kaynak" => $this->input->post("kaynak"),
+                        "mahalle" => $this->input->post("mahalle"),
+                        "sokak" => $this->input->post("sokak"),
+                        "kapi" => $this->input->post("kapi"),
+                        "daire" => $this->input->post("daire"),
+                        "istek" => $this->input->post("istek"),
+                        "mudurluk" => $this->input->post("mudurluk"),
+                        "sonucDurumu" => $this->input->post("sonucDurumu"),
+                        "sonucAciklama" => $this->input->post("sonucAciklama"),
+                        "createdAt" => date("Y-m-d H:i:s"),
+                        "createdBy" => $user->id
+                    )
+                );
+            }
 
             /** If Insert Statement Succesful */
             if ($insert) {
@@ -392,6 +405,16 @@ class Talep extends CI_Controller
             $sonucTarihi = date('Y-m-d', strtotime($sontar));
 
             $data = array(
+                "secmen" => $this->input->post("secmen"),
+                "talepeden" => $this->input->post("talepeden"),
+                "irtibat" => $this->input->post("irtibat"),
+                "talepTarihi" => $this->input->post("talepTarihi"),
+                "kaynak" => $this->input->post("kaynak"),
+                "mahalle" => $this->input->post("mahalle"),
+                "sokak" => $this->input->post("sokak"),
+                "kapi" => $this->input->post("kapi"),
+                "daire" => $this->input->post("daire"),
+                "daire" => $this->input->post("daire"),
                 "mudurluk" => $this->input->post("mudurluk"),
                 "sonucDurumu" => $this->input->post("sonucDurumu"),
                 "sonucAciklama" => $this->input->post("sonucAciklama"),
@@ -401,6 +424,16 @@ class Talep extends CI_Controller
             );
         } else {
             $data = array(
+                "secmen" => $this->input->post("secmen"),
+                "talepeden" => $this->input->post("talepeden"),
+                "irtibat" => $this->input->post("irtibat"),
+                "talepTarihi" => $this->input->post("talepTarihi"),
+                "kaynak" => $this->input->post("kaynak"),
+                "mahalle" => $this->input->post("mahalle"),
+                "sokak" => $this->input->post("sokak"),
+                "kapi" => $this->input->post("kapi"),
+                "daire" => $this->input->post("daire"),
+                "daire" => $this->input->post("daire"),
                 "mudurluk" => $this->input->post("mudurluk"),
                 "sonucDurumu" => $this->input->post("sonucDurumu"),
                 "sonucAciklama" => $this->input->post("sonucAciklama"),

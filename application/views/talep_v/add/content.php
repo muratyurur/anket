@@ -13,10 +13,11 @@
             <div class="widget-body">
                 <form action="<?php echo base_url("talep/save"); ?>" method="post">
                     <div class="row">
+                        <input type="hidden" name="secmen" value="<?php echo ($secmen ? $secmen->id : ""); ?>">
                         <div class="form-group col-md-3">
                             <label>Talep Eden</label>
                             <input value="<?php echo ($secmen ? get_person_name($secmen->id) : ""); ?>"
-                                    name="secmen"
+                                    name="talepeden"
                                    type="text"
                                    style="display: inline-block; width: 85%;"
                                    class="form-control"
@@ -26,13 +27,13 @@
                                             class="fa fa-search"></i></span>
                             </a>
                             <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error"> <?php echo form_error("secmen"); ?></small>
+                                <small class="input-form-error"> <?php echo form_error("talepeden"); ?></small>
                             <?php } ?>
                         </div>
                         <div class="form-group col-md-3">
                             <label>İrtibat No.</label>
                             <input value="<?php echo ($secmen ? $secmen->gsm1 : ""); ?>"
-                                    name="evsahibitel"
+                                    name="irtibat"
                                     type="text"
                                     data-mask="0 (500) 000-00-00"
                                     class="form-control"
@@ -46,12 +47,12 @@
                             <br>
                             <input type="text"
                                    class="form-control"
-                                   name="tarih"
+                                   name="talepTarihi"
                                    data-mask="00/00/0000"
                                    placeholder="GG/AA/YYYY"
                                    data-mask-clearifnotmatch="true"/>
                             <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("tarih"); ?></small>
+                                <small class="input-form-error pull-right"> <?php echo form_error("talepTarihi"); ?></small>
                             <?php } ?>
                         </div>
                         <div class="form-group col-md-3">
@@ -124,8 +125,7 @@
                         <div class="col-md-12">
                             <div class="form-group m-b-0">
                                 <h5>Talep</h5>
-                                <textarea id="maxlength-demo-4" class="form-control"
-                                          name="istek"></textarea>
+                                <textarea class="form-control" name="istek"></textarea>
                             </div>
                         </div>
                     </div>

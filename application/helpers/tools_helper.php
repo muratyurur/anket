@@ -139,15 +139,19 @@ function get_secmenName($id)
     return ($name->secmen);
 }
 
-function sourcename($param)
+function sourcename($id)
 {
-    if ($param === "A")
-        $name = "ANKET ÇALIŞMASI";
-    elseif ($param === "H")
-        $name = "HEMŞEHRİ ÇALIŞMASI";
-    elseif ($param === "E")
-        $name = "EV SOHBETLERİ";
-    return ($name);
+    $t = &get_instance();
+
+    $t->load->model("talep_kaynak_model");
+
+    $source = $t->talep_kaynak_model->get(
+        array(
+            "id"    => $id
+        )
+    );
+
+    return ($source->title);
 }
 
 function get_townname($id)
