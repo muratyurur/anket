@@ -350,22 +350,9 @@ class Anket extends CI_Controller
         $this->load->library("form_validation");
 
         /** Validation Rules */
-        $this->form_validation->set_rules("adi", "Adı", "trim|required");
-        $this->form_validation->set_rules("soyadi", "Soyadı", "trim|required");
-        $this->form_validation->set_rules("dogumtarihi", "Doğum Tarihi", "trim|required");
-        $this->form_validation->set_rules("anaadi", "Anne Adı", "trim|required");
-        $this->form_validation->set_rules("babaadi", "Baba Adı", "trim|required");
-        $this->form_validation->set_rules("cinsiyeti", "Cinsiyeti", "trim|required");
-        $this->form_validation->set_rules("dogumyeri", "Doğum Yeri", "trim|required");
-        $this->form_validation->set_rules("engellimi", "Engelli mi?", "trim|required");
-        $this->form_validation->set_rules("mahalle", "Mahalle", "trim|required");
-        $this->form_validation->set_rules("sokak", "Sokak", "trim|required");
-        $this->form_validation->set_rules("daire", "Daire No.", "trim|required");
-        $this->form_validation->set_rules("kapi", "Kapı No.", "trim|required");
         $this->form_validation->set_rules("gsm1", "Cep Telefonu (1)", "trim");
         $this->form_validation->set_rules("gsm2", "Cep Telefonu (2)", "trim");
         $this->form_validation->set_rules("eposta", "ePosta", "trim|valid_email");
-        $this->form_validation->set_rules("tckimlikno", "Vatandaşlık No.", "trim|required");
 
         /** Translate Validation Messages */
         $this->form_validation->set_message(
@@ -418,29 +405,10 @@ class Anket extends CI_Controller
                 )
             );
 
-            $var = $this->input->post("dogumtarihi");
-
-            $dogtar = str_replace('/', '-', $var);
-
-            $dogumtarihi = date('Y-m-d', strtotime($dogtar));
-
             $data = array(
-                "adi" => $this->input->post("adi"),
-                "soyadi" => $this->input->post("soyadi"),
-                "tckimlikno" => $this->input->post("tckimlikno"),
                 "gsm1" => $this->input->post("gsm1"),
                 "gsm2" => $this->input->post("gsm2"),
                 "eposta" => $this->input->post("eposta"),
-                "dogumtarihi" => $dogumtarihi,
-                "mahalle" => $this->input->post("mahalle"),
-                "sokak" => $this->input->post("sokak"),
-                "kapi" => $this->input->post("kapi"),
-                "daire" => $this->input->post("daire"),
-                "anaadi" => $this->input->post("anaadi"),
-                "babaadi" => $this->input->post("babaadi"),
-                "cinsiyeti" => $this->input->post("cinsiyeti"),
-                "dogumyeri" => $this->input->post("dogumyeri"),
-                "engellimi" => $this->input->post("engellimi"),
                 "tuzlakart" => $this->input->post("tuzlakartoptions"),
                 "memnuniyet" => $this->input->post("memnuniyetoptions"),
                 "durum" => $this->input->post("durumoptions"),
