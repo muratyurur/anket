@@ -171,7 +171,13 @@ $user = $t->session->userdata("user");
         <div class="col-md-12">
             <div class="widget">
                 <header class="widget-header">
-                    <h4 class="widget-title">Mahallere Göre Görüşme Durumu</h4>
+                    <h4 class="widget-title">
+                        Mahallere Göre Görüşme Durumu
+                        <a class="btn btn-outline btn-success btn-md pull-right"
+                           href="<?php echo base_url("dashboard/excel_mahalle_durum"); ?>">
+                            <i class="fa fa-file-excel-o"></i> Excel
+                        </a>
+                    </h4>
                 </header>
                 <hr class="widget-separator"/>
                 <div class="widget-body">
@@ -180,10 +186,10 @@ $user = $t->session->userdata("user");
                             <thead>
                             <tr>
                                 <th>Mahalle</th>
-                                <th>Henüz Görüşülmedi</th>
-                                <th>Görüşüldü</th>
-                                <th>Evde Bulunamadı</th>
-                                <th>Görüşmeyi Reddetti</th>
+                                <th class="w250">Henüz Görüşülmedi</th>
+                                <th class="w250">Görüşüldü</th>
+                                <th class="w250">Evde Bulunamadı</th>
+                                <th class="w250">Görüşmeyi Reddetti</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -214,7 +220,13 @@ $user = $t->session->userdata("user");
         <div class="col-md-12">
             <div class="widget">
                 <header class="widget-header">
-                    <h4 class="widget-title">Mahallere Göre Tuzla Kart Teslim Durumu</h4>
+                    <h4 class="widget-title">
+                        Mahallere Göre Tuzla Kart Teslim Durumu
+                        <a class="btn btn-outline btn-success btn-md pull-right"
+                           href="<?php echo base_url("dashboard/excel_tuzlakart_durum"); ?>">
+                            <i class="fa fa-file-excel-o"></i> Excel
+                        </a>
+                    </h4>
                 </header>
                 <hr class="widget-separator"/>
                 <div class="widget-body">
@@ -223,10 +235,10 @@ $user = $t->session->userdata("user");
                             <thead>
                             <tr>
                                 <th>Mahalle</th>
-                                <th>Teslim Aldı</th>
-                                <th>Teslim Edilemedi</th>
-                                <th>İstemedi</th>
-                                <th>Kartı Var</th>
+                                <th class="w250">Teslim Aldı</th>
+                                <th class="w250">Teslim Edilemedi</th>
+                                <th class="w250">İstemedi</th>
+                                <th class="w250">Kartı Var</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -257,7 +269,13 @@ $user = $t->session->userdata("user");
         <div class="col-md-12">
             <div class="widget">
                 <header class="widget-header">
-                    <h4 class="widget-title">Mahallere Göre Memnuniyet Durumu</h4>
+                    <h4 class="widget-title">
+                        Mahallere Göre Memnuniyet Durumu
+                        <a class="btn btn-outline btn-success btn-md pull-right"
+                           href="<?php echo base_url("dashboard/excel_memnuniyet_durum"); ?>">
+                            <i class="fa fa-file-excel-o"></i> Excel
+                        </a>
+                    </h4>
                 </header>
                 <hr class="widget-separator"/>
                 <div class="widget-body">
@@ -266,10 +284,10 @@ $user = $t->session->userdata("user");
                             <thead>
                             <tr>
                                 <th>Mahalle</th>
-                                <th>Memnun</th>
-                                <th>Memnun Değil</th>
-                                <th>Kısmen Memnun</th>
-                                <th>Cevap Vermedi</th>
+                                <th class="w250">Memnun</th>
+                                <th class="w250">Memnun Değil</th>
+                                <th class="w250">Kısmen Memnun</th>
+                                <th class="w250">Cevap Vermedi</th>
                             </tr>
                             </thead>
                             <tbody>

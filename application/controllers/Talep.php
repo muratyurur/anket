@@ -485,9 +485,9 @@ class Talep extends CI_Controller
         $viewData = new stdClass();
 
         if (isset($_SERVER['HTTP_REFERER'])) {
-            $comefrom = strpos($_SERVER['HTTP_REFERER'], "talep");
+            $comefrom = strpos($_SERVER['HTTP_REFERER'], "secmen_form");
             if ($comefrom == false) {
-                $this->session->unset_userdata("where");
+                $this->session->unset_userdata("where1");
             }
         }
 

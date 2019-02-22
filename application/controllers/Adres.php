@@ -108,7 +108,6 @@ class Adres extends CI_Controller
 
     public function excel()
     {
-
         $where = $this->session->userdata('where');
 
         /** Taking all data from the table */

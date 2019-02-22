@@ -53,7 +53,7 @@ class Adres_model extends CI_Model
     }
 
     /**  The method of returning all row's data that meets the requirements in the table */
-    public function get_all($where = array(), $order = "CONVERT(s.kapi, SIGNED)")
+    public function get_all($where = array(), $order = "soyadi, adi")
     {
         return $this->db->select('s.adi as adi, s.soyadi as soyadi, m.tanim as mahalle, k.tanim as sokak, s.kapi as kapi, s.daire as daire')->join('mahalle m', 'm.id = s.mahalle', 'inner')->join('sokak k', 'k.id = s.sokak', 'inner')->where($where)->order_by($order)->get('secmen s')->result();
     }

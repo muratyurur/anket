@@ -482,7 +482,8 @@ class Hemsehri extends CI_Controller
                                 "talepTarihi" => date("Y-m-d H:i:s"),
                                 "istek" => $item->gorus,
                                 "secmen" => $item->id,
-                                "kaynak" => "H",
+                                "talepeden" => $item->adi . " " . $item->soyadi,
+                                "kaynak" => 3,
                                 "sonucDurumu" => 1
                             )
                         );
