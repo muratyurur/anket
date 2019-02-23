@@ -13,7 +13,7 @@ class Talep_model extends CI_Model
     /** The method of returning all row's with limit for pagination */
     public function get_records($where = array(), $limit, $count, $order = "talepTarihi ASC")
     {
-        return $this->db->select("talep.id talep_id, talep.talepTarihi, talep.kaynak, secmen.mahalle, secmen.id, talep.istek, talep.mudurluk, talep.sonucDurumu, talep.sonucTarihi, talep.sonucAciklama")->where($where)->join("secmen", "talep.secmen = secmen.id", "inner")->join("mahalle", "mahalle.id = secmen.mahalle", "inner")->limit($limit, $count)->order_by($order)->get($this->tableName)->result();
+        return $this->db->select("talep.id talep_id, talep.talepTarihi, talep.kaynak, secmen.mahalle, secmen.id, talep.istek, talep.mudurluk, talep.sonucDurumu, talep.sonucTarihi, talep.sonucAciklama")->where($where)->join("secmen", "talep.secmen = secmen.id", "left outer")->join("mahalle", "mahalle.id = secmen.mahalle", "left outer")->limit($limit, $count)->order_by($order)->get($this->tableName)->result();
     }
 
     /** The method of returning count of records */

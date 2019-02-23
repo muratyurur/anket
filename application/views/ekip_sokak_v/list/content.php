@@ -79,51 +79,71 @@
     </div>
     <div class="col-md-12">
         <div class="widget p-lg">
-            <table id="datatable-responsive"
-                   class="table table-striped table-hover table-bordered content-container">
-                <thead>
-                <th class="w200">Tarih</th>
-                <th class="w200">Ekip</th>
-                <th class="w200">Mahalle</th>
-                <th class="w300">Sokak</th>
-                <th class="w200">Kaydeden</th>
-                <th class="w200">Kayıt Tarihi</th>
-                <th class="w200">Güncelleyen</th>
-                <th class="w200">Güncelleme Tarihi</th>
-                <th class="w300">İşlem</th>
-                </thead>
-                <tbody>
-                <?php $count = 1;
-                foreach ($items as $item) { ?>
-                    <tr>
-                        <td class="text-center"><?php echo get_readable_onlydate($item->tarih); ?></td>
-                        <td class="text-center"><?php echo get_teamName($item->ekip); ?></td>
-                        <td class="text-center"><?php echo get_townname($item->mahalle); ?></td>
-                        <td class="text-center"><?php echo get_streetname($item->sokak); ?></td>
-                        <td class="text-center"><?php echo get_username($item->createdBy); ?></td>
-                        <td class="text-center"><?php echo get_readable_date($item->createdAt); ?></td>
-                        <td class="text-center"><?php echo get_username($item->updatedBy); ?></td>
-                        <td class="text-center"><?php echo($item->updatedAt != "" ? get_readable_date($item->updatedAt) : ""); ?></td>
-                        <td class="text-center">
-                            <button
-                                    data-url="<?php echo base_url("ekip_sokak/delete/$item->id"); ?>"
-                                    type="button"
-                                    class="btn btn-danger btn-sm btn-outline remove-btn"
-                            >
-                                <i class="fa fa-trash-o"></i>
-                                Sil
-                            </button>
-                            <a href="<?php echo base_url("ekip_sokak/update_form/$item->id"); ?>">
-                                <button type="button" class="btn btn-primary btn-sm btn-outline">
-                                    <i class="fa fa-pencil-square-o"></i>
-                                    Düzenle
+            <?php if (empty($items)) { ?>
+                <div class="alert alert-warning text-center" style="padding: 8px; margin-bottom: 0px; s">
+                    <p style="font-size: larger">Arama sonucunda herhangi bir veri bulunamadı.</p>
+                </div>
+            <?php } else { ?>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <p class="pagination"><?php echo $links; ?></p>
+                    </div>
+                </div>
+                <table id="datatable-responsive"
+                       class="table table-striped table-hover table-bordered content-container">
+                    <thead>
+                    <th class="w200">Tarih</th>
+                    <th class="w200">Ekip</th>
+                    <th class="w200">Mahalle</th>
+                    <th class="w300">Sokak</th>
+                    <th class="w200">Kaydeden</th>
+                    <th class="w200">Kayıt Tarihi</th>
+                    <th class="w200">Güncelleyen</th>
+                    <th class="w200">Güncelleme Tarihi</th>
+                    <th class="w300">İşlem</th>
+                    </thead>
+                    <tbody>
+                    <?php $count = 1;
+                    foreach ($items as $item) { ?>
+                        <tr>
+                            <td class="text-center"><?php echo get_readable_onlydate($item->tarih); ?></td>
+                            <td class="text-center"><?php echo get_teamName($item->ekip); ?></td>
+                            <td class="text-center"><?php echo get_townname($item->mahalle); ?></td>
+                            <td class="text-center"><?php echo get_streetname($item->sokak); ?></td>
+                            <td class="text-center"><?php echo get_username($item->createdBy); ?></td>
+                            <td class="text-center"><?php echo get_readable_date($item->createdAt); ?></td>
+                            <td class="text-center"><?php echo get_username($item->updatedBy); ?></td>
+                            <td class="text-center"><?php echo($item->updatedAt != "" ? get_readable_date($item->updatedAt) : ""); ?></td>
+                            <td class="text-center">
+                                <button
+                                        data-url="<?php echo base_url("ekip_sokak/delete/$item->id"); ?>"
+                                        type="button"
+                                        class="btn btn-danger btn-sm btn-outline remove-btn"
+                                >
+                                    <i class="fa fa-trash-o"></i>
+                                    Sil
                                 </button>
-                            </a>
-                        </td>
-                    </tr>
-                <?php $count++; } ?>
-                </tbody>
-            </table>
+                                <a href="<?php echo base_url("ekip_sokak/update_form/$item->id"); ?>">
+                                    <button type="button" class="btn btn-primary btn-sm btn-outline">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                        Düzenle
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php $count++;
+                    } ?>
+                    </tbody>
+                </table>
+            <?php } ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Toplam <b><?php echo number_format($rowcount, 0, ',', '.'); ?></b> kayıt</p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <p class="pagination"><?php echo $links; ?></p>
+                </div>
+            </div>
         </div><!-- .widget -->
     </div><!-- END column -->
 </div>

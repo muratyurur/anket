@@ -11,7 +11,7 @@ class Ekip_sokak_model extends CI_Model
     }
 
     /** The method of returning all row's with limit for pagination */
-    public function get_records($where = array(), $limit, $count, $order = "tanim ASC")
+    public function get_records($where = array(), $limit, $count, $order = "ekip ASC")
     {
         return $this->db->where($where)->limit($limit, $count)->order_by($order)->get($this->tableName)->result();
     }

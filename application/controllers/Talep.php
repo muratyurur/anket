@@ -26,14 +26,9 @@ class Talep extends CI_Controller
 
         if (isset($_SERVER['HTTP_REFERER'])) {
             $comefrom = strpos($_SERVER['HTTP_REFERER'], "talep");
-
-            if ($comefrom == false) {
-                $this->session->unset_userdata("where");
-            }
-        } elseif (isset($_SERVER['HTTP_REFERER'])) {
             $comefrom2 = strpos($_SERVER['HTTP_REFERER'], "secmen_ekle");
 
-            if ($comefrom2 == false) {
+            if ($comefrom == false || $comefrom2 == false) {
                 $this->session->unset_userdata("where");
             }
         }
@@ -93,6 +88,10 @@ class Talep extends CI_Controller
 
         $this->pagination->initialize($config);
 
+        $viewData->count = $config["total_rows"];
+
+        $viewData->percount = $config["per_page"];
+
         $towns = $this->mahalle_model->get_all(array(), "tanim ASC");
 
         $departments = $this->mudurluk_model->get_all();
@@ -103,10 +102,6 @@ class Talep extends CI_Controller
             $config["per_page"],
             $page
         );
-
-        $viewData->count = $config["total_rows"];
-
-        $viewData->percount = $config["per_page"];
 
         /** Defining data to be sent to view */
         $viewData->viewFolder = $this->viewFolder;

@@ -79,6 +79,25 @@ class Ekip_sokak extends CI_Controller
 
         $this->pagination->initialize($config);
 
+        $viewData->rowcount = $config["total_rows"];
+
+        /** Taking all towns in place */
+        $viewData->towns = $this->mahalle_model->get_all(array(), "tanim ASC");
+
+        /** Taking all streets in town */
+        if ($this->input->post("mahalle"))
+        {
+            $viewData->streets = $this->sokak_model->get_all(
+                array(
+                    "mahalle_id" => $this->input->post("mahalle")
+                ), "tanim ASC");
+        } else {
+            $viewData->streets = $this->sokak_model->get_all(array(), "tanim ASC");
+        }
+
+        /** Taking all teams */
+        $viewData->teams = $this->ekip_model->get_all();
+
 
         /** Taking all data from the table */
         $items = $this->ekip_sokak_model->get_records(
@@ -87,25 +106,13 @@ class Ekip_sokak extends CI_Controller
             $page,
             "tarih, ekip, sokak"
         );
-
-
-        $viewData->count = $config["total_rows"];
-
-        /** Taking all streets in town */
-        $viewData->towns = $this->mahalle_model->get_all();
-
-        /** Taking all streets in town */
-        $viewData->streets = $this->sokak_model->get_all();
-
-        /** Taking all departments */
-        $viewData->teams = $this->ekip_model->get_all();
-
         $viewData->percount = $config["per_page"];
 
         /** Defining data to be sent to view */
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";
         $viewData->items = $items;
+        $viewData->query = $this->db->last_query();
         $viewData->links = $this->pagination->create_links();
 
 
@@ -135,10 +142,18 @@ class Ekip_sokak extends CI_Controller
         );
 
         /** Taking all towns */
-        $viewData->towns = $this->mahalle_model->get_all();
+        $viewData->towns = $this->mahalle_model->get_all(array(), "tanim ASC");
 
         /** Taking all streets in town */
-        $viewData->streets = $this->sokak_model->get_all();
+        if ($this->input->post("mahalle"))
+        {
+            $viewData->streets = $this->sokak_model->get_all(
+                array(
+                    "mahalle_id" => $this->input->post("mahalle")
+                ), "tanim ASC");
+        } else {
+            $viewData->streets = $this->sokak_model->get_all(array(), "tanim ASC");
+        }
 
         /** Taking all departments */
         $viewData->teams = $this->ekip_model->get_all();
@@ -265,8 +280,10 @@ class Ekip_sokak extends CI_Controller
             $viewData->subViewFolder = "add";
             $viewData->form_error = true;
 
+            redirect(base_url("ekip_sokak/new_form"));
+
             /** Reload View */
-            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+//            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
             die();
 
@@ -321,7 +338,15 @@ class Ekip_sokak extends CI_Controller
         $viewData->towns = $this->mahalle_model->get_all();
 
         /** Taking all streets in town */
-        $viewData->streets = $this->sokak_model->get_all();
+        if ($this->input->post("mahalle"))
+        {
+            $viewData->streets = $this->sokak_model->get_all(
+                array(
+                    "mahalle_id" => $this->input->post("mahalle")
+                ), "tanim ASC");
+        } else {
+            $viewData->streets = $this->sokak_model->get_all(array(), "tanim ASC");
+        }
 
         /** Taking all departments */
         $viewData->teams = $this->ekip_model->get_all();
