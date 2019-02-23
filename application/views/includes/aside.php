@@ -9,7 +9,7 @@ $user = $t->session->userdata("user");
             <ul class="app-menu">
                 <li>
                     <a href="<?php echo base_url(); ?>">
-                        <i class="menu-icon zmdi zmdi-home zmdi-hc-lg"></i>
+                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
                         <span class="menu-text">Ana Sayfa</span>
                     </a>
                 </li>
@@ -133,7 +133,7 @@ $user = $t->session->userdata("user");
                 <?php if ($user->user_role_id == 1 || $user->user_role_id == 2 || $user->user_role_id == 3) { ?>
                     <li>
                         <a href="<?php echo base_url("evsohbeti"); ?>">
-                            <i class="menu-icon fa fa-building-o"></i>
+                            <i class="menu-icon zmdi zmdi-home zmdi-hc-lg"></i>
                             <span class="menu-text">Ev Sohbeti Çalışması</span><br>
                             <small><i class="zmdi zmdi-alarm-check"></i> Yapım Aşamasında</small>
                         </a>
