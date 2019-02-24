@@ -37,20 +37,24 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Adı</label>
-                        <input name="adi" type="text" class="form-control" value="<?php echo (isset($set_adi)) ? $set_adi : ""; ?>">
+                        <input name="adi" type="text" class="form-control"
+                               value="<?php echo (isset($set_adi)) ? $set_adi : ""; ?>">
                     </div>
                     <div class="form-group col-md-4">
                         <label>Soyadı</label>
-                        <input name="soyadi" type="text" class="form-control" value="<?php echo (isset($set_soyadi)) ? $set_soyadi : ""; ?>">
+                        <input name="soyadi" type="text" class="form-control"
+                               value="<?php echo (isset($set_soyadi)) ? $set_soyadi : ""; ?>">
                     </div>
                     <div class="form-group col-md-4">
                         <label>Vatandaşlık No.</label>
-                        <input name="tckimlikno" type="text" class="form-control" value="<?php echo (isset($set_tckimlikno)) ? $set_tckimlikno : ""; ?>">
+                        <input name="tckimlikno" type="text" class="form-control"
+                               value="<?php echo (isset($set_tckimlikno)) ? $set_tckimlikno : ""; ?>">
                     </div>
                 </div>
                 <div class="row">
                     <a href="<?php echo base_url("anket/clear_session"); ?>">
-                        <button type="button" class="btn btn-inverse btn-md btn-outline pull-right" style="margin-right: 12px">
+                        <button type="button" class="btn btn-inverse btn-md btn-outline pull-right"
+                                style="margin-right: 12px">
                             <i class="fa fa-trash-o"></i>
                             Temizle
                         </button>
@@ -65,59 +69,62 @@
     </div>
     <?php if ($where) { ?>
         <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="widget stats-widget">
-                    <div class="widget-body clearfix">
-                        <div class="pull-left">
-                            <h3 class="widget-title text-primary"><span class="counter"
-                                                                        data-plugin="counterUp"><?php echo number_format($bina, 0, ',', '.'); ?></span></h3>
-                            <h3 class="text-muted">Bina</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="widget stats-widget">
+                        <div class="widget-body clearfix">
+                            <div class="pull-left">
+                                <h3 class="widget-title text-primary"><span class="counter"
+                                                                            data-plugin="counterUp"><?php echo number_format($bina, 0, ',', '.'); ?></span>
+                                </h3>
+                                <h3 class="text-muted">Bina</h3>
+                            </div>
+                            <span class="pull-right big-icon watermark"><i class="fa fa-building-o"></i></span>
                         </div>
-                        <span class="pull-right big-icon watermark"><i class="fa fa-building-o"></i></span>
-                    </div>
-                    <footer class="widget-footer bg-primary">
-                        <h4><?php echo ($set_mahalle) ? get_townname($set_mahalle) : "" ?>
-                            <?php echo ($set_sokak) ? " - " . get_streetname($set_sokak) : "" ?></h4>
-                    </footer>
-                </div><!-- .widget -->
-            </div>
+                        <footer class="widget-footer bg-primary">
+                            <h4><?php echo ($set_mahalle) ? get_townname($set_mahalle) : "" ?>
+                                <?php echo ($set_sokak) ? " - " . get_streetname($set_sokak) : "" ?></h4>
+                        </footer>
+                    </div><!-- .widget -->
+                </div>
 
-            <div class="col-md-4">
-                <div class="widget stats-widget">
-                    <div class="widget-body clearfix">
-                        <div class="pull-left">
-                            <h3 class="widget-title text-danger"><span class="counter"
-                                                                       data-plugin="counterUp"><?php echo number_format($hane, 0, ',', '.'); ?></span></h3>
-                            <h3 class="text-muted">Hane</h3>
+                <div class="col-md-4">
+                    <div class="widget stats-widget">
+                        <div class="widget-body clearfix">
+                            <div class="pull-left">
+                                <h3 class="widget-title text-danger"><span class="counter"
+                                                                           data-plugin="counterUp"><?php echo number_format($hane, 0, ',', '.'); ?></span>
+                                </h3>
+                                <h3 class="text-muted">Hane</h3>
+                            </div>
+                            <span class="pull-right big-icon watermark"><i class="fa fa-home"></i></span>
                         </div>
-                        <span class="pull-right big-icon watermark"><i class="fa fa-home"></i></span>
-                    </div>
-                    <footer class="widget-footer bg-danger">
-                        <h4><?php echo ($set_mahalle) ? get_townname($set_mahalle) : "" ?>
-                            <?php echo ($set_sokak) ? " - " . get_streetname($set_sokak) : "" ?></h4>
-                    </footer>
-                </div><!-- .widget -->
-            </div>
+                        <footer class="widget-footer bg-danger">
+                            <h4><?php echo ($set_mahalle) ? get_townname($set_mahalle) : "" ?>
+                                <?php echo ($set_sokak) ? " - " . get_streetname($set_sokak) : "" ?></h4>
+                        </footer>
+                    </div><!-- .widget -->
+                </div>
 
-            <div class="col-md-4">
-                <div class="widget stats-widget">
-                    <div class="widget-body clearfix">
-                        <div class="pull-left">
-                            <h3 class="widget-title text-success"><span class="counter"
-                                                                        data-plugin="counterUp"><?php echo number_format($count, 0, ',', '.'); ?></span></h3>
-                            <h3 class="text-muted">Seçmen</h3>
+                <div class="col-md-4">
+                    <div class="widget stats-widget">
+                        <div class="widget-body clearfix">
+                            <div class="pull-left">
+                                <h3 class="widget-title text-success"><span class="counter"
+                                                                            data-plugin="counterUp"><?php echo number_format($count, 0, ',', '.'); ?></span>
+                                </h3>
+                                <h3 class="text-muted">Seçmen</h3>
+                            </div>
+                            <span class="pull-right big-icon watermark"><i class="fa fa-users"></i></span>
                         </div>
-                        <span class="pull-right big-icon watermark"><i class="fa fa-users"></i></span>
-                    </div>
-                    <footer class="widget-footer bg-success">
-                        <h4><?php echo ($set_mahalle) ? get_townname($set_mahalle) : "" ?>
-                            <?php echo ($set_sokak) ? " - " . get_streetname($set_sokak) : "" ?></h4>
-                    </footer>
-                </div><!-- .widget -->
+                        <footer class="widget-footer bg-success">
+                            <h4><?php echo ($set_mahalle) ? get_townname($set_mahalle) : "" ?>
+                                <?php echo ($set_sokak) ? " - " . get_streetname($set_sokak) : "" ?></h4>
+                        </footer>
+                    </div><!-- .widget -->
+                </div>
             </div>
         </div>
-    </div>
     <?php } ?>
     <div class="col-md-12">
         <div class="widget p-lg">
@@ -131,8 +138,10 @@
                         <p class="pagination"><?php echo $links; ?></p>
                     </div>
                 </div>
-                <table id="datatable-responsive" class="table table-striped table-hover table-bordered content-container">
+                <table id="datatable-responsive"
+                       class="table table-striped table-hover table-bordered content-container">
                     <thead>
+                    <th class="w20"></th>
                     <th class="w20"></th>
                     <th class="w20">#id</th>
                     <th class="w200">Adı</th>
@@ -153,6 +162,16 @@
                                     <i class="fa fa-pencil-square-o fa-2x"></i>
                                 </a>
                             </td>
+                            <?php if ($item->gorusulen == 1) { ?>
+                                <td class="text-center">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-star fa-stack-1x text-warning"></i>
+                                        <i class="fa fa-star-o fa-stack-1x text-muted"></i>
+                                    </span>
+                                </td>
+                            <?php } else { ?>
+                                <td class="text-center"></td>
+                            <?php } ?>
                             <td class="text-center"><?php echo $item->id; ?></td>
                             <td class="text-center"><?php echo $item->adi; ?></td>
                             <td class="text-center"><?php echo $item->soyadi; ?></td>

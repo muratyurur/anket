@@ -64,6 +64,10 @@ th {
     width: 20px;
 }
 
+.w10 {
+    width: 10px;
+}
+
 .sortable {
     cursor: move;
 }
