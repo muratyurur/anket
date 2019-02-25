@@ -11,7 +11,7 @@ class Adres_model extends CI_Model
     }
 
     /** The method of returning all row's with limit for pagination */
-    public function get_records($where = array(), $limit, $count, $order = "CONVERT(kapi, SIGNED) ASC")
+    public function get_records($where = array(), $limit, $count, $order = "mahalle, sokak, CONVERT(kapi, SIGNED) ASC")
     {
         return $this->db->where($where)->limit($limit, $count)->order_by($order)->get($this->tableName)->result();
     }
@@ -55,7 +55,7 @@ class Adres_model extends CI_Model
     /**  The method of returning all row's data that meets the requirements in the table */
     public function get_all($where = array(), $order = "soyadi, adi")
     {
-        return $this->db->select('s.adi as adi, s.soyadi as soyadi, m.tanim as mahalle, k.tanim as sokak, s.kapi as kapi, s.daire as daire')->join('mahalle m', 'm.id = s.mahalle', 'inner')->join('sokak k', 'k.id = s.sokak', 'inner')->where($where)->order_by($order)->get('secmen s')->result();
+        return $this->db->select('s.adi as adi, s.soyadi as soyadi, m.tanim as mahalle, s.tuzlakart, k.tanim as sokak, s.kapi as kapi, s.daire as daire')->join('mahalle m', 'm.id = s.mahalle', 'inner')->join('sokak k', 'k.id = s.sokak', 'inner')->where($where)->order_by($order)->get('secmen s')->result();
     }
 
     public  function get_secmen_list($where = array())

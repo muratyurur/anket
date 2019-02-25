@@ -72,8 +72,7 @@ class Adres extends CI_Controller
 
         $viewData->count = $config["total_rows"];
 
-        if ($this->input->post("mahalle"))
-        {
+        if ($this->input->post("mahalle")) {
             /** Taking all streets in town */
             $viewData->sokak = $this->sokak_model->get_all(
                 array(
@@ -163,11 +162,17 @@ class Adres extends CI_Controller
 
         $col = 0;
 
-        for($i = 1; $i <= (ceil($records / 3)); $i++) { // loop for rows
-            for($letter = 'A'; $letter != 'D'; $letter++) { // loop for columns
-                $objPHPExcel->getActiveSheet()->getStyle($letter . $i)->getAlignment()->setWrapText(true);
-                $objPHPExcel->getActiveSheet()->setCellValue($letter . $i, (@$items[$col]->adi) ? "Sayın " . @$items[$col]->adi . " " . @$items[$col]->soyadi . "\n" . @$items[$col]->mahalle . " " . @$items[$col]->sokak . "\nNO:" . @$items[$col]->kapi . " D:" . @$items[$col]->daire . "\n TUZLA / İSTANBUL" : "");
-            $col++;
+        for ($i = 1; $i <= (ceil($records / 3)); $i++) { // loop for rows
+            for ($letter = 'A'; $letter != 'D'; $letter++) { // loop for columns
+                if (@$items[$col]->tuzlakart === "V") {
+                    $objPHPExcel->getActiveSheet()->getStyle($letter . $i)->getAlignment()->setWrapText(true);
+                    $objPHPExcel->getActiveSheet()->getStyle($letter . $i)->applyFromArray(array('font' => array('bold' => true, 'name' => 'Times New Roman', 'italic' => true)));
+                    $objPHPExcel->getActiveSheet()->setCellValue($letter . $i, (@$items[$col]->adi) ? "Sayın " . @$items[$col]->adi . " " . @$items[$col]->soyadi . "\n" . @$items[$col]->mahalle . " " . @$items[$col]->sokak . "\nNO:" . @$items[$col]->kapi . " D:" . @$items[$col]->daire . "\n TUZLA / İSTANBUL" : "");
+                } else {
+                    $objPHPExcel->getActiveSheet()->getStyle($letter . $i)->getAlignment()->setWrapText(true);
+                    $objPHPExcel->getActiveSheet()->setCellValue($letter . $i, (@$items[$col]->adi) ? "Sayın " . @$items[$col]->adi . " " . @$items[$col]->soyadi . "\n" . @$items[$col]->mahalle . " " . @$items[$col]->sokak . "\nNO:" . @$items[$col]->kapi . " D:" . @$items[$col]->daire . "\n TUZLA / İSTANBUL" : "");
+                }
+                $col++;
             }
         }
 
