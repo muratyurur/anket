@@ -143,7 +143,9 @@
                                     name="gsm1"
                                     type="text"
                                     class="form-control"
-                                    placeholder="Seçmen cep telefonu giriniz...">
+                                    data-mask="0 (000) 000 00 00"
+                                    placeholder="0 (0__) ___ __ __"
+                                    data-mask-clearifnotmatch="true">
                             <?php if (isset($form_error)) { ?>
                                 <small class="input-form-error pull-right"> <?php echo form_error("gsm1"); ?></small>
                             <?php } ?>
@@ -155,7 +157,9 @@
                                     name="gsm2"
                                     type="text"
                                     class="form-control placeholder"
-                                    placeholder="Seçmen cep telefonu giriniz...">
+                                    data-mask="0 (000) 000 00 00"
+                                    placeholder="0 (0__) ___ __ __"
+                                    data-mask-clearifnotmatch="true">
                             <?php if (isset($form_error)) { ?>
                                 <small class="input-form-error pull-right"> <?php echo form_error("gsm2"); ?></small>
                             <?php } ?>

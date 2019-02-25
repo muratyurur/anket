@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            <b><?php echo get_readable_onlydate($item->tarih); ?></b> tarihinde <b><?php echo $item->evsahibi; ?></b> ev
-            sahipliğinde gerçekleşen ev sohbeti bilgilerini düzenliyorsunuz...
+            Yeni Ev Sohbeti Ekle
             <a class="btn btn-outline btn-primary btn-sm pull-right"
                href="<?php echo base_url("evsohbeti"); ?>">
                 <i class="fa fa-chevron-left"></i> Geri Dön
@@ -32,7 +31,7 @@
                                     <input
                                             name="evsahibitel"
                                             type="text"
-                                            data-mask="0 (500) 000-00-00"
+                                            data-mask="0 (000) 000-00-00"
                                             class="form-control"
                                             placeholder="0 (5__) ___-__-__">
                                     <?php if (isset($form_error)) { ?>
@@ -178,51 +177,4 @@
             </div><!-- .widget-body -->
         </div><!-- .widget -->
     </div><!-- END column -->
-    <div class="col-md-12">
-        <div class="widget p-lg">
-            <h4 class="m-b-lg">
-                Toplantıda alınan talep/şikayetler
-                <a class="btn btn-outline btn-primary btn-sm pull-right"
-                   href="<?php echo base_url("evsohbeti/copy/$item->id"); ?>">
-                    <i class="fa fa-plus"></i> Talep Ekle
-                </a>
-            </h4>
-            <hr>
-            <table id="datatable-responsive" class="table table-striped table-hover table-bordered content-container">
-                <thead>
-                <th class="w20"></th>
-                <th class="w20">#id</th>
-                <th class="w200">Adı</th>
-                <th class="w200">Soyadı</th>
-                <th class="w150">Vatandaşlık No</th>
-                <th class="w200">Sokak Adı</th>
-                <th class="w75">Kapı No</th>
-                <th class="w75">Daire No</th>
-                <th class="w125">Görüşme Durumu</th>
-                </thead>
-                <tbody>
-                <?php foreach ($evhalki as $birey) { ?>
-                    <tr>
-                        <td class="text-center">
-                            <a href="<?php echo base_url("evsohbeti/update_form/$birey->id"); ?>">
-                                <i class="fa fa-pencil-square-o fa-2x"></i>
-                            </a>
-                        </td>
-                        <td class="text-center"><?php echo $birey->id; ?></td>
-                        <td class="text-center"><?php echo $birey->adi; ?></td>
-                        <td class="text-center"><?php echo $birey->soyadi; ?></td>
-                        <td class="text-center"><?php echo $birey->tckimlikno; ?></td>
-                        <td class="text-center"><?php echo $birey->sokak ?></td>
-                        <td class="text-center"><?php echo $birey->kapi; ?></td>
-                        <td class="text-center"><?php echo $birey->daire; ?></td>
-                        <td class="text-center" style="color: <?php echo get_statementColor($birey->durum); ?>">
-                            <i class="<?php echo get_statementIcon($birey->durum); ?>"></i>
-                            <?php echo get_statementName($birey->durum); ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-                </tbody>
-            </table>
-        </div><!-- .widget -->
-    </div>
 </div>
