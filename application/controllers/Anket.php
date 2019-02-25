@@ -498,8 +498,10 @@ class Anket extends CI_Controller
 
             $this->session->set_flashdata("alert", $alert);
 
+            redirect(base_url("anket/update_form/$id"));
+
             /** Reload View */
-            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+//            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
             /** If Validation Unsuccessful */
 

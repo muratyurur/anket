@@ -20,7 +20,7 @@
                         <select id="select2-demo-1" name="mahalle" class="form-control" data-plugin="select2">
                             <option value=""></option>
                             <?php foreach ($towns as $town) { ?>
-                                <option <?php echo ($town->tanim === $set_mahalle || $town->id == $where['mahalle']) ? "selected" : ""; ?>
+                                <option <?php echo ($town->tanim === $set_mahalle || $town->id == $where['s.mahalle']) ? "selected" : ""; ?>
                                         value="<?php echo $town->id; ?>"><?php echo $town->tanim; ?></option>
                             <?php } ?>
                         </select>
@@ -65,6 +65,13 @@
                     </div>
                 </div>
                 <div class="row">
+                    <a href="<?php echo base_url("talep/excel"); ?>">
+                        <button type="button" class="btn btn-outline btn-success btn-md pull-right"
+                                style="margin-right: 12px">
+                            <i class="fa fa-file-excel-o"></i>
+                            Excel
+                        </button>
+                    </a>
                     <a href="<?php echo base_url("talep/clear_session"); ?>">
                         <button type="button" class="btn btn-inverse btn-md btn-outline pull-right"
                                 style="margin-right: 12px">

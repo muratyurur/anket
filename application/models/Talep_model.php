@@ -13,13 +13,41 @@ class Talep_model extends CI_Model
     /** The method of returning all row's with limit for pagination */
     public function get_records($where = array(), $limit, $count, $order = "talepTarihi ASC")
     {
-        return $this->db->select("talep.id talep_id, talep.talepTarihi, talep.kaynak, secmen.mahalle, secmen.id, talep.istek, talep.mudurluk, talep.sonucDurumu, talep.sonucTarihi, talep.sonucAciklama")->where($where)->join("secmen", "talep.secmen = secmen.id", "left outer")->join("mahalle", "mahalle.id = secmen.mahalle", "left outer")->limit($limit, $count)->order_by($order)->get($this->tableName)->result();
+        return $this->db->select("t.id talep_id, t.talepTarihi, t.kaynak, 
+        s.mahalle, s.id, t.istek, t.mudurluk, t.sonucDurumu, 
+        t.sonucTarihi, t.sonucAciklama")
+            ->where($where)
+            ->join("secmen s", "t.secmen = s.id", "left outer")
+            ->limit($limit, $count)
+            ->order_by($order)
+            ->get("talep t")->result();
+    }
+    /** The method of returning all row's with limit for pagination */
+    public function excel_export($where = array(), $limit, $count, $order = "talepTarihi ASC")
+    {
+        return $this->db->select("t.id talep_id, t.talepTarihi, t.kaynak, 
+        m.tanim mahalle, sk.tanim sokak, s.kapi kapi, s.daire daire, 
+        t.talepeden talepeden, t.irtibat, t.istek, mu.tanim mudurluk, 
+        td.title sonucDurumu, t.sonucTarihi, t.sonucAciklama, u.full_name")
+            ->where($where)
+            ->join("secmen s", "t.secmen = s.id", "left outer")
+            ->join("mahalle m", "m.id = s.mahalle", "left outer")
+            ->join("sokak sk", "sk.id = s.sokak", "left outer")
+            ->join("mudurluk mu", "mu.id = t.mudurluk", "left outer")
+            ->join("talep_durumu td", "td.id = t.sonucDurumu", "left outer")
+            ->join("users u", "u.id = s.updatedBy", "left outer")
+            ->limit($limit, $count)
+            ->order_by($order)
+            ->get("talep t")->result();
     }
 
     /** The method of returning count of records */
     public function get_count($where = array())
     {
-        return $this->db->where($where)->from($this->tableName)->count_all_results();
+        return $this->db->where($where)
+            ->from("talep t")
+            ->join("secmen s", "t.secmen = s.id", "left outer")
+            ->count_all_results();
     }
 
     /**  The method of returning all row's data that meets the requirements in the table */

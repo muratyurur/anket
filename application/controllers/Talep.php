@@ -38,13 +38,13 @@ class Talep extends CI_Controller
         $where = array();
 
         if ($this->input->post('mahalle')) {
-            $where['mahalle'] = $this->input->post("mahalle");
+            $where['s.mahalle'] = $this->input->post("mahalle");
             $viewData->set_mahalle = $this->input->post("mahalle");
             $this->session->set_userdata("where", $where);
         }
 
         if ($this->input->post('mudurluk')) {
-            $where['mudurluk'] = $this->input->post("mudurluk");
+            $where['t.mudurluk'] = $this->input->post("mudurluk");
             $viewData->set_mudurluk = $this->input->post("mudurluk");
             $this->session->set_userdata("where", $where);
         }
@@ -56,7 +56,7 @@ class Talep extends CI_Controller
 
             $ilktarih = date('Y-m-d', strtotime($ilktar));
 
-            $where['talepTarihi >='] = $ilktarih;
+            $where['t.talepTarihi >='] = $ilktarih;
             $viewData->set_ilktarih = $this->input->post("ilktarih");
             $this->session->set_userdata("where", $where);
         }
@@ -68,7 +68,7 @@ class Talep extends CI_Controller
 
             $sontarih = date('Y-m-d', strtotime($sontar));
 
-            $where['talepTarihi <='] = $sontarih;
+            $where['t.talepTarihi <='] = $sontarih;
             $viewData->set_sontarih = $this->input->post("sontarih");
             $this->session->set_userdata("where", $where);
         }
@@ -110,6 +110,7 @@ class Talep extends CI_Controller
         $viewData->towns = $towns;
         $viewData->query = $this->db->last_query();
         $viewData->departments = $departments;
+        $viewData->query = $this->db->last_query();
         $viewData->links = $this->pagination->create_links();
 
 
@@ -717,5 +718,175 @@ class Talep extends CI_Controller
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
 
+    }
+
+    public function excel()
+    {
+        $viewData = new stdClass();
+
+        $this->load->model("user_role_model");
+        $this->load->model("mahalle_model");
+        $this->load->model("sokak_model");
+        $this->load->model("talep_kaynak_model");
+        $this->load->model("mudurluk_model");
+        $this->load->model("talep_durumu_model");
+
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $comefrom = strpos($_SERVER['HTTP_REFERER'], "talep");
+            $comefrom2 = strpos($_SERVER['HTTP_REFERER'], "secmen_ekle");
+
+            if ($comefrom == false || $comefrom2 == false) {
+                $this->session->unset_userdata("where");
+            }
+        }
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        $where = array();
+
+        if ($this->input->post('mahalle')) {
+            $where['mahalle'] = $this->input->post("mahalle");
+            $viewData->set_mahalle = $this->input->post("mahalle");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('mudurluk')) {
+            $where['mudurluk'] = $this->input->post("mudurluk");
+            $viewData->set_mudurluk = $this->input->post("mudurluk");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('ilktarih')) {
+            $var = $this->input->post("ilktarih");
+
+            $ilktar = str_replace('/', '-', $var);
+
+            $ilktarih = date('Y-m-d', strtotime($ilktar));
+
+            $where['talepTarihi >='] = $ilktarih;
+            $viewData->set_ilktarih = $this->input->post("ilktarih");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('sontarih')) {
+            $var = $this->input->post("sontarih");
+
+            $sontar = str_replace('/', '-', $var);
+
+            $sontarih = date('Y-m-d', strtotime($sontar));
+
+            $where['talepTarihi <='] = $sontarih;
+            $viewData->set_sontarih = $this->input->post("sontarih");
+            $this->session->set_userdata("where", $where);
+        }
+
+        $condition = $this->session->userdata("where");
+
+        $this->load->library("pagination");
+
+        $config["base_url"] = base_url("talep/index");
+        $config["total_rows"] = $this->talep_model->get_count($condition ? $condition : "1=1");
+        $config["uri_segment)"] = 3;
+        $config["per_page"] = 50;
+        $config["num_links"] = 3;
+        $config["last_link"] = "Son Sayfa";
+        $config["first_link"] = "İlk Sayfa";
+
+
+        $this->pagination->initialize($config);
+
+        $viewData->count = $config["total_rows"];
+
+        $viewData->percount = $config["per_page"];
+
+        /** Taking all data from the table */
+        $items = $this->talep_model->excel_export(
+            $condition ? $condition : "1=1",
+            $config["per_page"],
+            $page
+        );
+
+        require APPPATH . "third_party/PHPExcel-1.8/Classes/PHPExcel.php";
+        require APPPATH . "third_party/PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php";
+
+        $objPHPExcel = new PHPExcel();
+
+        $objPHPExcel->getProperties()->setCreator("");
+        $objPHPExcel->getProperties()->setLastModifiedBy("");
+        $objPHPExcel->getProperties()->setTitle("");
+        $objPHPExcel->getProperties()->setSubject("");
+        $objPHPExcel->getProperties()->setDescription("");
+
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        $styleArray = array(
+            'font' => array(
+                'bold' => true,
+                'size' => 12
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+            )
+        );
+
+        foreach(range('A','N') as $columnID) {
+            $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+            $objPHPExcel->getActiveSheet()->getStyle($columnID . "1")->applyFromArray($styleArray);
+        }
+
+        $objPHPExcel->getActiveSheet()->setCellValue('A1', "TALEP TARİHİ");
+        $objPHPExcel->getActiveSheet()->setCellValue('B1', "TALEP KAYNAĞI");
+        $objPHPExcel->getActiveSheet()->setCellValue('C1', "TALEP EDEN");
+        $objPHPExcel->getActiveSheet()->setCellValue('D1', "İRTİBAT NO.");
+        $objPHPExcel->getActiveSheet()->setCellValue('E1', "MAHALLE");
+        $objPHPExcel->getActiveSheet()->setCellValue('F1', "SOKAK");
+        $objPHPExcel->getActiveSheet()->setCellValue('G1', "KAPI");
+        $objPHPExcel->getActiveSheet()->setCellValue('H1', "DAİRE");
+        $objPHPExcel->getActiveSheet()->setCellValue('I1', "TALEP AÇIKLAMASI");
+        $objPHPExcel->getActiveSheet()->setCellValue('J1', "İLGİLİ MÜDÜRLÜK");
+        $objPHPExcel->getActiveSheet()->setCellValue('K1', "SONUÇ TARİHİ");
+        $objPHPExcel->getActiveSheet()->setCellValue('L1', "SONUÇ DURUMU");
+        $objPHPExcel->getActiveSheet()->setCellValue('M1', "SONUÇ AÇIKLAMASI");
+        $objPHPExcel->getActiveSheet()->setCellValue('N1', "TALEBİ ALAN");
+
+        $row = 2;
+
+        foreach ($items as $item)
+        {
+            $objPHPExcel->getActiveSheet()->setCellValue('A'.$row, get_readable_onlydate($item->talepTarihi));
+            $objPHPExcel->getActiveSheet()->setCellValue('B'.$row, sourcename($item->kaynak));
+            $objPHPExcel->getActiveSheet()->setCellValue('C'.$row, $item->talepeden);
+            $objPHPExcel->getActiveSheet()->setCellValue('D'.$row, $item->irtibat);
+            $objPHPExcel->getActiveSheet()->setCellValue('E'.$row, $item->mahalle);
+            $objPHPExcel->getActiveSheet()->setCellValue('F'.$row, $item->sokak);
+            $objPHPExcel->getActiveSheet()->setCellValue('G'.$row, $item->kapi);
+            $objPHPExcel->getActiveSheet()->setCellValue('H'.$row, $item->daire);
+            $objPHPExcel->getActiveSheet()->setCellValue('I'.$row, $item->istek);
+            $objPHPExcel->getActiveSheet()->setCellValue('J'.$row, $item->mudurluk);
+            $objPHPExcel->getActiveSheet()->setCellValue('K'.$row, $item->sonucTarihi);
+            $objPHPExcel->getActiveSheet()->setCellValue('L'.$row, $item->sonucDurumu);
+            $objPHPExcel->getActiveSheet()->setCellValue('M'.$row, $item->sonucAciklama);
+            $objPHPExcel->getActiveSheet()->setCellValue('N'.$row, $item->full_name);
+            $row++;
+        }
+
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);
+
+        $fileName = date("d.m.Y") . "-talep listesi.xlsx";
+
+        $objPHPExcel->getActiveSheet()->setTitle(date("d.m.Y"));
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $fileName . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $writer->save('php://output');
+        exit;
     }
 }
