@@ -469,6 +469,7 @@ class Anket extends CI_Controller
                                 "talepTarihi" => date("Y-m-d H:i:s"),
                                 "istek" => $item->gorus,
                                 "secmen" => $item->id,
+                                "irtibat" => $item->gsm1,
                                 "talepeden" => $item->adi . " " . $item->soyadi,
                                 "kaynak" => 1,
                                 "sonucDurumu" => 1
