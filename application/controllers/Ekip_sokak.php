@@ -223,7 +223,7 @@ class Ekip_sokak extends CI_Controller
                 $this->session->set_flashdata("alert", $alert);
 
                 /** Redirect to Module's Add New Page */
-                redirect(base_url("ekip_sokak"));
+                redirect(base_url("ekip_sokak/new_form"));
 
                 die();
 

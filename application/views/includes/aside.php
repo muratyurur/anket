@@ -46,7 +46,7 @@ $user = $t->session->userdata("user");
                     </li>
                 <?php } ?>
 
-                <?php if ($user->user_role_id == 1 || $user->user_role_id == 2) { ?>
+                <?php if ($user->user_role_id == 1 || $user->user_role_id == 2 || $user->user_role_id == 3) { ?>
                     <li class="has-submenu">
                         <a href="javascript:void(0)" class="submenu-toggle">
                             <i class="menu-icon zmdi zmdi-assignment-account zmdi-hc-lg"></i>

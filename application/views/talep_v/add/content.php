@@ -1,9 +1,21 @@
+<?php 
+
+/*** HTTP_REFERER durumuna "Vazgeç" butonunun gideceği sayfayı ayarlama BAŞLADI */
+	$ex = explode("/",$_SERVER['HTTP_REFERER']);
+
+	if($ex[3]=="evsohbeti") $this->session->set_userdata("refUrl", $_SERVER['HTTP_REFERER']);
+	else if($ex[3]=="talep") $this->session->set_userdata("refUrl", $_SERVER['HTTP_REFERER']);
+	// else $this->session->set_userdata("refUrl", $_SERVER['HTTP_REFERER']);
+/*** BİTTİ */
+
+?>
+
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Yeni Talep Ekle
             <a class="btn btn-outline btn-primary btn-sm pull-right"
-               href="<?php echo $_SERVER['HTTP_REFERER']; ?>">
+               href="<?php echo $this->session->userdata("refUrl"); ?>">
                 <i class="fa fa-chevron-left"></i> Geri Dön
             </a>
         </h4>
@@ -184,7 +196,10 @@
                     <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-floppy-o"></i>
                         Kaydet
                     </button>
-                    <a href="<?php echo base_url("talep"); ?>">
+                    <a href="<?php 
+						// echo base_url("talep"); 
+						echo $this->session->userdata("refUrl");
+					?>">
                         <button type="button" class="btn btn-danger btn-md btn-outline"><i class="fa fa-ban"></i>
                             Vazgeç
                         </button>

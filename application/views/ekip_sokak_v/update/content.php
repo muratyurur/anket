@@ -22,7 +22,6 @@
                                    name="tarih"
                                    data-mask="00/00/0000"
                                    placeholder="GG/AA/YYYY"
-                                   placeholder="GG/AA/YYYY"
                                    data-mask-clearifnotmatch="true"/>
                             <?php if (isset($form_error)) { ?>
                                 <small class="input-form-error pull-right"> <?php echo form_error("tarih"); ?></small>

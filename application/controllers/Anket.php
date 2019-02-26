@@ -429,7 +429,7 @@ class Anket extends CI_Controller
                     "memnuniyet" => $this->input->post("memnuniyetoptions"),
                     "durum" => $this->input->post("durumoptions"),
                     "gorus" => $this->input->post("gorus"),
-                    "gorusulen" => 0,
+                    "gorusulen" => NULL,
                     "updatedAt" => date("Y-m-d H:i:s"),
                     "updatedBy" => $user->id
                 );
@@ -469,7 +469,6 @@ class Anket extends CI_Controller
                                 "talepTarihi" => date("Y-m-d H:i:s"),
                                 "istek" => $item->gorus,
                                 "secmen" => $item->id,
-                                "irtibat" => $item->gsm1,
                                 "talepeden" => $item->adi . " " . $item->soyadi,
                                 "kaynak" => 1,
                                 "sonucDurumu" => 1
@@ -499,10 +498,47 @@ class Anket extends CI_Controller
 
             $this->session->set_flashdata("alert", $alert);
 
-            redirect(base_url("anket/update_form/$id"));
+            $this->load->model("user_role_model");
+            $this->load->model("mahalle_model");
+            $this->load->model("sokak_model");
+
+            $viewData->roles = $this->user_role_model->get_all(
+                array(
+                    "isActive" => 1
+                )
+            );
+
+            /** Taking all towns */
+            $viewData->mahalle = $this->mahalle_model->get_all(array(), "tanim ASC");
+
+            /** Taking all streets in town */
+            $viewData->sokak = $this->sokak_model->get_all(array(), "tanim ASC");
+
+
+            /** Taking the specific row's data from the table */
+            $item = $this->anket_model->get(
+                array(
+                    "id" => $id
+                )
+            );
+
+            $viewData->evhalki = $this->anket_model->get_all(
+                array(
+                    "sokak" => $item->sokak,
+                    "kapi" => $item->kapi,
+                    "daire" => $item->daire,
+                    "id!=" => $item->id
+                )
+            );
+
+            /** Defining data to be sent to view */
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "update";
+            $viewData->form_error = true;
+            $viewData->item = $item;
 
             /** Reload View */
-//            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
             /** If Validation Unsuccessful */
 
@@ -572,82 +608,28 @@ class Anket extends CI_Controller
             )
         );
 
-        $evhalki_id = array();
+        foreach ($hane as $value) {
 
-        for ($i = 0; $i < (count($hane)); $i++) {
-            $evhalki_id[$i] = $hane[$i]->id;
-        }
-
-        foreach ($evhalki_id as $value)
+            if ($item->gorusulen == 1) {
+                $durum = $value->tuzlakart != "V" ? "E" : "V";
+            } else {
+                $durum = $item->tuzlakart;
+            }
 
             $this->anket_model->update(
                 array(
-                    "id" => $value,
+                    "id" => $value->id,
                 ),
                 array(
                     "memnuniyet" => $item->memnuniyet,
                     "durum" => $item->durum,
+                    "tuzlakart" => $durum,
                     "updatedAt" => $item->updatedAt,
                     "updatedBy" => $item->updatedBy
                 )
             );
+        }
 
-            if ($item->tuzlakart === "E" && $item->gorusulen === 1) {
-                $this->anket_model->update(
-                    array(
-                        "id" => $value,
-                        "tuzlakart !=" => "V"
-                    ),
-                    array(
-                        "tuzlakart" => "E"
-                    )
-                );
-            } elseif ($item->tuzlakart === "V" && $item->gorusulen === 1) {
-                $this->anket_model->update(
-                    array(
-                        "id" => $value,
-                        "tuzlakart !=" => "V"
-                    ),
-                    array(
-                        "tuzlakart" => "E"
-                    )
-                );
-            } else
-            {
-                $this->anket_model->update(
-                    array(
-                        "id" => $value,
-                        "tuzlakart !=" => "V"
-                    ),
-                    array(
-                        "tuzlakart" => $item->tuzlakart
-                    )
-                );
-            }
-
-        $item = $this->anket_model->get(
-            array(
-                "id" => $id
-            )
-        );
-
-        $viewData = new stdClass();
-
-        $viewData->evhalki = $this->anket_model->get_all(
-            array(
-                "sokak" => $item->sokak,
-                "kapi" => $item->kapi,
-                "daire" => $item->daire,
-                "id!=" => $item->id
-            )
-        );
-
-        /** Defining data to be sent to view */
-        $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "update";
-        $viewData->item = $item;
-
-        /** Load View */
-        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        redirect(base_url("anket/update_form/$id"));
     }
 }

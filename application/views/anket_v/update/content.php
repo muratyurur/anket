@@ -20,38 +20,29 @@
                         <div class="form-group col-md-4">
                             <label>Adı</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("adi") : $item->adi; ?>"
+                                   value="<?php echo $item->adi; ?>"
                                    name="adi"
                                    type="text"
                                    class="form-control"
                                    placeholder="Seçmen adını giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("adi"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Soyadı</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("soyadi") : $item->soyadi; ?>"
+                                   value="<?php echo $item->soyadi; ?>"
                                    name="soyadi"
                                    type="text"
                                    class="form-control placeholder"
                                    placeholder="Seçmen soyadını giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("soyadi"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Vatandaşlık No.</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("tckimlikno") : $item->tckimlikno; ?>"
+                                   value="<?php echo $item->tckimlikno; ?>"
                                    name="tckimlikno"
                                    type="text"
                                    class="form-control"
                                    placeholder="Seçmen vatandaşlık numarasını giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("tckimlikno"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="datetimepicker2">Doğum Tarihi</label>
@@ -63,46 +54,34 @@
                                    data-mask="00/00/0000"
                                    placeholder="GG/AA/YYYY"
                                    data-mask-clearifnotmatch="true"
-                                   value="<?php echo get_readable_onlydate(isset($form_error) ? set_value("dogumtarihi") : $item->dogumtarihi); ?>"/>
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("dogumtarihi"); ?></small>
-                            <?php } ?>
+                                   value="<?php echo get_readable_onlydate($item->dogumtarihi); ?>"/>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Anne Adı</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("anaadi") : $item->anaadi; ?>"
+                                   value="<?php echo $item->anaadi; ?>"
                                    name="anaadi"
                                    type="text"
                                    class="form-control"
                                    placeholder="Seçmen anne adını giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("anaadi"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Baba Adı</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("babaadi") : $item->babaadi; ?>"
+                                   value="<?php echo $item->babaadi; ?>"
                                    name="babaadi"
                                    type="text"
                                    class="form-control"
                                    placeholder="Seçmen baba adını giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("babaadi"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Doğum Yeri</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("dogumyeri") : $item->dogumyeri; ?>"
+                                   value="<?php echo $item->dogumyeri; ?>"
                                    name="dogumyeri"
                                    type="text"
                                    class="form-control"
                                    placeholder="Seçmen doğum yerini giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("dogumyeri"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Cinsiyeti</label>
@@ -114,9 +93,6 @@
                                 <option <?php echo ($item->cinsiyeti === 'K') ? "selected" : ""; ?> value="K">KADIN
                                 </option>
                             </select>
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("cinsiyeti"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Engelli mi?</label>
@@ -128,9 +104,6 @@
                                 <option <?php echo ($item->engellimi === 'H') ? "selected" : ""; ?> value="H">HAYIR
                                 </option>
                             </select>
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("engellimi"); ?></small>
-                            <?php } ?>
                         </div>
                     </div>
                     <h4>İletişim Bilgileri</h4>
@@ -139,42 +112,33 @@
                         <div class="form-group col-md-4">
                             <label>Cep Telefonu (1)</label>
                             <input
-                                    value="<?php echo isset($form_error) ? set_value("gsm1") : $item->gsm1; ?>"
+                                    value="<?php echo $item->gsm1; ?>"
                                     name="gsm1"
                                     type="text"
                                     class="form-control"
                                     data-mask="0 (000) 000 00 00"
                                     placeholder="0 (5__) ___ __ __"
                                     data-mask-clearifnotmatch="true">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("gsm1"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Cep Telefonu (2)</label>
                             <input
-                                    value="<?php echo isset($form_error) ? set_value("gsm2") : $item->gsm2; ?>"
+                                    value="<?php echo $item->gsm2; ?>"
                                     name="gsm2"
                                     type="text"
                                     class="form-control placeholder"
                                     data-mask="0 (000) 000 00 00"
                                     placeholder="0 (5__) ___ __ __"
                                     data-mask-clearifnotmatch="true">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("gsm2"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>ePosta Adresi</label>
                             <input
-                                    value="<?php echo isset($form_error) ? set_value("eposta") : $item->eposta; ?>"
+                                    value="<?php echo $item->eposta; ?>"
                                     name="eposta"
                                     type="email"
                                     class="form-control"
                                     placeholder="Seçmen ePosta adresini giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("eposta"); ?></small>
-                            <?php } ?>
                         </div>
                     </div>
                     <h4>Adres Bilgileri</h4>
@@ -190,9 +154,6 @@
                                             value="<?php echo $mvalue->id; ?>"><?php echo $mvalue->tanim; ?></option>
                                 <?php } ?>
                             </select>
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("mahalle"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Sokak</label><br>
@@ -204,33 +165,24 @@
                                             value="<?php echo $svalue->id; ?>"><?php echo $svalue->tanim; ?></option>
                                 <?php } ?>
                             </select>
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("sokak"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-2">
                             <label>Kapı No.</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("kapi") : $item->kapi; ?>"
+                                   value="<?php echo $item->kapi; ?>"
                                    name="kapi"
                                    type="text"
                                    class="form-control"
                                    placeholder="Kapı No. giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("kapi"); ?></small>
-                            <?php } ?>
                         </div>
                         <div class="form-group col-md-2">
                             <label>Daire No.</label>
                             <input disabled
-                                   value="<?php echo isset($form_error) ? set_value("daire") : $item->daire; ?>"
+                                   value="<?php echo $item->daire; ?>"
                                    name="daire"
                                    type="text"
                                    class="form-control"
                                    placeholder="Daire No. giriniz...">
-                            <?php if (isset($form_error)) { ?>
-                                <small class="input-form-error pull-right"> <?php echo form_error("daire"); ?></small>
-                            <?php } ?>
                         </div>
                     </div>
                     <div class="row">
@@ -397,7 +349,7 @@
                         <td class="text-center"><?php echo $birey->adi; ?></td>
                         <td class="text-center"><?php echo $birey->soyadi; ?></td>
                         <td class="text-center"><?php echo $birey->tckimlikno; ?></td>
-                        <td class="text-center"><?php echo $birey->sokak ?></td>
+                        <td class="text-center"><?php echo get_streetname($birey->sokak); ?></td>
                         <td class="text-center"><?php echo $birey->kapi; ?></td>
                         <td class="text-center"><?php echo $birey->daire; ?></td>
                         <td class="text-center" style="color: <?php echo get_statementColor($birey->durum); ?>">

@@ -155,9 +155,15 @@
                     <th class="w125">Görüşme Durumu</th>
                     </thead>
                     <tbody>
-                    <?php foreach ($items as $item) { ?>
+                    <?php 
+						foreach ($items as $item) { 
+							if($item->durum=="G") $styleColor = 'style="color:#00C568;" ';
+							else if($item->durum=="B") $styleColor = 'style="color:#FFC54E;" ';
+							else if($item->durum=="R") $styleColor = 'style="color:#FF515A;" ';
+							else $styleColor = '';
+					?>
                         <tr>
-                            <td class="text-center">
+                            <td class="text-center" <?php echo $styleColor; ?> >
                                 <a href="<?php echo base_url("anket/update_form/$item->id"); ?>">
                                     <i class="fa fa-pencil-square-o fa-2x"></i>
                                 </a>
@@ -172,15 +178,15 @@
                             <?php } else { ?>
                                 <td class="text-center"></td>
                             <?php } ?>
-                            <td class="text-center"><?php echo $item->id; ?></td>
-                            <td class="text-center"><?php echo $item->adi; ?></td>
-                            <td class="text-center"><?php echo $item->soyadi; ?></td>
-                            <td class="text-center"><?php echo $item->tckimlikno; ?></td>
-                            <td class="text-center"><?php echo $item->gsm1; ?></td>
-                            <td class="text-center"><?php echo get_townname($item->mahalle); ?></td>
-                            <td class="text-center"><?php echo get_streetname($item->sokak); ?></td>
-                            <td class="text-center"><?php echo $item->kapi; ?></td>
-                            <td class="text-center"><?php echo $item->daire; ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo $item->id; ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo $item->adi; ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo $item->soyadi; ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo $item->tckimlikno; ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo $item->gsm1; ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo get_townname($item->mahalle); ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo get_streetname($item->sokak); ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo $item->kapi; ?></td>
+                            <td class="text-center" <?php echo $styleColor; ?> ><?php echo $item->daire; ?></td>
                             <td class="text-center" style="color: <?php echo get_statementColor($item->durum); ?>">
                                 <i class="<?php echo get_statementIcon($item->durum); ?>"></i>
                                 <?php echo get_statementName($item->durum); ?>
