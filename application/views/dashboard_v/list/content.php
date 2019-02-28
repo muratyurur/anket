@@ -52,7 +52,7 @@ $user = $t->session->userdata("user");
                         if ($durum->durum === 'Görüşüldü') {
                             echo "#679dc6";
                         } elseif ($durum->durum === 'Evde Bulunamadı') {
-                            echo "#008080";
+                            echo "#88224e";
                         } elseif ($durum->durum === 'Görüşmeyi Reddetti') {
                             echo "#FF6347";
                         } elseif ($durum->durum === 'Henüz Görüşülmedi') {
@@ -94,7 +94,7 @@ $user = $t->session->userdata("user");
                         if ($tuzlakart->durum === 'Teslim Aldı') {
                             echo "#008080";
                         } elseif ($tuzlakart->durum === 'Teslim Edilemedi') {
-                            echo "#008080";
+                            echo "#88224e";
                         } elseif ($tuzlakart->durum === 'İstemedi') {
                             echo "#FF6347";
                         } elseif ($tuzlakart->durum === 'Kartı Var') {
@@ -141,6 +141,8 @@ $user = $t->session->userdata("user");
                             echo "rgb(57, 128, 181)";
                         } elseif ($memnuniyet->durum === 'Cevap Vermedi') {
                             echo "#FF6347";
+                        } elseif ($memnuniyet->durum === 'Evde Bulunamadı') {
+                            echo "#88224e";
                         } elseif ($memnuniyet->durum === 'Henüz Görüşülmedi') {
                             echo "rgb(255, 204, 102)";
                         }
@@ -286,6 +288,7 @@ $user = $t->session->userdata("user");
                                 <th class="w250">Memnun Değil</th>
                                 <th class="w250">Kısmen Memnun</th>
                                 <th class="w250">Cevap Vermedi</th>
+                                <th class="w250">Evde Bulunamadı</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -296,6 +299,7 @@ $user = $t->session->userdata("user");
                                     <td class="text-center"><?php echo number_format($mmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></td>
                                     <td class="text-center"><?php echo number_format($mmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></td>
                                     <td class="text-center"><?php echo number_format($mmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"><?php echo number_format($mmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php foreach ($topmemnuniyets as $topmemnuniyet) { ?>
@@ -305,6 +309,7 @@ $user = $t->session->userdata("user");
                                     <td class="text-center"><b><?php echo number_format($topmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></b></td>
                                     <td class="text-center"><b><?php echo number_format($topmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></b></td>
                                     <td class="text-center"><b><?php echo number_format($topmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b><?php echo number_format($topmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></b></td>
                                 </tr>
                             <?php } ?>
                             </tbody>

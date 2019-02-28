@@ -68,20 +68,20 @@ class Dashboard_model extends CI_Model
     /** The method of returning count of people by towns */
     public function get_memnuniyetcount()
     {
-        return $this->db->select("CASE memnuniyet WHEN 'E' THEN 'Memnun' WHEN 'H' THEN 'Memnun Değil' WHEN 'K' THEN 'Kısmen Memnun' WHEN 'C' THEN 'Cevap Vermedi' ELSE 'Henüz Görüşülmedi'
+        return $this->db->select("CASE memnuniyet WHEN 'B' THEN 'Evde Bulunamadı' WHEN 'E' THEN 'Memnun' WHEN 'H' THEN 'Memnun Değil' WHEN 'K' THEN 'Kısmen Memnun' WHEN 'C' THEN 'Cevap Vermedi' ELSE 'Henüz Görüşülmedi'
 	END AS durum, COUNT(*) AS sayi")->group_by("memnuniyet")->get("secmen")->result();
     }
 
     /** The method of returning count of people by towns */
     public function get_mmemnuniyetcount()
     {
-        return $this->db->select("m.tanim, SUM(CASE WHEN s.memnuniyet = 'E' THEN 1 ELSE 0 END) \"Memnun\", SUM(CASE WHEN s.memnuniyet = 'H' THEN 1 ELSE 0 END) \"Memnun Değil\", SUM(CASE WHEN s.memnuniyet = 'K' THEN 1 ELSE 0 END) \"Kısmen Memnun\", SUM(CASE WHEN s.memnuniyet = 'C' THEN 1 ELSE 0 END) \"Cevap Vermedi\"")->join("mahalle m", "m.id = s.mahalle", "inner")->group_by("m.tanim")->get("secmen s")->result_array();
+        return $this->db->select("m.tanim, SUM(CASE WHEN s.memnuniyet = 'B' THEN 1 ELSE 0 END) \"Evde Bulunamadı\", SUM(CASE WHEN s.memnuniyet = 'E' THEN 1 ELSE 0 END) \"Memnun\", SUM(CASE WHEN s.memnuniyet = 'H' THEN 1 ELSE 0 END) \"Memnun Değil\", SUM(CASE WHEN s.memnuniyet = 'K' THEN 1 ELSE 0 END) \"Kısmen Memnun\", SUM(CASE WHEN s.memnuniyet = 'C' THEN 1 ELSE 0 END) \"Cevap Vermedi\"")->join("mahalle m", "m.id = s.mahalle", "inner")->group_by("m.tanim")->get("secmen s")->result_array();
     }
 
     /** The method of returning count of people by towns */
     public function get_topmemnuniyetcount()
     {
-        return $this->db->select("SUM(CASE WHEN s.memnuniyet = 'E' THEN 1 ELSE 0 END) \"Memnun\", SUM(CASE WHEN s.memnuniyet = 'H' THEN 1 ELSE 0 END) \"Memnun Değil\", SUM(CASE WHEN s.memnuniyet = 'K' THEN 1 ELSE 0 END) \"Kısmen Memnun\", SUM(CASE WHEN s.memnuniyet = 'C' THEN 1 ELSE 0 END) \"Cevap Vermedi\"")->get("secmen s")->result_array();
+        return $this->db->select("SUM(CASE WHEN s.memnuniyet = 'B' THEN 1 ELSE 0 END) \"Evde Bulunamadı\", SUM(CASE WHEN s.memnuniyet = 'E' THEN 1 ELSE 0 END) \"Memnun\", SUM(CASE WHEN s.memnuniyet = 'H' THEN 1 ELSE 0 END) \"Memnun Değil\", SUM(CASE WHEN s.memnuniyet = 'K' THEN 1 ELSE 0 END) \"Kısmen Memnun\", SUM(CASE WHEN s.memnuniyet = 'C' THEN 1 ELSE 0 END) \"Cevap Vermedi\"")->get("secmen s")->result_array();
     }
 
     /** The method of returning count of people by towns */

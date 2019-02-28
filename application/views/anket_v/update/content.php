@@ -1,4 +1,3 @@
-<?php $user = get_active_user(); ?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -14,7 +13,8 @@
             <div class="widget-body">
                 <form action="<?php echo base_url("anket/update/$item->id"); ?>" method="post"
                       enctype="multipart/form-data">
-                    <h4>Nüfus Bilgileri</h4><span><?php echo ($user->user_role_id == 1) ? "(Kaydı yapan anketör: <b>" . get_username($item->updatedBy) . "</b>)" : ""; ?></span>
+                    <h4>Nüfus Bilgileri</h4>
+                    <span><?php echo ($user->user_role_id == 1) ? "(Kaydı yapan anketör: <b>" . get_username($item->updatedBy) . "</b>)" : ""; ?></span>
                     <hr>
                     <div class="row">
                         <div class="form-group col-md-4">
@@ -151,7 +151,8 @@
                                 <option value=""></option>
                                 <?php foreach ($mahalle as $mvalue) { ?>
                                     <option <?php echo ($mvalue->id === $item->mahalle) ? "selected" : ""; ?>
-                                            value="<?php echo $mvalue->id; ?>"><?php echo $mvalue->tanim; ?></option>
+                                            value="<?php echo $mvalue->id; ?>"><?php echo $mvalue->tanim;
+                                        ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -162,7 +163,8 @@
                                 <option value=""></option>
                                 <?php foreach ($sokak as $svalue) { ?>
                                     <option <?php echo($svalue->id === $item->sokak ? "selected" : ""); ?>
-                                            value="<?php echo $svalue->id; ?>"><?php echo $svalue->tanim; ?></option>
+                                            value="<?php echo $svalue->id; ?>"><?php echo $svalue->tanim;
+                                        ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -186,87 +188,94 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <h5>Tuzla Kart Aldı mı?</h5>
-                            <hr>
-                            <div class="col-md-12">
-                                <div class="radio radio-success">
-                                    <input type="radio"
-                                           id="radio1_1" <?php echo $item->tuzlakart === 'E' ? "checked" : ""; ?>
-                                           name="tuzlakartoptions" id="E" value="E">
-                                    <label for="radio1_1" class="radio">Evet</label>
-                                </div>
-                                <div class="radio radio-success">
-                                    <input type="radio"
-                                           id="radio1_2" <?php echo $item->tuzlakart === 'H' ? "checked" : ""; ?>
-                                           name="tuzlakartoptions" id="H" value="H">
-                                    <label for="radio1_2" class="radio">Hayır <span class="text-muted">(Evde bulunamadı, adres bulunamadı vb.)</span></label>
-                                </div>
-                                <div class="radio radio-success">
-                                    <input type="radio"
-                                           id="radio1_3" <?php echo $item->tuzlakart === 'I' ? "checked" : ""; ?>
-                                           name="tuzlakartoptions" id="I" value="I">
-                                    <label for="radio1_3" class="radio"> İstemedi</label>
-                                </div>
-                                <div class="radio radio-success">
-                                    <input type="radio"
-                                           id="radio1_4" <?php echo $item->tuzlakart === 'V' ? "checked" : ""; ?>
-                                           name="tuzlakartoptions" id="V" value="V">
-                                    <label for="radio1_4" class="radio"> Var</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h5>Hizmetlerimizden memnun musunuz?</h5>
-                            <hr>
-                            <div class="col-md-12">
-                                <div class="radio radio-primary">
-                                    <input type="radio"
-                                           id="radio2_1" <?php echo $item->memnuniyet === 'E' ? "checked" : ""; ?>
-                                           name="memnuniyetoptions" id="E" value="E">
-                                    <label for="radio2_1" class="radio">Evet</label>
-                                </div>
-                                <div class="radio radio-primary">
-                                    <input type="radio"
-                                           id="radio2_2" <?php echo $item->memnuniyet === 'H' ? "checked" : ""; ?>
-                                           name="memnuniyetoptions" id="H" value="H">
-                                    <label for="radio2_2" class="radio">Hayır</label>
-                                </div>
-                                <div class="radio radio-primary">
-                                    <input type="radio"
-                                           id="radio2_3" <?php echo $item->memnuniyet === 'K' ? "checked" : ""; ?>
-                                           name="memnuniyetoptions" id="K" value="K">
-                                    <label for="radio2_3" class="radio"> Kısmen</label>
-                                </div>
-                                <div class="radio radio-primary">
-                                    <input type="radio"
-                                           id="radio2_4" <?php echo $item->memnuniyet === 'C' ? "checked" : ""; ?>
-                                           name="memnuniyetoptions" id="C" value="C">
-                                    <label for="radio2_4" class="radio"> Cevap Vermedi</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 durum">
                             <h5>Görüşme Durumu</h5>
                             <hr>
                             <div class="col-md-12">
-                                <div class="radio radio-danger">
+                                <div class="radio radio-danger" id="radio3_11">
                                     <input type="radio"
                                            id="radio3_1" <?php echo $item->durum === 'G' ? "checked" : ""; ?>
                                            name="durumoptions" id="G" value="G">
                                     <label for="radio3_1" class="radio"> Görüşüldü</label>
                                 </div>
-                                <div class="radio radio-danger">
+                                <div class="radio radio-danger" id="radio3_21">
                                     <input type="radio"
                                            id="radio3_2" <?php echo $item->durum === 'B' ? "checked" : ""; ?>
                                            name="durumoptions" id="B" value="B">
                                     <label for="radio3_2" class="radio"> Evde Bulunamadı</label>
                                 </div>
-                                <div class="radio radio-danger">
+                                <div class="radio radio-danger" id="radio3_31">
                                     <input type="radio"
                                            id="radio3_3" <?php echo $item->durum === 'R' ? "checked" : ""; ?>
                                            name="durumoptions" id="R" value="R">
                                     <label for="radio3_3" class="radio"> Görüşmeyi Reddetti</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 memnuniyet">
+                            <h5>Hizmetlerimizden memnun musunuz?</h5>
+                            <hr>
+                            <div class="col-md-12">
+                                <div class="radio radio-primary" id="radio2_11">
+                                    <input type="radio"
+                                           id="radio2_1" <?php echo $item->memnuniyet === 'E' ? "checked" : ""; ?>
+                                           name="memnuniyetoptions" id="E" value="E">
+                                    <label for="radio2_1" class="radio">Evet</label>
+                                </div>
+                                <div class="radio radio-primary" id="radio2_21">
+                                    <input type="radio"
+                                           id="radio2_2" <?php echo $item->memnuniyet === 'H' ? "checked" : ""; ?>
+                                           name="memnuniyetoptions" id="H" value="H">
+                                    <label for="radio2_2" class="radio">Hayır</label>
+                                </div>
+                                <div class="radio radio-primary" id="radio2_31">
+                                    <input type="radio"
+                                           id="radio2_3" <?php echo $item->memnuniyet === 'K' ? "checked" : ""; ?>
+                                           name="memnuniyetoptions" id="K" value="K">
+                                    <label for="radio2_3" class="radio"> Kısmen</label>
+                                </div>
+                                <div class="radio radio-primary" id="radio2_41">
+                                    <input type="radio"
+                                           id="radio2_4" <?php echo $item->memnuniyet === 'C' ? "checked" : ""; ?>
+                                           name="memnuniyetoptions" id="C" value="C">
+                                    <label for="radio2_4" class="radio"> Cevap Vermedi</label>
+                                </div>
+
+                                <div class="radio radio-primary" id="radio2_51">
+                                    <input type="radio"
+                                           id="radio2_5" <?php echo $item->durum === 'B' ? "checked" : ""; ?>
+                                           name="memnuniyetoptions" id="B" value="B">
+                                    <label for="radio2_5" class="radio"> Evde Bulunamadı</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 tuzlakart">
+                            <h5>Tuzla Kart Aldı mı?</h5>
+                            <hr>
+                            <div class="col-md-12">
+                                <div class="radio radio-success" id="radio1_11">
+                                    <input type="radio"
+                                           id="radio1_1" <?php echo $item->tuzlakart === 'E' ? "checked" : ""; ?>
+                                           name="tuzlakartoptions" id="E" value="E">
+                                    <label for="radio1_1" class="radio">Evet</label>
+                                </div>
+                                <div class="radio radio-success" id="radio1_21">
+                                    <input type="radio"
+                                           id="radio1_2" <?php echo $item->tuzlakart === 'H' ? "checked" : ""; ?>
+                                           name="tuzlakartoptions" id="H" value="H">
+                                    <label for="radio1_2" class="radio">Hayır <span class="text-muted">(Evde bulunamadı, adres bulunamadı vb.)</span></label>
+                                </div>
+                                <div class="radio radio-success" id="radio1_31">
+                                    <input type="radio"
+                                           id="radio1_3" <?php echo $item->tuzlakart === 'I' ? "checked" : ""; ?>
+                                           name="tuzlakartoptions" id="I" value="I">
+                                    <label for="radio1_3" class="radio"> İstemedi</label>
+                                </div>
+                                <div class="radio radio-success" id="radio1_41">
+                                    <input type="radio"
+                                           id="radio1_4" <?php echo $item->tuzlakart === 'V' ? "checked" : ""; ?>
+                                           name="tuzlakartoptions" id="V" value="V">
+                                    <label for="radio1_4" class="radio"> Var</label>
                                 </div>
                             </div>
                         </div>
@@ -276,17 +285,17 @@
                         <div class="col-md-12">
                             <div class="checkbox checkbox-info gorusulen-container">
                                 <input id="checkstar"
-                                       <?php echo $item->gorusulen == 1 ? "checked" : "" ?>
+                                    <?php echo $item->gorusulen == 1 ? "checked" : "" ?>
                                        type="checkbox"
                                        name="gorusulen">
-                                <label for="checkstar">Haneye ait <b>TuzlaKart</b>lar bu kişiye teslim edilmiştir.
-                                    <span class="text-muted">(Bu alan haneye ait tüm kartlar teslim edildiğinde işaretlenecektir.)</span></label>
+                                <label for="checkstar">Haneye ait <b>TuzlaKart</b>lar bu kişiye teslim
+                                    edilmiştir.</label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group m-b-0">
+                            <div class="form-group m-b-0 talep">
                                 <h5>Belediyemizden bir isteğiniz, öneriniz var mı?</h5>
                                 <hr>
                                 <textarea id="maxlength-demo-4" class="form-control"
@@ -339,10 +348,10 @@
                         </td>
                         <?php if ($birey->gorusulen == 1) { ?>
                             <td class="text-center">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-star fa-stack-1x text-warning"></i>
-                                        <i class="fa fa-star-o fa-stack-1x text-muted"></i>
-                                    </span>
+		                                    <span class="fa-stack fa-lg">
+		                                        <i class="fa fa-star fa-stack-1x text-warning"></i>
+		                                        <i class="fa fa-star-o fa-stack-1x text-muted"></i>
+		                                    </span>
                             </td>
                         <?php } else { ?>
                             <td class="text-center"></td>

@@ -49,15 +49,27 @@ class Anket extends CI_Controller
             $this->session->set_userdata("where", $where);
         }
 
+        if ($this->input->post('mahalle')) {
+            $where['mahalle'] = $this->input->post("mahalle");
+            $viewData->set_mahalle = $this->input->post("mahalle");
+            $this->session->set_userdata("where", $where);
+        }
+
         if ($this->input->post('sokak')) {
             $where['sokak'] = $this->input->post("sokak");
             $viewData->set_sokak = $this->input->post("sokak");
             $this->session->set_userdata("where", $where);
         }
 
-        if ($this->input->post('mahalle')) {
-            $where['mahalle'] = $this->input->post("mahalle");
-            $viewData->set_mahalle = $this->input->post("mahalle");
+        if ($this->input->post('kapi')) {
+            $where['kapi'] = $this->input->post("kapi");
+            $viewData->set_kapi = $where['kapi'];
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('daire')) {
+            $where['daire'] = $this->input->post("daire");
+            $viewData->set_daire = $this->input->post("daire");
             $this->session->set_userdata("where", $where);
         }
 
@@ -406,34 +418,48 @@ class Anket extends CI_Controller
             );
 
             $gorusulen = $this->input->post("gorusulen");
+            $durum = $this->input->post("durumoptions");
+            $tuzlakart = "";
+            $memnuniyet = "";
 
-            if (isset($gorusulen)) {
-                $data = array(
-                    "gsm1" => $this->input->post("gsm1"),
-                    "gsm2" => $this->input->post("gsm2"),
-                    "eposta" => $this->input->post("eposta"),
-                    "tuzlakart" => $this->input->post("tuzlakartoptions"),
-                    "memnuniyet" => $this->input->post("memnuniyetoptions"),
-                    "durum" => $this->input->post("durumoptions"),
-                    "gorus" => $this->input->post("gorus"),
-                    "gorusulen" => 1,
-                    "updatedAt" => date("Y-m-d H:i:s"),
-                    "updatedBy" => $user->id
-                );
-            } else {
-                $data = array(
-                    "gsm1" => $this->input->post("gsm1"),
-                    "gsm2" => $this->input->post("gsm2"),
-                    "eposta" => $this->input->post("eposta"),
-                    "tuzlakart" => $this->input->post("tuzlakartoptions"),
-                    "memnuniyet" => $this->input->post("memnuniyetoptions"),
-                    "durum" => $this->input->post("durumoptions"),
-                    "gorus" => $this->input->post("gorus"),
-                    "gorusulen" => NULL,
-                    "updatedAt" => date("Y-m-d H:i:s"),
-                    "updatedBy" => $user->id
-                );
+            if ($durum == "G") {
+                $tuzlakart = $this->input->post("tuzlakartoptions");
+                $memnuniyet = $this->input->post("memnuniyetoptions");
+                $gorusulen = 1;
+            } elseif ($durum == "B") {
+                $gorusulen = NULL;
+                $tuzlakart = "H";
+                $memnuniyet = "B";
+            } elseif ($durum == "R") {
+                $gorusulen = NULL;
+                $tuzlakart = "I";
+                $memnuniyet = "C";
             }
+
+//            echo "gorusulen: " . $gorusulen . "<br>" . "tuzlakart: " . $tuzlakart . "<br>" . "memnuniyet: " . $memnuniyet;
+//            die();
+
+            $tk_update = $this->anket_model->update(
+                array(
+                    "id" => $id,
+                    "tuzlakart !=" => "V"
+                ),
+                array(
+                    "tuzlakart" => $tuzlakart
+                )
+            );
+
+                $data = array(
+                    "gsm1" => $this->input->post("gsm1"),
+                    "gsm2" => $this->input->post("gsm2"),
+                    "eposta" => $this->input->post("eposta"),
+                    "memnuniyet" => $memnuniyet,
+                    "durum" => $durum,
+                    "gorus" => $this->input->post("gorus"),
+                    "gorusulen" => $gorusulen,
+                    "updatedAt" => date("Y-m-d H:i:s"),
+                    "updatedBy" => $user->id
+                );
 
             $update = $this->anket_model->update(array("id" => $id), $data);
 
@@ -451,7 +477,7 @@ class Anket extends CI_Controller
             $viewData->item = $item;
 
             /** If Update Statement Succesful */
-            if ($update) {
+            if ($update && $tk_update) {
 
                 if ($this->input->post("gorus")) {
 

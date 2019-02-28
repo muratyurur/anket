@@ -15,7 +15,7 @@
             <hr>
             <form action="<?php echo base_url("anket/index"); ?>" method="post">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label>Mahalle</label><br>
                         <select id="mahalle" name="mahalle" class="form-control" data-plugin="select2">
                             <option value=""></option>
@@ -25,7 +25,7 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label>Sokak</label><br>
                         <select id="select2-demo-1" name="sokak" class="form-control" data-plugin="select2">
                             <option value=""></option>
@@ -34,6 +34,16 @@
                                         value="<?php echo $svalue->id; ?>"><?php echo $svalue->tanim; ?></option>
                             <?php } ?>
                         </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Kapı No.</label>
+                        <input name="kapi" type="text" class="form-control"
+                               value="<?php echo $where['kapi'] ? $where['kapi'] : ""; ?>">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Daire No</label>
+                        <input name="daire" type="text" class="form-control"
+                               value="<?php echo $where['daire'] ? $where['daire'] : ""; ?>">
                     </div>
                     <div class="form-group col-md-4">
                         <label>Adı</label>
@@ -48,7 +58,7 @@
                     <div class="form-group col-md-4">
                         <label>Vatandaşlık No.</label>
                         <input name="tckimlikno" type="text" class="form-control"
-                               value="<?php echo (isset($set_tckimlikno)) ? $set_tckimlikno : ""; ?>">
+                               value="<?php echo $where['tckimlikno'] ? $where['tckimlikno'] : ""; ?>">
                     </div>
                 </div>
                 <div class="row">
