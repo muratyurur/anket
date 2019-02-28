@@ -141,6 +141,18 @@ $user = $t->session->userdata("user");
                             <small><i class="zmdi zmdi-alarm-check"></i> Yapım Aşamasında</small>
                             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                         </a>
+                        <ul class="submenu" id="user-submenu">
+                            <li>
+                                <a href="<?php echo base_url(""); ?>">
+                                    <span class="menu-text">Performans Raporu</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url(""); ?>">
+                                    <span class="menu-text">Seçmen Durum Raporu</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 <?php } ?>
             </ul><!-- .app-menu -->

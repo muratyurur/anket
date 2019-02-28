@@ -610,8 +610,12 @@ class Anket extends CI_Controller
 
         foreach ($hane as $value) {
 
-            if ($item->gorusulen == 1) {
+            if ($item->gorusulen == 1 && $item->tuzlakart != "I") {
                 $durum = $value->tuzlakart != "V" ? "E" : "V";
+            } elseif ($item->durum == "B") {
+                $durum = $value->tuzlakart != "V" ? "H" : "V";
+            } elseif ($item->durum == "R" && $item->tuzlakart == "V") {
+                $durum = $value->tuzlakart != "V" ? "I" : "V";
             } else {
                 $durum = $item->tuzlakart;
             }

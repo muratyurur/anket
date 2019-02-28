@@ -1,8 +1,8 @@
+<?php $user = get_active_user(); ?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
             <b><?php echo $item->adi . " " . $item->soyadi; ?></b> adlı seçmene ait bilgileri düzenliyorsunuz...
-            <p><?php echo $check; ?></p>
             <a class="btn btn-outline btn-primary btn-sm pull-right"
                href="<?php echo base_url("anket"); ?>">
                 <i class="fa fa-chevron-left"></i> Geri Dön
@@ -14,7 +14,7 @@
             <div class="widget-body">
                 <form action="<?php echo base_url("anket/update/$item->id"); ?>" method="post"
                       enctype="multipart/form-data">
-                    <h4>Nüfus Bilgileri</h4>
+                    <h4>Nüfus Bilgileri</h4><span><?php echo ($user->user_role_id == 1) ? "(Kaydı yapan anketör: <b>" . get_username($item->updatedBy) . "</b>)" : ""; ?></span>
                     <hr>
                     <div class="row">
                         <div class="form-group col-md-4">
@@ -200,7 +200,7 @@
                                     <input type="radio"
                                            id="radio1_2" <?php echo $item->tuzlakart === 'H' ? "checked" : ""; ?>
                                            name="tuzlakartoptions" id="H" value="H">
-                                    <label for="radio1_2" class="radio">Hayır</label>
+                                    <label for="radio1_2" class="radio">Hayır <span class="text-muted">(Evde bulunamadı, adres bulunamadı vb.)</span></label>
                                 </div>
                                 <div class="radio radio-success">
                                     <input type="radio"
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="radio radio-primary">
                                     <input type="radio"
-                                           id="radio2_3" <?php echo $item->memnuniyet === 'I' ? "checked" : ""; ?>
+                                           id="radio2_3" <?php echo $item->memnuniyet === 'K' ? "checked" : ""; ?>
                                            name="memnuniyetoptions" id="K" value="K">
                                     <label for="radio2_3" class="radio"> Kısmen</label>
                                 </div>
@@ -279,7 +279,8 @@
                                        <?php echo $item->gorusulen == 1 ? "checked" : "" ?>
                                        type="checkbox"
                                        name="gorusulen">
-                                <label for="checkstar">Haneye ait <b>TuzlaKart</b>lar bu kişiye teslim edilmiştir.</label>
+                                <label for="checkstar">Haneye ait <b>TuzlaKart</b>lar bu kişiye teslim edilmiştir.
+                                    <span class="text-muted">(Bu alan haneye ait tüm kartlar teslim edildiğinde işaretlenecektir.)</span></label>
                             </div>
                         </div>
                     </div>

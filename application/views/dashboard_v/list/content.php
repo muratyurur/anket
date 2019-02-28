@@ -50,11 +50,11 @@ $user = $t->session->userdata("user");
 								data: <?php echo $durum->sayi; ?>,
 								color: '<?php
                         if ($durum->durum === 'Görüşüldü') {
-                            echo "rgb(103, 157, 198)";
+                            echo "#679dc6";
                         } elseif ($durum->durum === 'Evde Bulunamadı') {
-                            echo "rgb(57, 128, 181)";
+                            echo "#008080";
                         } elseif ($durum->durum === 'Görüşmeyi Reddetti') {
-                            echo "#ffa000";
+                            echo "#FF6347";
                         } elseif ($durum->durum === 'Henüz Görüşülmedi') {
                             echo "rgb(255, 204, 102)";
                         }
@@ -69,7 +69,7 @@ $user = $t->session->userdata("user");
 								grid: { hoverable: true },
 								tooltip: {
 									show: true,
-									content: '%s %p.0%',
+									content: '%s %p.2%',
 									defaultTheme: true
 								}
 							}" style="height: 300px;width: 100%;">
@@ -92,11 +92,11 @@ $user = $t->session->userdata("user");
 								data: <?php echo $tuzlakart->sayi; ?>,
 								color: '<?php
                         if ($tuzlakart->durum === 'Teslim Aldı') {
-                            echo "#e64a19";
+                            echo "#008080";
                         } elseif ($tuzlakart->durum === 'Teslim Edilemedi') {
-                            echo "rgb(57, 128, 181)";
+                            echo "#008080";
                         } elseif ($tuzlakart->durum === 'İstemedi') {
-                            echo "#ffa000";
+                            echo "#FF6347";
                         } elseif ($tuzlakart->durum === 'Kartı Var') {
                             echo "rgb(103, 157, 198)";
                         } elseif ($tuzlakart->durum === 'Henüz Görüşülmedi') {
@@ -113,7 +113,7 @@ $user = $t->session->userdata("user");
 								grid: { hoverable: true },
 								tooltip: {
 									show: true,
-									content: '%s %p.0%',
+									content: '%s %p.2%',
 									defaultTheme: true
 								}
 							}" style="height: 300px;width: 100%;">
@@ -135,14 +135,12 @@ $user = $t->session->userdata("user");
 								label: '<?php echo $memnuniyet->durum; ?>',
 								data: <?php echo $memnuniyet->sayi; ?>,
 								color: '<?php
-                        if ($memnuniyet->durum === 'Teslim Aldı') {
-                            echo "#e64a19";
-                        } elseif ($memnuniyet->durum === 'Teslim Edilemedi') {
+                        if ($memnuniyet->durum === 'Memnun') {
+                            echo "#679dc6";
+                        } elseif ($memnuniyet->durum === 'Memnun Değil') {
                             echo "rgb(57, 128, 181)";
-                        } elseif ($memnuniyet->durum === 'İstemedi') {
-                            echo "#ffa000";
-                        } elseif ($memnuniyet->durum === 'Kartı Var') {
-                            echo "rgb(103, 157, 198)";
+                        } elseif ($memnuniyet->durum === 'Cevap Vermedi') {
+                            echo "#FF6347";
                         } elseif ($memnuniyet->durum === 'Henüz Görüşülmedi') {
                             echo "rgb(255, 204, 102)";
                         }
@@ -157,7 +155,7 @@ $user = $t->session->userdata("user");
 								grid: { hoverable: true },
 								tooltip: {
 									show: true,
-									content: '%s %p.0%',
+									content: '%s %p.2%',
 									defaultTheme: true
 								}
 							}" style="height: 300px;width: 100%;">
