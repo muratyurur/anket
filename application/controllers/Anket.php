@@ -358,6 +358,8 @@ class Anket extends CI_Controller
     {
         $user = $this->session->userdata("user");
 
+        $statement = $this->input->post("durumoptions");
+
         /** Load Form Validation Library */
         $this->load->library("form_validation");
 
@@ -365,6 +367,11 @@ class Anket extends CI_Controller
         $this->form_validation->set_rules("gsm1", "Cep Telefonu (1)", "trim");
         $this->form_validation->set_rules("gsm2", "Cep Telefonu (2)", "trim");
         $this->form_validation->set_rules("eposta", "ePosta", "trim|valid_email");
+
+        if ($statement == "G") {
+            $this->form_validation->set_rules("memnuniyetoptions", "Memnuniyet Bilgisi", "trim|required");
+            $this->form_validation->set_rules("tuzlakartoptions", "TuzlaKart Teslim Bilgisi", "trim|required");
+        }
 
         /** Translate Validation Messages */
         $this->form_validation->set_message(
@@ -425,7 +432,6 @@ class Anket extends CI_Controller
             if ($durum == "G") {
                 $tuzlakart = $this->input->post("tuzlakartoptions");
                 $memnuniyet = $this->input->post("memnuniyetoptions");
-                $gorusulen = 1;
             } elseif ($durum == "B") {
                 $gorusulen = NULL;
                 $tuzlakart = "H";
@@ -449,6 +455,7 @@ class Anket extends CI_Controller
                 )
             );
 
+            if (isset($gorusulen)) {
                 $data = array(
                     "gsm1" => $this->input->post("gsm1"),
                     "gsm2" => $this->input->post("gsm2"),
@@ -456,10 +463,23 @@ class Anket extends CI_Controller
                     "memnuniyet" => $memnuniyet,
                     "durum" => $durum,
                     "gorus" => $this->input->post("gorus"),
-                    "gorusulen" => $gorusulen,
+                    "gorusulen" => 1,
                     "updatedAt" => date("Y-m-d H:i:s"),
                     "updatedBy" => $user->id
                 );
+            } else {
+                $data = array(
+                    "gsm1" => $this->input->post("gsm1"),
+                    "gsm2" => $this->input->post("gsm2"),
+                    "eposta" => $this->input->post("eposta"),
+                    "memnuniyet" => $memnuniyet,
+                    "durum" => $durum,
+                    "gorus" => $this->input->post("gorus"),
+                    "gorusulen" => NULL,
+                    "updatedAt" => date("Y-m-d H:i:s"),
+                    "updatedBy" => $user->id
+                );
+            }
 
             $update = $this->anket_model->update(array("id" => $id), $data);
 
@@ -581,6 +601,15 @@ class Anket extends CI_Controller
                     "isActive" => 1
                 )
             );
+
+            /** Set the notification is Error */
+            $alert = array(
+                "type" => "error",
+                "title" => "İşlem başarısız",
+                "text" => "Formda doldurulması gereken alanlar var!"
+            );
+
+            $this->session->set_flashdata("alert", $alert);
 
             /** Taking all towns */
             $viewData->mahalle = $this->mahalle_model->get_all(array(), "tanim ASC");

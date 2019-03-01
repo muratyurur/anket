@@ -240,13 +240,15 @@
                                            name="memnuniyetoptions" id="C" value="C">
                                     <label for="radio2_4" class="radio"> Cevap Vermedi</label>
                                 </div>
-
                                 <div class="radio radio-primary" id="radio2_51">
                                     <input type="radio"
-                                           id="radio2_5" <?php echo $item->durum === 'B' ? "checked" : ""; ?>
+                                           id="radio2_5" <?php echo $item->memnuniyet === 'B' ? "checked" : ""; ?>
                                            name="memnuniyetoptions" id="B" value="B">
                                     <label for="radio2_5" class="radio"> Evde Bulunamadı</label>
                                 </div>
+                                <?php if (isset($form_error)) { ?>
+                                    <small class="input-form-error pull-right"> <?php echo form_error("memnuniyetoptions"); ?></small>
+                                <?php } ?>
                             </div>
                         </div>
                         <div class="col-md-4 tuzlakart">
@@ -277,6 +279,9 @@
                                            name="tuzlakartoptions" id="V" value="V">
                                     <label for="radio1_4" class="radio"> Var</label>
                                 </div>
+                                <?php if (isset($form_error)) { ?>
+                                    <small class="input-form-error pull-right"> <?php echo form_error("tuzlakartoptions"); ?></small>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

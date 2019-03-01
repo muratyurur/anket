@@ -9,6 +9,10 @@
             $('.tuzlakart').show();
             $('.gorusulen-container').show();
             $('.talep').show();
+            $('#radio2_51').hide();
+            $('#radio2_5').prop("checked", false);
+            $('#radio1_21').hide();
+            $('#radio1_2').prop("checked", false);
         } else {
             $('.memnuniyet').hide();
             $('.tuzlakart').hide();
