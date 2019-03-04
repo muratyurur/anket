@@ -20,6 +20,7 @@
 <!--                <span class="footer-msg">-->
 <!--                    &nbsp;by&nbsp;-->
 <!--                </span>-->
+<!--                <img src="uploads/settings_v/TPT.png" style="max-height: 18px; margin: 0px" alt="Tuzla Project Team">-->
 <!--                    <a href="https://muratyurur.com" target="_blank">-->
 <!--                        <span class="signature">-->
 <!--                            M.Yürür-->

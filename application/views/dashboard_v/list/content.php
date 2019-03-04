@@ -51,11 +51,11 @@ $user = $t->session->userdata("user");
 								data: <?php echo $durum->sayi; ?>,
 								color: '<?php
                         if ($durum->durum === 'Görüşüldü') {
-                            echo "#ffcc66";
+                            echo "green";
                         } elseif ($durum->durum === 'Evde Bulunamadı') {
-                            echo "#679dc6";
+                            echo "orange";
                         } elseif ($durum->durum === 'Görüşmeyi Reddetti') {
-                            echo "#FF6347";
+                            echo "red";
                         }
                         ?>' },
                             <?php } ?>
@@ -95,13 +95,13 @@ $user = $t->session->userdata("user");
 								data: <?php echo $tuzlakart->sayi; ?>,
 								color: '<?php
                         if ($tuzlakart->durum === 'Teslim Aldı') {
-                            echo "#ffcc66";
+                            echo "green";
                         } elseif ($tuzlakart->durum === 'Teslim Edilemedi') {
-                            echo "rgb(103, 157, 198)";
+                            echo "orange";
                         } elseif ($tuzlakart->durum === 'İstemedi') {
-                            echo "#FF6347";
+                            echo "red";
                         } elseif ($tuzlakart->durum === 'Kartı Var') {
-                            echo "#008080";
+                            echo "blue";
                         }
                         ?>' },
                             <?php } ?>
@@ -141,15 +141,15 @@ $user = $t->session->userdata("user");
 								data: <?php echo $memnuniyet->sayi; ?>,
 								color: '<?php
                         if ($memnuniyet->durum === 'Memnun') {
-                            echo "#ffcc66";
+                            echo "green";
                         } elseif ($memnuniyet->durum === 'Memnun Değil') {
-                            echo "#FF6347";
+                            echo "purple";
                         } elseif ($memnuniyet->durum === 'Cevap Vermedi') {
-                            echo "#9166ff";
+                            echo "red";
                         } elseif ($memnuniyet->durum === 'Evde Bulunamadı') {
-                            echo "#008080";
+                            echo "orange";
                         } elseif ($memnuniyet->durum === 'Kısmen Memnun') {
-                            echo "rgb(103, 157, 198)";
+                            echo "yellow";
                         }
                         ?>' },
                             <?php } ?>
@@ -206,18 +206,18 @@ $user = $t->session->userdata("user");
                                 <tr>
                                     <td class="text-center"><?php echo $mdurum['tanim']; ?></td>
                                     <td class="text-center"><?php echo number_format($mdurum['Henüz Görüşülmedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center"><?php echo number_format($mdurum['Görüşüldü'], 0, ',', '.'); ?></td>
-                                    <td class="text-center"><?php echo number_format($mdurum['Evde Bulunamadı'], 0, ',', '.'); ?></td>
-                                    <td class="text-center"><?php echo number_format($mdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:green;"><?php echo number_format($mdurum['Görüşüldü'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:orange;"><?php echo number_format($mdurum['Evde Bulunamadı'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:#FF6347;"><?php echo number_format($mdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php foreach ($topdurums as $topdurum) { ?>
                                 <tr>
                                     <td class="text-center"><b>TOPLAM</b></td>
                                     <td class="text-center"><b><?php echo number_format($topdurum['Henüz Görüşülmedi'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b><?php echo number_format($topdurum['Görüşüldü'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b><?php echo number_format($topdurum['Evde Bulunamadı'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b><?php echo number_format($topdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:green;"><?php echo number_format($topdurum['Görüşüldü'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:orange;"><?php echo number_format($topdurum['Evde Bulunamadı'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:red;"><?php echo number_format($topdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></b></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -254,19 +254,19 @@ $user = $t->session->userdata("user");
                             <?php foreach ($mtuzlakarts as $mtuzlakart) { ?>
                                 <tr>
                                     <td class="text-center"><?php echo $mtuzlakart['tanim']; ?></td>
-                                    <td class="text-center w250"><?php echo number_format($mtuzlakart['Teslim Aldı'], 0, ',', '.'); ?></td>
-                                    <td class="text-center w250"><?php echo number_format($mtuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center w250"><?php echo number_format($mtuzlakart['İstemedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center w250"><?php echo number_format($mtuzlakart['Kartı Var'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250" style="color:green;"><?php echo number_format($mtuzlakart['Teslim Aldı'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250" style="color:orange;"><?php echo number_format($mtuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250" style="color:red;"><?php echo number_format($mtuzlakart['İstemedi'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250" style="color:blue;"><?php echo number_format($mtuzlakart['Kartı Var'], 0, ',', '.'); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php foreach ($toptuzlakarts as $toptuzlakart) { ?>
                             <tr>
                                 <td class="text-center"><b>TOPLAM</b></td>
-                                <td class="text-center w250"><b><?php echo number_format($toptuzlakart['Teslim Aldı'], 0, ',', '.'); ?></b></td>
-                                <td class="text-center w250"><b><?php echo number_format($toptuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></b></td>
-                                <td class="text-center w250"><b><?php echo number_format($toptuzlakart['İstemedi'], 0, ',', '.'); ?></b></td>
-                                <td class="text-center w250"><b><?php echo number_format($toptuzlakart['Kartı Var'], 0, ',', '.'); ?></b></td>
+                                <td class="text-center w250"><b style="color:green;"><?php echo number_format($toptuzlakart['Teslim Aldı'], 0, ',', '.'); ?></b></td>
+                                <td class="text-center w250"><b style="color:orange;"><?php echo number_format($toptuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></b></td>
+                                <td class="text-center w250"><b style="color:red;"><?php echo number_format($toptuzlakart['İstemedi'], 0, ',', '.'); ?></b></td>
+                                <td class="text-center w250"><b style="color:blue;"><?php echo number_format($toptuzlakart['Kartı Var'], 0, ',', '.'); ?></b></td>
                             </tr>
                             <?php } ?>
                             </tbody>
@@ -294,8 +294,8 @@ $user = $t->session->userdata("user");
                             <tr>
                                 <th>Mahalle</th>
                                 <th class="w250">Memnun</th>
-                                <th class="w250">Memnun Değil</th>
                                 <th class="w250">Kısmen Memnun</th>
+                                <th class="w250">Memnun Değil</th>
                                 <th class="w250">Cevap Vermedi</th>
                                 <th class="w250">Evde Bulunamadı</th>
                             </tr>
@@ -304,21 +304,21 @@ $user = $t->session->userdata("user");
                             <?php foreach ($mmemnuniyets as $mmemnuniyet) { ?>
                                 <tr>
                                     <td class="text-center"><?php echo $mmemnuniyet['tanim']; ?></td>
-                                    <td class="text-center"><?php echo number_format($mmemnuniyet['Memnun'], 0, ',', '.'); ?></td>
-                                    <td class="text-center"><?php echo number_format($mmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></td>
-                                    <td class="text-center"><?php echo number_format($mmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></td>
-                                    <td class="text-center"><?php echo number_format($mmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center"><?php echo number_format($mmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:green;"><?php echo number_format($mmemnuniyet['Memnun'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:darkyellow;"><?php echo number_format($mmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:purple;"><?php echo number_format($mmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:red;"><?php echo number_format($mmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></td>
+                                    <td class="text-center" style="color:orange;"><?php echo number_format($mmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php foreach ($topmemnuniyets as $topmemnuniyet) { ?>
                                 <tr>
                                     <td class="text-center"><b>TOPLAM</b></td>
-                                    <td class="text-center"><b><?php echo number_format($topmemnuniyet['Memnun'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b><?php echo number_format($topmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b><?php echo number_format($topmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b><?php echo number_format($topmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b><?php echo number_format($topmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:green;"><?php echo number_format($topmemnuniyet['Memnun'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:darkyellow;"><?php echo number_format($topmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:purple;"><?php echo number_format($topmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:red;"><?php echo number_format($topmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b style="color:orange;"><?php echo number_format($topmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></b></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
