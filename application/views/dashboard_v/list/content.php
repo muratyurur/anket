@@ -3,6 +3,7 @@ $t = get_instance();
 
 $user = $t->session->userdata("user");
 ?>
+
 <?php if ($user->user_role_id == 1 || $user->user_role_id == 2) { ?>
     <div class="row">
         <div class="col-md-12">
@@ -50,13 +51,11 @@ $user = $t->session->userdata("user");
 								data: <?php echo $durum->sayi; ?>,
 								color: '<?php
                         if ($durum->durum === 'Görüşüldü') {
-                            echo "#679dc6";
+                            echo "#ffcc66";
                         } elseif ($durum->durum === 'Evde Bulunamadı') {
-                            echo "#88224e";
+                            echo "#679dc6";
                         } elseif ($durum->durum === 'Görüşmeyi Reddetti') {
                             echo "#FF6347";
-                        } elseif ($durum->durum === 'Henüz Görüşülmedi') {
-                            echo "rgb(255, 204, 102)";
                         }
                         ?>' },
                             <?php } ?>
@@ -75,6 +74,10 @@ $user = $t->session->userdata("user");
 							}" style="height: 300px;width: 100%;">
                     </div>
                 </div><!-- .widget-body -->
+                <hr class="widget-separator">
+                <footer class="widget-footer text-center">
+                    <small>Toplam Dokunulan Seçmen: </small> <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
+                </footer>
             </div><!-- .widget -->
         </div>
         <div class="col-md-4">
@@ -92,15 +95,13 @@ $user = $t->session->userdata("user");
 								data: <?php echo $tuzlakart->sayi; ?>,
 								color: '<?php
                         if ($tuzlakart->durum === 'Teslim Aldı') {
-                            echo "#008080";
+                            echo "#ffcc66";
                         } elseif ($tuzlakart->durum === 'Teslim Edilemedi') {
-                            echo "#88224e";
+                            echo "rgb(103, 157, 198)";
                         } elseif ($tuzlakart->durum === 'İstemedi') {
                             echo "#FF6347";
                         } elseif ($tuzlakart->durum === 'Kartı Var') {
-                            echo "rgb(103, 157, 198)";
-                        } elseif ($tuzlakart->durum === 'Henüz Görüşülmedi') {
-                            echo "rgb(255, 204, 102)";
+                            echo "#008080";
                         }
                         ?>' },
                             <?php } ?>
@@ -119,6 +120,10 @@ $user = $t->session->userdata("user");
 							}" style="height: 300px;width: 100%;">
                     </div>
                 </div><!-- .widget-body -->
+                <hr class="widget-separator">
+                <footer class="widget-footer text-center">
+                    <small>Toplam Dokunulan Seçmen: </small> <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
+                </footer>
             </div><!-- .widget -->
         </div>
         <div class="col-md-4">
@@ -136,15 +141,15 @@ $user = $t->session->userdata("user");
 								data: <?php echo $memnuniyet->sayi; ?>,
 								color: '<?php
                         if ($memnuniyet->durum === 'Memnun') {
-                            echo "#679dc6";
+                            echo "#ffcc66";
                         } elseif ($memnuniyet->durum === 'Memnun Değil') {
-                            echo "rgb(57, 128, 181)";
-                        } elseif ($memnuniyet->durum === 'Cevap Vermedi') {
                             echo "#FF6347";
+                        } elseif ($memnuniyet->durum === 'Cevap Vermedi') {
+                            echo "#9166ff";
                         } elseif ($memnuniyet->durum === 'Evde Bulunamadı') {
-                            echo "#88224e";
-                        } elseif ($memnuniyet->durum === 'Henüz Görüşülmedi') {
-                            echo "rgb(255, 204, 102)";
+                            echo "#008080";
+                        } elseif ($memnuniyet->durum === 'Kısmen Memnun') {
+                            echo "rgb(103, 157, 198)";
                         }
                         ?>' },
                             <?php } ?>
@@ -163,6 +168,10 @@ $user = $t->session->userdata("user");
 							}" style="height: 300px;width: 100%;">
                     </div>
                 </div><!-- .widget-body -->
+                <hr class="widget-separator">
+                <footer class="widget-footer text-center">
+                    <small>Toplam Dokunulan Seçmen: </small> <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
+                </footer>
             </div><!-- .widget -->
         </div>
     </div>

@@ -43,6 +43,12 @@ class Dashboard extends CI_Controller {
 
         $datetime = new DateTime('tomorrow');
 
+        $viewData->general_count = $this->dashboard_model->get_count(
+            array(
+                "updatedAt!=" => ""
+            )
+        );
+
         $viewData->tomorrow = new DateTime('tomorrow');
 
         $viewData->tomorrow_tasks = $this->dashboard_model->get_tasks(

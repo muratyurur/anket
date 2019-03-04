@@ -32,7 +32,7 @@ class Dashboard_model extends CI_Model
     public function get_durumcount()
     {
         return $this->db->select("CASE durum WHEN 'G' THEN 'Görüşüldü' WHEN 'B' THEN 'Evde Bulunamadı' WHEN 'R' THEN 'Görüşmeyi Reddetti' ELSE 'Henüz Görüşülmedi'
-	END AS durum, COUNT(*) AS sayi")->group_by("durum")->get("secmen s")->result();
+	END AS durum, COUNT(*) AS sayi")->where("updatedAt IS NOT NULL")->group_by("durum")->get("secmen s")->result();
     }
 
     /** The method of returning count of people by towns */
@@ -51,7 +51,7 @@ class Dashboard_model extends CI_Model
     public function get_tuzlakartcount()
     {
         return $this->db->select("CASE tuzlakart WHEN 'E' THEN 'Teslim Aldı' WHEN 'H' THEN 'Teslim Edilemedi' WHEN 'I' THEN 'İstemedi' WHEN 'V' THEN 'Kartı Var' ELSE 'Henüz Görüşülmedi'
-	END AS durum, COUNT(*) AS sayi")->group_by("tuzlakart")->get("secmen")->result();
+	END AS durum, COUNT(*) AS sayi")->where("updatedAt IS NOT NULL")->group_by("tuzlakart")->get("secmen")->result();
     }
 
     /** The method of returning count of people by towns */
@@ -68,8 +68,8 @@ class Dashboard_model extends CI_Model
     /** The method of returning count of people by towns */
     public function get_memnuniyetcount()
     {
-        return $this->db->select("CASE memnuniyet WHEN 'B' THEN 'Evde Bulunamadı' WHEN 'E' THEN 'Memnun' WHEN 'H' THEN 'Memnun Değil' WHEN 'K' THEN 'Kısmen Memnun' WHEN 'C' THEN 'Cevap Vermedi' ELSE 'Henüz Görüşülmedi'
-	END AS durum, COUNT(*) AS sayi")->group_by("memnuniyet")->get("secmen")->result();
+        return $this->db->select("CASE memnuniyet WHEN 'E' THEN 'Memnun' WHEN 'H' THEN 'Memnun Değil' WHEN 'K' THEN 'Kısmen Memnun' WHEN 'C' THEN 'Cevap Vermedi' ELSE 'Henüz Görüşülmedi'
+	END AS durum, COUNT(*) AS sayi")->where("updatedAt IS NOT NULL and memnuniyet != 'B'")->group_by("memnuniyet")->order_by("durum")->get("secmen")->result();
     }
 
     /** The method of returning count of people by towns */

@@ -23,7 +23,7 @@ class Talep_model extends CI_Model
             ->get("talep t")->result();
     }
     /** The method of returning all row's with limit for pagination */
-    public function excel_export($where = array(), $limit, $count, $order = "talepTarihi ASC")
+    public function excel_export($where = array(), $order = "talepTarihi ASC")
     {
         return $this->db->select("t.id talep_id, t.talepTarihi, t.kaynak, 
         m.tanim mahalle, sk.tanim sokak, s.kapi kapi, s.daire daire, 
@@ -36,7 +36,6 @@ class Talep_model extends CI_Model
             ->join("mudurluk mu", "mu.id = t.mudurluk", "left outer")
             ->join("talep_durumu td", "td.id = t.sonucDurumu", "left outer")
             ->join("users u", "u.id = s.updatedBy", "left outer")
-            ->limit($limit, $count)
             ->order_by($order)
             ->get("talep t")->result();
     }

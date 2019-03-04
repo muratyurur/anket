@@ -782,27 +782,14 @@ class Talep extends CI_Controller
 
         $condition = $this->session->userdata("where");
 
-        $this->load->library("pagination");
-
-        $config["base_url"] = base_url("talep/index");
         $config["total_rows"] = $this->talep_model->get_count($condition ? $condition : "1=1");
-        $config["uri_segment)"] = 3;
         $config["per_page"] = 50;
-        $config["num_links"] = 3;
-        $config["last_link"] = "Son Sayfa";
-        $config["first_link"] = "İlk Sayfa";
-
-
-        $this->pagination->initialize($config);
 
         $viewData->count = $config["total_rows"];
-
-        $viewData->percount = $config["per_page"];
 
         /** Taking all data from the table */
         $items = $this->talep_model->excel_export(
             $condition ? $condition : "1=1",
-            $config["per_page"],
             $page
         );
 
