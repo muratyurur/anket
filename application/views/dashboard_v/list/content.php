@@ -76,7 +76,8 @@ $user = $t->session->userdata("user");
                 </div><!-- .widget-body -->
                 <hr class="widget-separator">
                 <footer class="widget-footer text-center">
-                    <small>Toplam Dokunulan Seçmen: </small> <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
+                    <small>Toplam Dokunulan Seçmen:</small>
+                    <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
                 </footer>
             </div><!-- .widget -->
         </div>
@@ -122,7 +123,8 @@ $user = $t->session->userdata("user");
                 </div><!-- .widget-body -->
                 <hr class="widget-separator">
                 <footer class="widget-footer text-center">
-                    <small>Toplam Dokunulan Seçmen: </small> <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
+                    <small>Toplam Dokunulan Seçmen:</small>
+                    <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
                 </footer>
             </div><!-- .widget -->
         </div>
@@ -149,7 +151,7 @@ $user = $t->session->userdata("user");
                         } elseif ($memnuniyet->durum === 'Evde Bulunamadı') {
                             echo "orange";
                         } elseif ($memnuniyet->durum === 'Kısmen Memnun') {
-                            echo "yellow";
+                            echo "darkgoldenrod";
                         }
                         ?>' },
                             <?php } ?>
@@ -170,7 +172,8 @@ $user = $t->session->userdata("user");
                 </div><!-- .widget-body -->
                 <hr class="widget-separator">
                 <footer class="widget-footer text-center">
-                    <small>Toplam Dokunulan Seçmen: </small> <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
+                    <small>Toplam Dokunulan Seçmen:</small>
+                    <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
                 </footer>
             </div><!-- .widget -->
         </div>
@@ -196,9 +199,9 @@ $user = $t->session->userdata("user");
                             <tr>
                                 <th>Mahalle</th>
                                 <th class="w250">Henüz Görüşülmedi</th>
-                                <th class="w250">Görüşüldü</th>
-                                <th class="w250">Evde Bulunamadı</th>
-                                <th class="w250">Görüşmeyi Reddetti</th>
+                                <th class="w250" style="color:green;">Görüşüldü</th>
+                                <th class="w250" style="color:orange;">Evde Bulunamadı</th>
+                                <th class="w250" style="color:#FF6347;">Görüşmeyi Reddetti</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -206,18 +209,29 @@ $user = $t->session->userdata("user");
                                 <tr>
                                     <td class="text-center"><?php echo $mdurum['tanim']; ?></td>
                                     <td class="text-center"><?php echo number_format($mdurum['Henüz Görüşülmedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center" style="color:green;"><?php echo number_format($mdurum['Görüşüldü'], 0, ',', '.'); ?></td>
-                                    <td class="text-center" style="color:orange;"><?php echo number_format($mdurum['Evde Bulunamadı'], 0, ',', '.'); ?></td>
-                                    <td class="text-center" style="color:#FF6347;"><?php echo number_format($mdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:green;"><?php echo number_format($mdurum['Görüşüldü'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:orange;"><?php echo number_format($mdurum['Evde Bulunamadı'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:#FF6347;"><?php echo number_format($mdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php foreach ($topdurums as $topdurum) { ?>
                                 <tr>
                                     <td class="text-center"><b>TOPLAM</b></td>
-                                    <td class="text-center"><b><?php echo number_format($topdurum['Henüz Görüşülmedi'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b style="color:green;"><?php echo number_format($topdurum['Görüşüldü'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b style="color:orange;"><?php echo number_format($topdurum['Evde Bulunamadı'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b style="color:red;"><?php echo number_format($topdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center">
+                                        <b><?php echo number_format($topdurum['Henüz Görüşülmedi'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center"><b
+                                                style="color:green;"><?php echo number_format($topdurum['Görüşüldü'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center"><b
+                                                style="color:orange;"><?php echo number_format($topdurum['Evde Bulunamadı'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center"><b
+                                                style="color:red;"><?php echo number_format($topdurum['Görüşmeyi Reddetti'], 0, ',', '.'); ?></b>
+                                    </td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -244,30 +258,42 @@ $user = $t->session->userdata("user");
                             <thead>
                             <tr>
                                 <th>Mahalle</th>
-                                <th class="w250">Teslim Aldı</th>
-                                <th class="w250">Teslim Edilemedi</th>
-                                <th class="w250">İstemedi</th>
-                                <th class="w250">Kartı Var</th>
+                                <th class="w250" style="color:green;">Teslim Aldı</th>
+                                <th class="w250" style="color:orange;">Teslim Edilemedi</th>
+                                <th class="w250" style="color:red;">İstemedi</th>
+                                <th class="w250" style="color:blue;">Kartı Var</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php foreach ($mtuzlakarts as $mtuzlakart) { ?>
                                 <tr>
                                     <td class="text-center"><?php echo $mtuzlakart['tanim']; ?></td>
-                                    <td class="text-center w250" style="color:green;"><?php echo number_format($mtuzlakart['Teslim Aldı'], 0, ',', '.'); ?></td>
-                                    <td class="text-center w250" style="color:orange;"><?php echo number_format($mtuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center w250" style="color:red;"><?php echo number_format($mtuzlakart['İstemedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center w250" style="color:blue;"><?php echo number_format($mtuzlakart['Kartı Var'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250"
+                                        style="color:green;"><?php echo number_format($mtuzlakart['Teslim Aldı'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250"
+                                        style="color:orange;"><?php echo number_format($mtuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250"
+                                        style="color:red;"><?php echo number_format($mtuzlakart['İstemedi'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250"
+                                        style="color:blue;"><?php echo number_format($mtuzlakart['Kartı Var'], 0, ',', '.'); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php foreach ($toptuzlakarts as $toptuzlakart) { ?>
-                            <tr>
-                                <td class="text-center"><b>TOPLAM</b></td>
-                                <td class="text-center w250"><b style="color:green;"><?php echo number_format($toptuzlakart['Teslim Aldı'], 0, ',', '.'); ?></b></td>
-                                <td class="text-center w250"><b style="color:orange;"><?php echo number_format($toptuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></b></td>
-                                <td class="text-center w250"><b style="color:red;"><?php echo number_format($toptuzlakart['İstemedi'], 0, ',', '.'); ?></b></td>
-                                <td class="text-center w250"><b style="color:blue;"><?php echo number_format($toptuzlakart['Kartı Var'], 0, ',', '.'); ?></b></td>
-                            </tr>
+                                <tr>
+                                    <td class="text-center"><b>TOPLAM</b></td>
+                                    <td class="text-center w250"><b
+                                                style="color:green;"><?php echo number_format($toptuzlakart['Teslim Aldı'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center w250"><b
+                                                style="color:orange;"><?php echo number_format($toptuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center w250"><b
+                                                style="color:red;"><?php echo number_format($toptuzlakart['İstemedi'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center w250"><b
+                                                style="color:blue;"><?php echo number_format($toptuzlakart['Kartı Var'], 0, ',', '.'); ?></b>
+                                    </td>
+                                </tr>
                             <?php } ?>
                             </tbody>
                         </table>
@@ -293,32 +319,47 @@ $user = $t->session->userdata("user");
                             <thead>
                             <tr>
                                 <th>Mahalle</th>
-                                <th class="w250">Memnun</th>
-                                <th class="w250">Kısmen Memnun</th>
-                                <th class="w250">Memnun Değil</th>
-                                <th class="w250">Cevap Vermedi</th>
-                                <th class="w250">Evde Bulunamadı</th>
+                                <th class="w250"style="color:green;">Memnun</th>
+                                <th class="w250"style="color:darkgoldenrod;">Kısmen Memnun</th>
+                                <th class="w250"style="color:purple;">Memnun Değil</th>
+                                <th class="w250"style="color:red;">Cevap Vermedi</th>
+                                <th class="w250"style="color:orange;">Evde Bulunamadı</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php foreach ($mmemnuniyets as $mmemnuniyet) { ?>
                                 <tr>
                                     <td class="text-center"><?php echo $mmemnuniyet['tanim']; ?></td>
-                                    <td class="text-center" style="color:green;"><?php echo number_format($mmemnuniyet['Memnun'], 0, ',', '.'); ?></td>
-                                    <td class="text-center" style="color:darkyellow;"><?php echo number_format($mmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></td>
-                                    <td class="text-center" style="color:purple;"><?php echo number_format($mmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></td>
-                                    <td class="text-center" style="color:red;"><?php echo number_format($mmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></td>
-                                    <td class="text-center" style="color:orange;"><?php echo number_format($mmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:green;"><?php echo number_format($mmemnuniyet['Memnun'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:darkgoldenrod;"><?php echo number_format($mmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:purple;"><?php echo number_format($mmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:red;"><?php echo number_format($mmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:orange;"><?php echo number_format($mmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></td>
                                 </tr>
                             <?php } ?>
                             <?php foreach ($topmemnuniyets as $topmemnuniyet) { ?>
                                 <tr>
                                     <td class="text-center"><b>TOPLAM</b></td>
-                                    <td class="text-center"><b style="color:green;"><?php echo number_format($topmemnuniyet['Memnun'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b style="color:darkyellow;"><?php echo number_format($topmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b style="color:purple;"><?php echo number_format($topmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b style="color:red;"><?php echo number_format($topmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></b></td>
-                                    <td class="text-center"><b style="color:orange;"><?php echo number_format($topmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></b></td>
+                                    <td class="text-center"><b
+                                                style="color:green;"><?php echo number_format($topmemnuniyet['Memnun'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center"><b
+                                                style="color:darkgoldenrod;"><?php echo number_format($topmemnuniyet['Kısmen Memnun'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center"><b
+                                                style="color:purple;"><?php echo number_format($topmemnuniyet['Memnun Değil'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center"><b
+                                                style="color:red;"><?php echo number_format($topmemnuniyet['Cevap Vermedi'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center"><b
+                                                style="color:orange;"><?php echo number_format($topmemnuniyet['Evde Bulunamadı'], 0, ',', '.'); ?></b>
+                                    </td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -394,8 +435,10 @@ $user = $t->session->userdata("user");
         <div class="col-md-12">
             <div class="widget">
                 <header class="widget-header">
-                    <h4 class="widget-title">Sayın <b><?php echo $user->full_name; ?></b>;<br><br>Ekibiniz (<b><?php echo get_teamName($user->ekip_id); ?></b>)
-                         bugün (<b><?php echo date("d/m/Y"); ?></b>) aşağıdaki mahalle ve sokaklarda görev yapacaktır.</h4>
+                    <h4 class="widget-title">Sayın <b><?php echo $user->full_name; ?></b>;<br><br>Ekibiniz
+                        (<b><?php echo get_teamName($user->ekip_id); ?></b>)
+                        bugün (<b><?php echo date("d/m/Y"); ?></b>) aşağıdaki mahalle ve sokaklarda görev yapacaktır.
+                    </h4>
                 </header>
                 <hr class="widget-separator"/>
                 <div class="widget-body">
@@ -421,62 +464,64 @@ $user = $t->session->userdata("user");
                     </div>
                 </div>
             </div><!-- .widget -->
-<!--            <div class="widget">-->
-<!--                <header class="widget-header">-->
-<!--                    <h4 class="widget-title"><b>--><?php //echo get_teamName($user->ekip_id); ?><!--</b> Personeli</h4>-->
-<!--                </header>-->
-<!--                <hr class="widget-separator"/>-->
-<!--                <div class="widget-body">-->
-<!--                    <div class="table-responsive">-->
-<!--                        <table class="table table-bordered table-striped table-hover table-responsive">-->
-<!--                            <thead>-->
-<!--                            <tr>-->
-<!--                                <th>Tarih</th>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                            --><?php //foreach ($tasks as $task) { ?>
-<!--                                <tr>-->
-<!--                                    <td class="text-center">--><?php //echo get_readable_fulldate($team->tarih); ?><!--</td>-->
-<!--                                </tr>-->
-<!--                            --><?php //} ?>
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div> .widget -->
+            <!--            <div class="widget">-->
+            <!--                <header class="widget-header">-->
+            <!--                    <h4 class="widget-title"><b>-->
+            <?php //echo get_teamName($user->ekip_id); ?><!--</b> Personeli</h4>-->
+            <!--                </header>-->
+            <!--                <hr class="widget-separator"/>-->
+            <!--                <div class="widget-body">-->
+            <!--                    <div class="table-responsive">-->
+            <!--                        <table class="table table-bordered table-striped table-hover table-responsive">-->
+            <!--                            <thead>-->
+            <!--                            <tr>-->
+            <!--                                <th>Tarih</th>-->
+            <!--                            </tr>-->
+            <!--                            </thead>-->
+            <!--                            <tbody>-->
+            <!--                            --><?php //foreach ($tasks as $task) { ?>
+            <!--                                <tr>-->
+            <!--                                    <td class="text-center">-->
+            <?php //echo get_readable_fulldate($team->tarih); ?><!--</td>-->
+            <!--                                </tr>-->
+            <!--                            --><?php //} ?>
+            <!--                            </tbody>-->
+            <!--                        </table>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div> .widget -->
         </div><!-- END column -->
     </div>
-<!--    <div class="row">-->
-<!--        <div class="col-md-12">-->
-<!--            <div class="widget">-->
-<!--                <header class="widget-header">-->
-<!--                    <h4 class="widget-title">Yarın (<b>--><?php //echo get_readable_onlydate($tomorrow); ?><!--</b>) aşağıdaki mahalle ve sokaklarda görev yapacaktır.</h4>-->
-<!--                </header>-->
-<!--                <hr class="widget-separator"/>-->
-<!--                <div class="widget-body">-->
-<!--                    <div class="table-responsive">-->
-<!--                        <table class="table table-bordered table-striped table-hover table-responsive">-->
-<!--                            <thead>-->
-<!--                            <tr>-->
-<!--                                <th>Tarih</th>-->
-<!--                                <th>Mahalle</th>-->
-<!--                                <th>Sokak</th>-->
-<!--                            </tr>-->
-<!--                            </thead>-->
-<!--                            <tbody>-->
-<!--                            --><?php //foreach ($tasks as $task) { ?>
-<!--                                <tr>-->
-<!--                                    <td class="text-center">--><?php //echo get_readable_fulldate($tomorrow->tarih); ?><!--</td>-->
-<!--                                    <td class="text-center">--><?php //echo get_townname($tomorrow->mahalle); ?><!--</td>-->
-<!--                                    <td class="text-center">--><?php //echo get_streetname($tomorrow->sokak); ?><!--</td>-->
-<!--                                </tr>-->
-<!--                            --><?php //} ?>
-<!--                            </tbody>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div><!-- .widget -->
-<!--        </div><!-- END column -->
-<!--    </div>-->
+    <!--    <div class="row">-->
+    <!--        <div class="col-md-12">-->
+    <!--            <div class="widget">-->
+    <!--                <header class="widget-header">-->
+    <!--                    <h4 class="widget-title">Yarın (<b>--><?php //echo get_readable_onlydate($tomorrow); ?><!--</b>) aşağıdaki mahalle ve sokaklarda görev yapacaktır.</h4>-->
+    <!--                </header>-->
+    <!--                <hr class="widget-separator"/>-->
+    <!--                <div class="widget-body">-->
+    <!--                    <div class="table-responsive">-->
+    <!--                        <table class="table table-bordered table-striped table-hover table-responsive">-->
+    <!--                            <thead>-->
+    <!--                            <tr>-->
+    <!--                                <th>Tarih</th>-->
+    <!--                                <th>Mahalle</th>-->
+    <!--                                <th>Sokak</th>-->
+    <!--                            </tr>-->
+    <!--                            </thead>-->
+    <!--                            <tbody>-->
+    <!--                            --><?php //foreach ($tasks as $task) { ?>
+    <!--                                <tr>-->
+    <!--                                    <td class="text-center">--><?php //echo get_readable_fulldate($tomorrow->tarih); ?><!--</td>-->
+    <!--                                    <td class="text-center">--><?php //echo get_townname($tomorrow->mahalle); ?><!--</td>-->
+    <!--                                    <td class="text-center">--><?php //echo get_streetname($tomorrow->sokak); ?><!--</td>-->
+    <!--                                </tr>-->
+    <!--                            --><?php //} ?>
+    <!--                            </tbody>-->
+    <!--                        </table>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div><!-- .widget -->
+    <!--        </div><!-- END column -->
+    <!--    </div>-->
 <?php } ?>

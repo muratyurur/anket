@@ -61,6 +61,25 @@
                 $('.memnuniyet').hide();
                 $('.tuzlakart').hide();
 
+            } else if (d == "A") {
+
+                $('#radio1_11').hide();
+                $('#radio1_21').fadeIn();
+                $('#radio1_31').hide();
+                $('#radio1_41').fadeIn();
+
+                $('#radio2_11').hide();
+                $('#radio2_21').hide();
+                $('#radio2_31').hide();
+                $('#radio2_41').hide();
+                $('#radio2_51').fadeIn();
+
+                $('.gorusulen-container').hide();
+                $('.talep').hide();
+
+                $('.memnuniyet').hide();
+                $('.tuzlakart').hide();
+
             } else if (d == "R") {
 
                 $('#radio1_11').hide();
@@ -80,6 +99,15 @@
                 $('.memnuniyet').hide();
                 $('.tuzlakart').hide();
 
+            }
+        })
+
+        $(document).on('change', '.tuzlakart', function () {
+            var t = $('input[type=radio][name=tuzlakartoptions]:checked').val();
+            if (t == "I")
+            {
+                $('#checkstar').hide();
+                $('#checkstar').prop("checked", false);
             }
         })
     })

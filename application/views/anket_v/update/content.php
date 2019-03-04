@@ -14,7 +14,7 @@
                 <form action="<?php echo base_url("anket/update/$item->id"); ?>" method="post"
                       enctype="multipart/form-data">
                     <h4>Nüfus Bilgileri</h4>
-                    <span><?php echo ($user->user_role_id == 1) ? "(Kaydı yapan anketör: <b>" . get_username($item->updatedBy) . "</b>)" : ""; ?></span>
+                    <span><?php echo "(Kaydı yapan anketör: <b>" . get_username($item->updatedBy) . "</b>)"; ?></span>
                     <hr>
                     <div class="row">
                         <div class="form-group col-md-4">
@@ -204,6 +204,12 @@
                                            name="durumoptions" id="B" value="B">
                                     <label for="radio3_2" class="radio"> Evde Bulunamadı</label>
                                 </div>
+                                <div class="radio radio-danger" id="radio3_41">
+                                    <input type="radio"
+                                           id="radio3_4" <?php echo $item->durum === 'A' ? "checked" : ""; ?>
+                                           name="durumoptions" id="A" value="A">
+                                    <label for="radio3_4" class="radio"> Adres Bulunamadı</label>
+                                </div>
                                 <div class="radio radio-danger" id="radio3_31">
                                     <input type="radio"
                                            id="radio3_3" <?php echo $item->durum === 'R' ? "checked" : ""; ?>
@@ -244,7 +250,7 @@
                                     <input type="radio"
                                            id="radio2_5" <?php echo $item->memnuniyet === 'B' ? "checked" : ""; ?>
                                            name="memnuniyetoptions" id="B" value="B">
-                                    <label for="radio2_5" class="radio"> Evde Bulunamadı</label>
+                                    <label for="radio2_5" class="radio"> Evde / Adres Bulunamadı</label>
                                 </div>
                                 <?php if (isset($form_error)) { ?>
                                     <small class="input-form-error pull-right"> <?php echo form_error("memnuniyetoptions"); ?></small>

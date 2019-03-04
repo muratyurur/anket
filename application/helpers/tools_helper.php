@@ -241,7 +241,10 @@ function get_statementName($durum)
     } else if ($durum === 'R') {
         $durumName = "Görüşmeyi Reddetti";
         return ($durumName);
-    } else if ($durum === NULL || $durum === '') {
+    } else if ($durum === "A") {
+        $durumName = "Adres Bulunamadı";
+        return ($durumName);
+     }else if ($durum === NULL || $durum === '') {
         $durumName = "Henüz Görüşülmedi";
         return ($durumName);
     }
@@ -252,7 +255,7 @@ function get_statementIcon($durum)
     if ($durum === 'G') {
         $durumIcon = "fa fa-check";
         return ($durumIcon);
-    } else if ($durum === 'B') {
+    } else if ($durum === 'B' || $durum === 'A') {
         $durumIcon = "fa fa-times";
         return ($durumIcon);
     } else if ($durum === 'R') {
@@ -269,7 +272,7 @@ function get_statementColor($durum)
     if ($durum === 'G') {
         $durumColor = "#00C568";
         return ($durumColor);
-    } else if ($durum === 'B') {
+    } else if ($durum === 'B' || $durum === 'A') {
         $durumColor = "#FFC54E";
         return ($durumColor);
     } else if ($durum === 'R') {
