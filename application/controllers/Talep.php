@@ -43,6 +43,18 @@ class Talep extends CI_Controller
             $this->session->set_userdata("where", $where);
         }
 
+        if ($this->input->post('talep_id')) {
+            $where['t.id'] = $this->input->post("talep_id");
+            $viewData->set_talep_id = $this->input->post("talep_id");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('sonucDurumu')) {
+            $where['t.sonucDurumu'] = $this->input->post("sonucDurumu");
+            $viewData->set_sonucDurumu = $this->input->post("sonucDurumu");
+            $this->session->set_userdata("where", $where);
+        }
+
         if ($this->input->post('mudurluk')) {
             $where['t.mudurluk'] = $this->input->post("mudurluk");
             $viewData->set_mudurluk = $this->input->post("mudurluk");
@@ -96,6 +108,8 @@ class Talep extends CI_Controller
 
         $departments = $this->mudurluk_model->get_all();
 
+        $statements= $this->talep_durumu_model->get_all();
+
         /** Taking all data from the table */
         $items = $this->talep_model->get_records(
             $condition ? $condition : "1=1",
@@ -110,6 +124,7 @@ class Talep extends CI_Controller
         $viewData->towns = $towns;
         $viewData->query = $this->db->last_query();
         $viewData->departments = $departments;
+        $viewData->statements = $statements;
         $viewData->query = $this->db->last_query();
         $viewData->links = $this->pagination->create_links();
 
@@ -401,16 +416,6 @@ class Talep extends CI_Controller
             $sonucTarihi = date('Y-m-d', strtotime($sontar));
 
             $data = array(
-                "secmen" => $this->input->post("secmen"),
-                "talepeden" => $this->input->post("talepeden"),
-                "irtibat" => $this->input->post("irtibat"),
-                "talepTarihi" => $this->input->post("talepTarihi"),
-                "kaynak" => $this->input->post("kaynak"),
-                "mahalle" => $this->input->post("mahalle"),
-                "sokak" => $this->input->post("sokak"),
-                "kapi" => $this->input->post("kapi"),
-                "daire" => $this->input->post("daire"),
-                "daire" => $this->input->post("daire"),
                 "mudurluk" => $this->input->post("mudurluk"),
                 "sonucDurumu" => $this->input->post("sonucDurumu"),
                 "sonucAciklama" => $this->input->post("sonucAciklama"),
@@ -420,16 +425,6 @@ class Talep extends CI_Controller
             );
         } else {
             $data = array(
-                "secmen" => $this->input->post("secmen"),
-                "talepeden" => $this->input->post("talepeden"),
-                "irtibat" => $this->input->post("irtibat"),
-                "talepTarihi" => $this->input->post("talepTarihi"),
-                "kaynak" => $this->input->post("kaynak"),
-                "mahalle" => $this->input->post("mahalle"),
-                "sokak" => $this->input->post("sokak"),
-                "kapi" => $this->input->post("kapi"),
-                "daire" => $this->input->post("daire"),
-                "daire" => $this->input->post("daire"),
                 "mudurluk" => $this->input->post("mudurluk"),
                 "sonucDurumu" => $this->input->post("sonucDurumu"),
                 "sonucAciklama" => $this->input->post("sonucAciklama"),

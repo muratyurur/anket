@@ -61,6 +61,8 @@
                 $('.memnuniyet').hide();
                 $('.tuzlakart').hide();
 
+                $('#checkstar').prop("checked", false);
+
             } else if (d == "A") {
 
                 $('#radio1_11').hide();
@@ -80,6 +82,8 @@
                 $('.memnuniyet').hide();
                 $('.tuzlakart').hide();
 
+                $('#checkstar').prop("checked", false);
+
             } else if (d == "R") {
 
                 $('#radio1_11').hide();
@@ -98,6 +102,8 @@
 
                 $('.memnuniyet').hide();
                 $('.tuzlakart').hide();
+
+                $('#checkstar').prop("checked", false);
 
             }
         })

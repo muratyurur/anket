@@ -31,20 +31,20 @@ class Dashboard_model extends CI_Model
     /** The method of returning count of people by towns */
     public function get_durumcount()
     {
-        return $this->db->select("CASE durum WHEN 'G' THEN 'Görüşüldü' WHEN 'B' THEN 'Evde Bulunamadı' WHEN 'R' THEN 'Görüşmeyi Reddetti' ELSE 'Henüz Görüşülmedi'
+        return $this->db->select("CASE durum WHEN 'G' THEN 'Görüşüldü' WHEN 'B' THEN 'Evde Bulunamadı' WHEN 'A' THEN 'Adres Bulunamadı' WHEN 'R' THEN 'Görüşmeyi Reddetti' ELSE 'Henüz Görüşülmedi'
 	END AS durum, COUNT(*) AS sayi")->where("updatedAt IS NOT NULL")->group_by("durum")->get("secmen s")->result();
     }
 
     /** The method of returning count of people by towns */
     public function get_mdurumcount()
     {
-        return $this->db->select("m.tanim, SUM(CASE WHEN s.durum = 'G' THEN 1 ELSE 0 END) \"Görüşüldü\", SUM(CASE WHEN s.durum = 'B' THEN 1 ELSE 0 END) \"Evde Bulunamadı\", SUM(CASE WHEN s.durum = 'R' THEN 1 ELSE 0 END) \"Görüşmeyi Reddetti\", SUM(CASE WHEN s.durum IS NULL THEN 1 ELSE 0 END) \"Henüz Görüşülmedi\"")->join("mahalle m", "m.id = s.mahalle", "inner")->group_by("m.tanim")->get("secmen s")->result_array();
+        return $this->db->select("m.tanim, SUM(CASE WHEN s.durum = 'G' THEN 1 ELSE 0 END) \"Görüşüldü\", SUM(CASE WHEN s.durum = 'B' THEN 1 ELSE 0 END) \"Evde Bulunamadı\", SUM(CASE WHEN s.durum = 'A' THEN 1 ELSE 0 END) \"Adres Bulunamadı\", SUM(CASE WHEN s.durum = 'R' THEN 1 ELSE 0 END) \"Görüşmeyi Reddetti\", SUM(CASE WHEN s.durum IS NULL THEN 1 ELSE 0 END) \"Henüz Görüşülmedi\"")->join("mahalle m", "m.id = s.mahalle", "inner")->group_by("m.tanim")->get("secmen s")->result_array();
     }
 
     /** The method of returning count of people by towns */
     public function get_topdurumcount()
     {
-        return $this->db->select("SUM(CASE WHEN s.durum = 'G' THEN 1 ELSE 0 END) \"Görüşüldü\", SUM(CASE WHEN s.durum = 'B' THEN 1 ELSE 0 END) \"Evde Bulunamadı\", SUM(CASE WHEN s.durum = 'R' THEN 1 ELSE 0 END) \"Görüşmeyi Reddetti\", SUM(CASE WHEN s.durum IS NULL THEN 1 ELSE 0 END) \"Henüz Görüşülmedi\"")->get("secmen s")->result_array();
+        return $this->db->select("SUM(CASE WHEN s.durum = 'G' THEN 1 ELSE 0 END) \"Görüşüldü\", SUM(CASE WHEN s.durum = 'B' THEN 1 ELSE 0 END) \"Evde Bulunamadı\", SUM(CASE WHEN s.durum = 'A' THEN 1 ELSE 0 END) \"Adres Bulunamadı\", SUM(CASE WHEN s.durum = 'R' THEN 1 ELSE 0 END) \"Görüşmeyi Reddetti\", SUM(CASE WHEN s.durum IS NULL THEN 1 ELSE 0 END) \"Henüz Görüşülmedi\"")->get("secmen s")->result_array();
     }
 
     /** The method of returning count of people by towns */
