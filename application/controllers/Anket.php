@@ -373,6 +373,10 @@ class Anket extends CI_Controller
             $this->form_validation->set_rules("tuzlakartoptions", "TuzlaKart Teslim Bilgisi", "trim|required");
         }
 
+        if ($statement == "T") {
+            $this->form_validation->set_rules("memnuniyetoptions", "Memnuniyet Bilgisi", "trim|required");
+        }
+
         /** Translate Validation Messages */
         $this->form_validation->set_message(
             array(
@@ -444,6 +448,10 @@ class Anket extends CI_Controller
                 $gorusulen = NULL;
                 $tuzlakart = "I";
                 $memnuniyet = "C";
+            } elseif ($durum == "T") {
+                $gorusulen = 1;
+                $memnuniyet = $this->input->post("memnuniyetoptions");
+                $tuzlakart = "T";
             }
 
 //            echo "gorusulen: " . $gorusulen . "<br>" . "tuzlakart: " . $tuzlakart . "<br>" . "memnuniyet: " . $memnuniyet;

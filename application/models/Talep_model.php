@@ -14,7 +14,7 @@ class Talep_model extends CI_Model
     public function get_records($where = array(), $limit, $count, $order = "talepTarihi ASC")
     {
         return $this->db->select("t.id talep_id, t.talepTarihi, t.kaynak, 
-        s.mahalle, s.id, t.istek, t.mudurluk, t.sonucDurumu, 
+        s.mahalle, s.id, t.secmen, t.istek, t.mudurluk, t.sonucDurumu, 
         t.sonucTarihi, t.sonucAciklama")
             ->where($where)
             ->join("secmen s", "t.secmen = s.id", "left outer")
@@ -27,7 +27,7 @@ class Talep_model extends CI_Model
     {
         return $this->db->select("t.id talep_id, t.talepTarihi, t.kaynak, 
         m.tanim mahalle, sk.tanim sokak, s.kapi kapi, s.daire daire, 
-        t.talepeden talepeden, t.irtibat, t.istek, mu.tanim mudurluk, 
+        t.talepeden talepeden, t.secmen secmen, t.irtibat, t.istek, mu.tanim mudurluk, 
         td.title sonucDurumu, t.sonucTarihi, t.sonucAciklama, u.full_name")
             ->where($where)
             ->join("secmen s", "t.secmen = s.id", "left outer")

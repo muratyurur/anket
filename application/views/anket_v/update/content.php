@@ -216,6 +216,12 @@
                                            name="durumoptions" id="R" value="R">
                                     <label for="radio3_3" class="radio"> Görüşmeyi Reddetti</label>
                                 </div>
+                                <div class="radio radio-danger" id="radio3_51">
+                                    <input type="radio"
+                                           id="radio3_5" <?php echo $item->durum === 'T' ? "checked" : ""; ?>
+                                           name="durumoptions" id="T" value="T">
+                                    <label for="radio3_5" class="radio"> Belediyede Görüşüldü</label>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4 memnuniyet">
@@ -284,6 +290,12 @@
                                            id="radio1_4" <?php echo $item->tuzlakart === 'V' ? "checked" : ""; ?>
                                            name="tuzlakartoptions" id="V" value="V">
                                     <label for="radio1_4" class="radio"> Var</label>
+                                </div>
+                                <div class="radio radio-success" id="radio1_51">
+                                    <input type="radio"
+                                           id="radio1_5" <?php echo $item->tuzlakart === 'T' ? "checked" : ""; ?>
+                                           name="tuzlakartoptions" id=TV" value="T">
+                                    <label for="radio1_5" class="radio"> Belediyede Teslim Aldı</label>
                                 </div>
                                 <?php if (isset($form_error)) { ?>
                                     <small class="input-form-error pull-right"> <?php echo form_error("tuzlakartoptions"); ?></small>

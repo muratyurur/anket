@@ -1,5 +1,5 @@
 <?php $where = $this->session->userdata("where"); ?>
-<pre><?php ($user->id == 1) ? print_r($items) : ""; ?></pre>
+<pre><?php print_r($where); ?></pre>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -141,7 +141,7 @@
                             <td class="text-center"><?php echo get_readable_onlydate($item->talepTarihi); ?></td>
                             <td class="text-center"><?php echo sourcename($item->kaynak); ?></td>
                             <td class="text-center"><?php echo get_townname($item->mahalle); ?></td>
-                            <td class="text-center"><?php echo get_person_name($item->id); ?></td>
+                            <td class="text-center"><?php echo get_person_name($item->secmen); ?></td>
                             <td class="text-center"><?php echo $item->istek; ?></td>
                             <td class="text-center"><?php echo get_statement($item->sonucDurumu); ?></td>
                             <td class="text-center"><?php echo get_departmentName($item->mudurluk); ?></td>

@@ -264,7 +264,8 @@
 
 		fold: function() {
 			$body.removeClass('menubar-unfold').addClass('menubar-fold');
-			$menubarFoldButton.removeClass('is-active');
+			// $menubarFoldButton.removeClass('is-active');
+			$menubarFoldButton.removeClass('');
 			this.toggleScroll() && this.toggleMenuHeading() && (this.folded = true);
 			$appMenu.find('li.open').removeClass('open') && $appMenu.find('.submenu').slideUp();
 			return true;
@@ -272,7 +273,8 @@
 
 		unFold: function() {
 			$body.removeClass('menubar-fold').addClass('menubar-unfold');
-			$menubarFoldButton.addClass('is-active');
+			// $menubarFoldButton.addClass('is-active');
+			$menubarFoldButton.addClass('');
 			// initialize the scroll if it's not initialized
 			this.scrollInitialized || this.initScroll();
 			this.toggleScroll() && this.toggleMenuHeading() && (this.folded = false);

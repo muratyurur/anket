@@ -130,13 +130,13 @@ function get_secmenName($id)
 
     $t->load->model("secmen_model");
 
-    $name = $t->secmen_model->get_secmen_list(
+    $secmen = $t->secmen_model->get(
         array(
             "id"    => $id
         )
     );
 
-    return ($name->secmen);
+    return ($secmen->adi . " " . $secmen->soyadi);
 }
 
 function sourcename($id)

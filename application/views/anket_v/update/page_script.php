@@ -13,6 +13,18 @@
             $('#radio2_5').prop("checked", false);
             $('#radio1_21').hide();
             $('#radio1_2').prop("checked", false);
+        } else if ($('#radio3_5').is(':checked')) {
+            $('.memnuniyet').show();
+            $('.tuzlakart').show();
+            $('.gorusulen-container').show();
+            $('.talep').show();
+            $('#radio2_51').hide();
+            $('#radio2_5').prop("checked", false);
+            $('#radio1_11').hide();
+            $('#radio1_21').hide();
+            $('#radio1_31').hide();
+            $('#radio1_41').hide();
+            $('#radio1_2').prop("checked", false);
         } else {
             $('.memnuniyet').hide();
             $('.tuzlakart').hide();
@@ -32,6 +44,7 @@
                 $('#radio1_21').hide();
                 $('#radio1_31').fadeIn();
                 $('#radio1_41').fadeIn();
+                $('#radio1_51').hide();
 
                 $('#radio2_11').fadeIn();
                 $('#radio2_21').fadeIn();
@@ -48,6 +61,7 @@
                 $('#radio1_21').fadeIn();
                 $('#radio1_31').hide();
                 $('#radio1_41').fadeIn();
+                $('#radio1_51').hide();
 
                 $('#radio2_11').hide();
                 $('#radio2_21').hide();
@@ -69,6 +83,7 @@
                 $('#radio1_21').fadeIn();
                 $('#radio1_31').hide();
                 $('#radio1_41').fadeIn();
+                $('#radio1_51').hide();
 
                 $('#radio2_11').hide();
                 $('#radio2_21').hide();
@@ -90,6 +105,7 @@
                 $('#radio1_21').hide();
                 $('#radio1_31').fadeIn();
                 $('#radio1_41').fadeIn();
+                $('#radio1_51').hide();
 
                 $('#radio2_11').hide();
                 $('#radio2_21').hide();
@@ -104,6 +120,27 @@
                 $('.tuzlakart').hide();
 
                 $('#checkstar').prop("checked", false);
+
+            } else if (d == "T") {
+
+                $('#radio1_11').hide();
+                $('#radio1_21').hide();
+                $('#radio1_31').hide();
+                $('#radio1_41').hide();
+                $('#radio1_51').fadeIn();
+                $('#radio1_51').prop("checked", true);
+
+                $('#radio2_11').fadeIn();
+                $('#radio2_21').fadeIn();
+                $('#radio2_31').fadeIn();
+                $('#radio2_41').fadeIn();
+                $('#radio2_51').hide();
+
+                $('.gorusulen-container').fadeIn();
+                $('.talep').fadeIn();
+
+                $('.memnuniyet').fadeIn();
+                $('.tuzlakart').fadeIn();
 
             }
         })

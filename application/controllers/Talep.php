@@ -25,10 +25,10 @@ class Talep extends CI_Controller
         $viewData = new stdClass();
 
         if (isset($_SERVER['HTTP_REFERER'])) {
-            $comefrom = strpos($_SERVER['HTTP_REFERER'], "talep");
+            $comefrom  = strpos($_SERVER['HTTP_REFERER'], "talep");
             $comefrom2 = strpos($_SERVER['HTTP_REFERER'], "secmen_ekle");
 
-            if ($comefrom == false || $comefrom2 == false) {
+            if ($comefrom === false || $comefrom2 === false) {
                 $this->session->unset_userdata("where");
             }
         }
@@ -50,7 +50,7 @@ class Talep extends CI_Controller
         }
 
         if ($this->input->post('sonucDurumu')) {
-            $where['t.sonucDurumu'] = $this->input->post("sonucDurumu");
+            $where['sonucDurumu'] = $this->input->post("sonucDurumu");
             $viewData->set_sonucDurumu = $this->input->post("sonucDurumu");
             $this->session->set_userdata("where", $where);
         }
@@ -103,6 +103,8 @@ class Talep extends CI_Controller
         $viewData->count = $config["total_rows"];
 
         $viewData->percount = $config["per_page"];
+
+        $viewData->query = $this->db->last_query();
 
         $towns = $this->mahalle_model->get_all(array(), "tanim ASC");
 
@@ -717,7 +719,7 @@ class Talep extends CI_Controller
 
     public function excel()
     {
-        $viewData = new stdClass();
+        $condition = $this->session->userdata("where");
 
         $this->load->model("user_role_model");
         $this->load->model("mahalle_model");
@@ -735,57 +737,12 @@ class Talep extends CI_Controller
             }
         }
 
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-
-        $where = array();
-
-        if ($this->input->post('mahalle')) {
-            $where['mahalle'] = $this->input->post("mahalle");
-            $viewData->set_mahalle = $this->input->post("mahalle");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('mudurluk')) {
-            $where['mudurluk'] = $this->input->post("mudurluk");
-            $viewData->set_mudurluk = $this->input->post("mudurluk");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('ilktarih')) {
-            $var = $this->input->post("ilktarih");
-
-            $ilktar = str_replace('/', '-', $var);
-
-            $ilktarih = date('Y-m-d', strtotime($ilktar));
-
-            $where['talepTarihi >='] = $ilktarih;
-            $viewData->set_ilktarih = $this->input->post("ilktarih");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('sontarih')) {
-            $var = $this->input->post("sontarih");
-
-            $sontar = str_replace('/', '-', $var);
-
-            $sontarih = date('Y-m-d', strtotime($sontar));
-
-            $where['talepTarihi <='] = $sontarih;
-            $viewData->set_sontarih = $this->input->post("sontarih");
-            $this->session->set_userdata("where", $where);
-        }
-
-        $condition = $this->session->userdata("where");
-
         $config["total_rows"] = $this->talep_model->get_count($condition ? $condition : "1=1");
         $config["per_page"] = 50;
 
-        $viewData->count = $config["total_rows"];
-
         /** Taking all data from the table */
         $items = $this->talep_model->excel_export(
-            $condition ? $condition : "1=1",
-            $page
+            $condition ? $condition : "1=1"
         );
 
         require APPPATH . "third_party/PHPExcel-1.8/Classes/PHPExcel.php";
