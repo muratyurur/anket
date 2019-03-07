@@ -148,8 +148,8 @@ $user = $t->session->userdata("user");
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url(""); ?>">
-                                    <span class="menu-text">Seçmen Durum Raporu</span>
+                                <a href="<?php echo base_url("reports/genel_durum"); ?>">
+                                    <span class="menu-text">Genel Durum Raporu</span>
                                 </a>
                             </li>
                         </ul>

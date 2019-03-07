@@ -64,9 +64,11 @@ $user = $t->session->userdata("user");
 							],
 							{
 								series: {
-									pie: { show: true }
+									pie: {
+									show: true
+									}
 								},
-								legend: { show: false },
+								legend: { show: true },
 								grid: { hoverable: true },
 								tooltip: {
 									show: true,
@@ -113,7 +115,7 @@ $user = $t->session->userdata("user");
 								series: {
 									pie: { show: true }
 								},
-								legend: { show: false },
+								legend: { show: true },
 								grid: { hoverable: true },
 								tooltip: {
 									show: true,
@@ -162,7 +164,7 @@ $user = $t->session->userdata("user");
 								series: {
 									pie: { show: true }
 								},
-								legend: { show: false },
+								legend: { show: true },
 								grid: { hoverable: true },
 								tooltip: {
 									show: true,
@@ -201,10 +203,11 @@ $user = $t->session->userdata("user");
                             <tr>
                                 <th>Mahalle</th>
                                 <th class="w250">Henüz Görüşülmedi</th>
-                                <th class="w250" style="color:#47AB6C;">Görüşüldü</th>
-                                <th class="w250" style="color:#F2B134;">Evde Bulunamadı</th>
-                                <th class="w250" style="color:#112F41;">Adres Bulunamadı</th>
-                                <th class="w250" style="color:#ED553B;">Görüşmeyi Reddetti</th>
+                                <th class="w200" style="color:#47AB6C;">Görüşüldü</th>
+                                <th class="w200" style="color:#0894A1;">Belediyede Görüşüldü</th>
+                                <th class="w200" style="color:#F2B134;">Evde Bulunamadı</th>
+                                <th class="w200" style="color:#112F41;">Adres Bulunamadı</th>
+                                <th class="w200" style="color:#ED553B;">Görüşmeyi Reddetti</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -214,6 +217,8 @@ $user = $t->session->userdata("user");
                                     <td class="text-center"><?php echo number_format($mdurum['Henüz Görüşülmedi'], 0, ',', '.'); ?></td>
                                     <td class="text-center"
                                         style="color:#47AB6C;"><?php echo number_format($mdurum['Görüşüldü'], 0, ',', '.'); ?></td>
+                                    <td class="text-center"
+                                        style="color:#0894A1;"><?php echo number_format($mdurum['Belediyede Görüşüldü'], 0, ',', '.'); ?></td>
                                     <td class="text-center"
                                         style="color:#F2B134;"><?php echo number_format($mdurum['Evde Bulunamadı'], 0, ',', '.'); ?></td>
                                     <td class="text-center"
@@ -230,6 +235,8 @@ $user = $t->session->userdata("user");
                                     </td>
                                     <td class="text-center"><b
                                                 style="color:#47AB6C;"><?php echo number_format($topdurum['Görüşüldü'], 0, ',', '.'); ?></b>
+                                    <td class="text-center"><b
+                                                style="color:#0894A1;"><?php echo number_format($topdurum['Belediyede Görüşüldü'], 0, ',', '.'); ?></b>
                                     </td>
                                     <td class="text-center"><b
                                                 style="color:#F2B134;"><?php echo number_format($topdurum['Evde Bulunamadı'], 0, ',', '.'); ?></b>
@@ -267,6 +274,7 @@ $user = $t->session->userdata("user");
                             <tr>
                                 <th>Mahalle</th>
                                 <th class="w250" style="color:#47AB6C;">Teslim Aldı</th>
+                                <th class="w250" style="color:#0894A1;">Belediyede Teslim Aldı</th>
                                 <th class="w250" style="color:#0894A1;">Teslim Edilemedi</th>
                                 <th class="w250" style="color:#ED553B;">İstemedi</th>
                                 <th class="w250" style="color:#F2B134;">Kartı Var</th>
@@ -278,6 +286,8 @@ $user = $t->session->userdata("user");
                                     <td class="text-center"><?php echo $mtuzlakart['tanim']; ?></td>
                                     <td class="text-center w250"
                                         style="color:#47AB6C;"><?php echo number_format($mtuzlakart['Teslim Aldı'], 0, ',', '.'); ?></td>
+                                    <td class="text-center w250"
+                                        style="color:#0894A1;"><?php echo number_format($mtuzlakart['Belediyede Teslim Aldı'], 0, ',', '.'); ?></td>
                                     <td class="text-center w250"
                                         style="color:#0894A1;"><?php echo number_format($mtuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></td>
                                     <td class="text-center w250"
@@ -291,6 +301,9 @@ $user = $t->session->userdata("user");
                                     <td class="text-center"><b>TOPLAM</b></td>
                                     <td class="text-center w250"><b
                                                 style="color:#47AB6C;"><?php echo number_format($toptuzlakart['Teslim Aldı'], 0, ',', '.'); ?></b>
+                                    </td>
+                                    <td class="text-center w250"><b
+                                                style="color:#0894A1;"><?php echo number_format($toptuzlakart['Belediyede Teslim Aldı'], 0, ',', '.'); ?></b>
                                     </td>
                                     <td class="text-center w250"><b
                                                 style="color:#0894A1;"><?php echo number_format($toptuzlakart['Teslim Edilemedi'], 0, ',', '.'); ?></b>

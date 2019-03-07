@@ -250,6 +250,29 @@ function get_statementName($durum)
     }
 }
 
+function get_tuzlakartStatementName($durum)
+{
+    if ($durum === 'E') {
+        $durumName = "Teslim Edildi";
+        return ($durumName);
+    } else if ($durum === 'B') {
+        $durumName = "Evde Bulunamadı";
+        return ($durumName);
+    } else if ($durum === 'A') {
+        $durumName = "Adres Bulunamadı";
+        return ($durumName);
+    } else if ($durum === 'T') {
+        $durumName = "Belediyede Teslim Edildi";
+        return ($durumName);
+    } else if ($durum === "H") {
+        $durumName = "Teslim Edilemedi";
+        return ($durumName);
+    }else if ($durum === NULL || $durum === '') {
+        $durumName = "Henüz Görüşülmedi";
+        return ($durumName);
+    }
+}
+
 function get_statementIcon($durum)
 {
     if ($durum === 'G') {

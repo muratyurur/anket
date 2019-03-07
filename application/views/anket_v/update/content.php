@@ -14,7 +14,7 @@
                 <form action="<?php echo base_url("anket/update/$item->id"); ?>" method="post"
                       enctype="multipart/form-data">
                     <h4>Nüfus Bilgileri</h4>
-                    <span><?php echo "(Kaydı yapan anketör: <b>" . get_username($item->updatedBy) . "</b>)"; ?></span>
+                    <span><?php echo "(Kaydı yapan anketör: <b>" . get_username($item->updatedBy) . "</b> - Kayıt Tarihi: <b>" . get_readable_fulldate($item->updatedAt) . "</b>)"; ?></span>
                     <hr>
                     <div class="row">
                         <div class="form-group col-md-4">
