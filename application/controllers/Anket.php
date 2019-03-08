@@ -683,6 +683,8 @@ class Anket extends CI_Controller
                 $durum = $value->tuzlakart != "V" ? "H" : "V";
             } elseif ($item->durum == "R" && $item->tuzlakart == "V") {
                 $durum = $value->tuzlakart != "V" ? "I" : "V";
+            } elseif ($item->durum == "T" && $item->tuzlakart == "V") {
+                $durum = $value->tuzlakart != "V" ? "T" : "V";
             } else {
                 $durum = $item->tuzlakart;
             }

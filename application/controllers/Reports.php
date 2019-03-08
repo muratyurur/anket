@@ -29,81 +29,10 @@ class Reports extends CI_Controller
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        $where = array();
-
-        if ($this->input->post('adi')) {
-            $where['adi'] = $this->input->post("adi");
-            $viewData->set_adi = $this->input->post("adi");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('soyadi')) {
-            $where['soyadi'] = $this->input->post("soyadi");
-            $viewData->set_soyadi = $this->input->post("soyadi");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('tckimlikno')) {
-            $where['tckimlikno'] = $this->input->post("tckimlikno");
-            $viewData->set_tckimlikno = $this->input->post("tckimlikno");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('mahalle')) {
-            $where['mahalle'] = $this->input->post("mahalle");
-            $viewData->set_mahalle = $this->input->post("mahalle");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('sokak')) {
-            $where['sokak'] = $this->input->post("sokak");
-            $viewData->set_sokak = $this->input->post("sokak");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('kapi')) {
-            $where['kapi'] = $this->input->post("kapi");
-            $viewData->set_kapi = $where['kapi'];
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('daire')) {
-            $where['daire'] = $this->input->post("daire");
-            $viewData->set_daire = $this->input->post("daire");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('ilktarih')) {
-            $var = $this->input->post("ilktarih");
-
-            $ilktar = str_replace('/', '-', $var);
-
-            $ilktarih = date('Y-m-d', strtotime($ilktar));
-
-            $where['s.updatedAt >='] = $ilktarih;
-            $viewData->set_ilktarih = $this->input->post("ilktarih");
-            $this->session->set_userdata("where", $where);
-        }
-
-        if ($this->input->post('sontarih')) {
-            $var = $this->input->post("sontarih");
-
-            $sontar = str_replace('/', '-', $var);
-
-            $sontarih = date('Y-m-d', strtotime($sontar));
-
-            $where['s.updatedAt <='] = $sontarih;
-            $viewData->set_sontarih = $this->input->post("sontarih");
-            $this->session->set_userdata("where", $where);
-        }
-
-        $condition = $this->session->userdata("where");
-
-
         $this->load->library("pagination");
 
         $config["base_url"] = base_url("anket/index");
-        $config["total_rows"] = $this->report_model->get_count($condition ? $condition : "1=1");
+        $config["total_rows"] = $this->report_model->get_count(array(""));
         $config["uri_segment)"] = 3;
         $config["per_page"] = 50;
         $config["num_links"] = 3;
@@ -116,45 +45,13 @@ class Reports extends CI_Controller
 
         /** Taking all data from the table */
         $items = $this->report_model->genel_durum(
-            $condition ? $condition : "1=1",
+            array(""),
             $config["per_page"],
             $page,
             "mahalle, sokak, ABS(kapi), daire, soyadi, adi"
         );
 
         $viewData->count = $config["total_rows"];
-
-        /** Taking all towns in the place */
-        $viewData->mahalle = $this->mahalle_model->get_all(array(), "tanim ASC");
-
-        if ($this->input->post("mahalle")) {
-            /** Taking all streets in town */
-            $viewData->sokak = $this->sokak_model->get_all(
-                array(
-                    "mahalle_id" => $this->input->post("mahalle")
-                ), "tanim ASC");
-        } else {
-            /** Taking all streets in town */
-            $viewData->sokak = $this->sokak_model->get_all(array(), "tanim ASC");
-        }
-
-        $this->load->model("mahalle_model");
-        $this->load->model("sokak_model");
-
-//        /** Taking all town */
-//        $viewData->mahalle = $this->mahalle_model->get_all();
-//
-//        /** Taking all streets in town */
-//        if ($this->input->post("mahalle")) {
-//            /** Taking all streets in town */
-//            $viewData->sokak = $this->sokak_model->get_all(
-//                array(
-//                    "mahalle_id" => $this->input->post("mahalle")
-//                ), "tanim ASC");
-//        } else {
-//            /** Taking all streets in town */
-//            $viewData->sokak = $this->sokak_model->get_all(array(), "tanim ASC");
-//        }
 
         $viewData->percount = $config["per_page"];
 
