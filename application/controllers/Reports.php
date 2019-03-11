@@ -16,16 +16,11 @@ class Reports extends CI_Controller
         $this->load->model("sokak_model");
     }
 
-    public function genel_durum()
+    public function genel_durum_ozet()
     {
         $viewData = new stdClass();
 
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            $comefrom = strpos($_SERVER['HTTP_REFERER'], "anket");
-            if ($comefrom == false) {
-                $this->session->unset_userdata("where");
-            }
-        }
+        $this->session->unset_userdata("where");
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
@@ -44,11 +39,9 @@ class Reports extends CI_Controller
 
 
         /** Taking all data from the table */
-        $items = $this->report_model->genel_durum(
-            array(""),
+        $items = $this->report_model->genel_durum_ozet(
             $config["per_page"],
-            $page,
-            "mahalle, sokak, ABS(kapi), daire, soyadi, adi"
+            $page
         );
 
         $viewData->count = $config["total_rows"];
@@ -57,7 +50,7 @@ class Reports extends CI_Controller
 
         /** Defining data to be sent to view */
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "secmen_durum";
+        $viewData->subViewFolder = "genel_durum_ozet";
         $viewData->items = $items;
         $viewData->links = $this->pagination->create_links();
 
@@ -66,14 +59,10 @@ class Reports extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
-    public function gd_excel(){
-        $condition = $this->session->userdata("where");
-
+    public function gdo_excel()
+    {
         /** Taking all data from the table */
-        $items = $this->report_model->gd_excel(
-            $condition ? $condition : "s.updatedAt is not null",
-            "mahalle, sokak, ABS(kapi), daire, soyadi, adi"
-        );
+        $items = $this->report_model->gdo_excel();
 
         require APPPATH . "third_party/PHPExcel-1.8/Classes/PHPExcel.php";
         require APPPATH . "third_party/PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php";
@@ -99,48 +88,50 @@ class Reports extends CI_Controller
             )
         );
 
-        foreach(range('A','P') as $columnID) {
+        foreach (range('A', 'N') as $columnID) {
             $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
             $objPHPExcel->getActiveSheet()->getStyle($columnID . "1")->applyFromArray($styleArray);
+            $objPHPExcel->getActiveSheet()->getStyle($columnID . "2")->applyFromArray($styleArray);
         }
 
-        $objPHPExcel->getActiveSheet()->setCellValue('A1', "ADI");
-        $objPHPExcel->getActiveSheet()->setCellValue('B1', "SOYADI");
-        $objPHPExcel->getActiveSheet()->setCellValue('C1', "T.C. KİMLİK NO.");
-        $objPHPExcel->getActiveSheet()->setCellValue('D1', "CEP TELEFONU 1");
-        $objPHPExcel->getActiveSheet()->setCellValue('E1', "CEP TELEFONU 2");
-        $objPHPExcel->getActiveSheet()->setCellValue('F1', "EPOSTA");
-        $objPHPExcel->getActiveSheet()->setCellValue('G1', "MAHALLE");
-        $objPHPExcel->getActiveSheet()->setCellValue('H1', "SOKAK");
-        $objPHPExcel->getActiveSheet()->setCellValue('I1', "KAPI NO.");
-        $objPHPExcel->getActiveSheet()->setCellValue('J1', "DAİRE NO.");
-        $objPHPExcel->getActiveSheet()->setCellValue('K1', "GÖRÜŞME DURUMU");
-        $objPHPExcel->getActiveSheet()->setCellValue('L1', "TUZLAKART TESLİM DURUMU");
-        $objPHPExcel->getActiveSheet()->setCellValue('M1', "MEMNUNİYET");
-        $objPHPExcel->getActiveSheet()->setCellValue('N1', "TESLİM EDİLEN");
-        $objPHPExcel->getActiveSheet()->setCellValue('O1', "TARİH");
-        $objPHPExcel->getActiveSheet()->setCellValue('P1', "ANKETÖR");
+        $objPHPExcel->getActiveSheet()->mergeCells('B1:C1');
+        $objPHPExcel->getActiveSheet()->mergeCells('D1:N1');
 
-        $row = 2;
+        $objPHPExcel->getActiveSheet()->setCellValue('B1', "SABİT VERİLER");
+        $objPHPExcel->getActiveSheet()->setCellValue('D1', "DEĞİŞKEN VERİLER");
 
-        foreach ($items as $item)
-        {
-            $objPHPExcel->getActiveSheet()->setCellValue('A'.$row, $item->adi);
-            $objPHPExcel->getActiveSheet()->setCellValue('B'.$row, $item->soyadi);
-            $objPHPExcel->getActiveSheet()->setCellValue('C'.$row, $item->tckimlikno);
-            $objPHPExcel->getActiveSheet()->setCellValue('D'.$row, $item->gsm1);
-            $objPHPExcel->getActiveSheet()->setCellValue('E'.$row, $item->gsm2);
-            $objPHPExcel->getActiveSheet()->setCellValue('F'.$row, $item->eposta);
-            $objPHPExcel->getActiveSheet()->setCellValue('G'.$row, $item->mahalle);
-            $objPHPExcel->getActiveSheet()->setCellValue('H'.$row, $item->sokak);
-            $objPHPExcel->getActiveSheet()->setCellValue('I'.$row, $item->kapi);
-            $objPHPExcel->getActiveSheet()->setCellValue('J'.$row, $item->daire);
-            $objPHPExcel->getActiveSheet()->setCellValue('K'.$row, $item->durum);
-            $objPHPExcel->getActiveSheet()->setCellValue('L'.$row, $item->tuzlakart);
-            $objPHPExcel->getActiveSheet()->setCellValue('M'.$row, $item->memnuniyet);
-            $objPHPExcel->getActiveSheet()->setCellValue('N'.$row, $item->gorusulen);
-            $objPHPExcel->getActiveSheet()->setCellValue('O'.$row, $item->tarih);
-            $objPHPExcel->getActiveSheet()->setCellValue('P'.$row, $item->anketor);
+        $objPHPExcel->getActiveSheet()->setCellValue('A2', "MAHALLE");
+        $objPHPExcel->getActiveSheet()->setCellValue('B2', "SEÇMEN SAYISI");
+        $objPHPExcel->getActiveSheet()->setCellValue('C2', "KARTI OLAN (SEÇMEN)");
+        $objPHPExcel->getActiveSheet()->setCellValue('D2', "KARTI OLAN (GÖRÜŞÜLEN)");
+        $objPHPExcel->getActiveSheet()->setCellValue('E2', "TESLİM EDİLEN (KART)");
+        $objPHPExcel->getActiveSheet()->setCellValue('F2', "İSTEMEYEN (KART)");
+        $objPHPExcel->getActiveSheet()->setCellValue('G2', "GÖRÜŞÜLEMEYEN");
+        $objPHPExcel->getActiveSheet()->setCellValue('H2', "KALAN");
+        $objPHPExcel->getActiveSheet()->setCellValue('I2', "MEMNUN");
+        $objPHPExcel->getActiveSheet()->setCellValue('J2', "KISMEN MEMNUN");
+        $objPHPExcel->getActiveSheet()->setCellValue('K2', "MEMNUN DEĞİL");
+        $objPHPExcel->getActiveSheet()->setCellValue('L2', "CEVAP VERMEDİ");
+        $objPHPExcel->getActiveSheet()->setCellValue('M2', "TOPLAM GÖRÜŞÜLEN");
+        $objPHPExcel->getActiveSheet()->setCellValue('N2', "MEMNUNİYET ORANI");
+
+        $row = 3;
+
+        foreach ($items as $item) {
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $row, get_townname($item->mahalle));
+            $objPHPExcel->getActiveSheet()->setCellValue('B' . $row, $item->SECMEN);
+            $objPHPExcel->getActiveSheet()->setCellValue('C' . $row, $item->V);
+            $objPHPExcel->getActiveSheet()->setCellValue('D' . $row, $item->VG);
+            $objPHPExcel->getActiveSheet()->setCellValue('E' . $row, $item->EG);
+            $objPHPExcel->getActiveSheet()->setCellValue('F' . $row, $item->IG);
+            $objPHPExcel->getActiveSheet()->setCellValue('G' . $row, $item->HB);
+            $objPHPExcel->getActiveSheet()->setCellValue('H' . $row, $item->KALAN);
+            $objPHPExcel->getActiveSheet()->setCellValue('I' . $row, $item->M);
+            $objPHPExcel->getActiveSheet()->setCellValue('J' . $row, $item->KM);
+            $objPHPExcel->getActiveSheet()->setCellValue('K' . $row, $item->MD);
+            $objPHPExcel->getActiveSheet()->setCellValue('L' . $row, $item->C);
+            $objPHPExcel->getActiveSheet()->setCellValue('M' . $row, $item->TG);
+            $objPHPExcel->getActiveSheet()->setCellValue('N' . $row, $item->MO);
             $row++;
         }
 
@@ -150,7 +141,7 @@ class Reports extends CI_Controller
         $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
         $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);
 
-        $fileName = date("d.m.Y") . "-genel_durum.xlsx";
+        $fileName = date("YdmHis") . "-genel_durum.xlsx";
 
         $objPHPExcel->getActiveSheet()->setTitle(date("d.m.Y"));
 
@@ -166,7 +157,172 @@ class Reports extends CI_Controller
     public function clear_session()
     {
         $this->session->unset_userdata("where");
-        redirect(base_url("reports/genel_durum"));
+        redirect(base_url("reports/genel_durum_detay"));
+    }
+
+    public function genel_durum_detay()
+    {
+        $viewData = new stdClass();
+
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $comefrom = strpos($_SERVER['HTTP_REFERER'], "reports");
+            if ($comefrom == false) {
+                $this->session->unset_userdata("where");
+            }
+        }
+
+        $where = array();
+
+        if ($this->input->post('adi')) {
+            $where['adi'] = $this->input->post("adi");
+            $viewData->set_adi = $this->input->post("adi");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('soyadi')) {
+            $where['soyadi'] = $this->input->post("soyadi");
+            $viewData->set_soyadi = $this->input->post("soyadi");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('tckimlikno')) {
+            $where['tckimlikno'] = $this->input->post("tckimlikno");
+            $viewData->set_tckimlikno = $this->input->post("tckimlikno");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('mahalle')) {
+            $where['mahalle'] = $this->input->post("mahalle");
+            $viewData->set_mahalle = $this->input->post("mahalle");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('sokak')) {
+            $where['sokak'] = $this->input->post("sokak");
+            $viewData->set_sokak = $this->input->post("sokak");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('kapi')) {
+            $where['kapi'] = $this->input->post("kapi");
+            $viewData->set_kapi = $where['kapi'];
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('daire')) {
+            $where['daire'] = $this->input->post("daire");
+            $viewData->set_daire = $this->input->post("daire");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('ilktarih')) {
+            $var = $this->input->post("ilktarih");
+
+            $ilktar = str_replace('/', '-', $var);
+
+            $ilktarih = date('Y-m-d', strtotime($ilktar));
+
+            $where['t.talepTarihi >='] = $ilktarih;
+            $viewData->set_ilktarih = $this->input->post("ilktarih");
+            $this->session->set_userdata("where", $where);
+        }
+
+        if ($this->input->post('sontarih')) {
+            $var = $this->input->post("sontarih");
+
+            $sontar = str_replace('/', '-', $var);
+
+            $sontarih = date('Y-m-d', strtotime($sontar));
+
+            $where['t.talepTarihi <='] = $sontarih;
+            $viewData->set_sontarih = $this->input->post("sontarih");
+            $this->session->set_userdata("where", $where);
+        }
+
+        $condition = $this->session->userdata("where");
+
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+
+        $this->load->library("pagination");
+
+        $config["base_url"] = base_url("reports/genel_durum_detay/index");
+        $config["total_rows"] = $this->report_model->get_count($condition ? $condition : "updatedAt is not null");
+        $config["uri_segment)"] = 3;
+        $config["per_page"] = 50;
+        $config["num_links"] = 4;
+        $config["last_link"] = "Son Sayfa";
+        $config["first_link"] = "İlk Sayfa";
+
+
+        $this->pagination->initialize($config);
+
+
+        /** Taking all data from the table */
+        $items = $this->report_model->genel_durum_detay(
+            $where,
+            $config["per_page"],
+            $page
+        );
+
+        $viewData->count = $config["total_rows"];
+
+        $viewData->percount = $config["per_page"];
+
+        /** Defining data to be sent to view */
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "genel_durum_detay";
+        $viewData->items = $items;
+        $viewData->links = $this->pagination->create_links();
+
+
+        /** Load View */
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    public function gdd_csv()
+    {
+        $condition = $this->session->userdata("where");
+
+        $fileName = "GENEL DURUM " . date("YmdHi") . ".csv";
+
+        header('Content-type:text/csv');
+        header('Content-Disposition:attachment;filename=' . $fileName);
+        header('Cache-Control:no-store, no-cache, must-revalidate');
+        header('Cache-Control:post-check=0, pre-check=0');
+        header('Pragma:no-cache');
+        header('Expires:0');
+
+        $handle = fopen('php://output', 'w');
+
+        fputcsv($handle, array(
+            'ADI',
+            'SOYADI',
+            'T.C. KİMLİK NO.',
+            'CEP TELEFONU 1',
+            'CEP TELEFONU 2',
+            'EPOSTA ADRESİ',
+            'MAHALLE',
+            'SOKAK',
+            'KAPI NO.',
+            'DAİRE NO.',
+            'GÖRÜŞME DURUMU',
+            'TUZLAKART TESLİM DURUMU',
+            'MEMNUNİYET',
+            'TESLİM EDİLEN',
+            'TARİH',
+            'ANKETÖR'
+        ));
+
+        $data['rapor'] = $this->report_model->gdd_detay(
+            $condition ? $condition : "updatedAt is not null"
+        );
+
+        foreach ($data['rapor'] as $key => $row) {
+            fputcsv($handle, $row);
+        }
+
+        fclose($handle);
+        exit;
     }
 
 }

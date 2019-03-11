@@ -137,19 +137,25 @@ $user = $t->session->userdata("user");
                     <li class="has-submenu">
                         <a href="javascript:void(0)" class="submenu-toggle">
                             <i class="menu-icon zmdi zmdi-chart zmdi-hc-lg"></i>
-                            <span class="menu-text">Raporlar</span><br>
-                            <small><i class="zmdi zmdi-alarm-check"></i> Yapım Aşamasında</small>
+                            <span class="menu-text">Raporlar</span>
                             <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                         </a>
-                        <ul class="submenu" id="user-submenu">
+                        <ul class="submenu" id="report-submenu">
                             <li>
-                                <a href="<?php echo base_url(""); ?>">
-                                    <span class="menu-text">Performans Raporu</span>
+                                <a href="<?php echo base_url("performans"); ?>">
+                                    <span class="menu-text">Performans Raporu</span><br>
+                                    <small><i class="zmdi zmdi-alarm-check"></i> Yapım Aşamasında</small>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url("reports/genel_durum"); ?>">
-                                    <span class="menu-text">Genel Durum Raporu</span>
+                                <a href="<?php echo base_url("reports/genel_durum_ozet"); ?>">
+                                    <span class="menu-text">Genel Durum (Özet)</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url("reports/genel_durum_detay"); ?>">
+                                    <span class="menu-text">Genel Durum (Detay)</span><br>
+                                    <small><i class="zmdi zmdi-alarm-check"></i> Yapım Aşamasında</small>
                                 </a>
                             </li>
                         </ul>

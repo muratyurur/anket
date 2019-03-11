@@ -449,7 +449,7 @@ class Anket extends CI_Controller
                 $tuzlakart = "I";
                 $memnuniyet = "C";
             } elseif ($durum == "T") {
-                $gorusulen = 1;
+                $gorusulen = NULL;
                 $memnuniyet = $this->input->post("memnuniyetoptions");
                 $tuzlakart = "T";
             }
@@ -527,6 +527,7 @@ class Anket extends CI_Controller
                                 "talepTarihi" => date("Y-m-d H:i:s"),
                                 "istek" => $item->gorus,
                                 "secmen" => $item->id,
+                                "irtibat" => $item->gsm1,
                                 "talepeden" => $item->adi . " " . $item->soyadi,
                                 "kaynak" => 1,
                                 "sonucDurumu" => 1

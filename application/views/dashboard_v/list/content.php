@@ -80,7 +80,7 @@ $user = $t->session->userdata("user");
                 </div><!-- .widget-body -->
                 <hr class="widget-separator">
                 <footer class="widget-footer text-center">
-                    <small>Toplam Dokunulan Seçmen:</small>
+                    <small>Toplam Ziyaret Edilen Seçmen:</small>
                     <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
                 </footer>
             </div><!-- .widget -->
@@ -127,7 +127,7 @@ $user = $t->session->userdata("user");
                 </div><!-- .widget-body -->
                 <hr class="widget-separator">
                 <footer class="widget-footer text-center">
-                    <small>Toplam Dokunulan Seçmen:</small>
+                    <small>Toplam Ziyaret Edilen Seçmen:</small>
                     <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
                 </footer>
             </div><!-- .widget -->
@@ -176,7 +176,7 @@ $user = $t->session->userdata("user");
                 </div><!-- .widget-body -->
                 <hr class="widget-separator">
                 <footer class="widget-footer text-center">
-                    <small>Toplam Dokunulan Seçmen:</small>
+                    <small>Toplam Ziyaret Edilen Seçmen:</small>
                     <h4 style="display: inline"><?php echo number_format($general_count, 0, ',', '.'); ?></h4>
                 </footer>
             </div><!-- .widget -->
