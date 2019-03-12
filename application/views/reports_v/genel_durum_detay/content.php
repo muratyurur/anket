@@ -1,5 +1,6 @@
 <?php $where = $this->session->userdata("where"); ?>
 <?php $formatter = new NumberFormatter('tr_tr', NumberFormatter::PERCENT) ?>
+<pre><?php print_r($where); ?></pre>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -52,7 +53,7 @@
                     <div class="form-group col-md-4">
                         <label>Soyadı</label>
                         <input name="soyadi" type="text" class="form-control"
-                               value="<?php echo (isset($set_soyadi)) ? $set_soyadi : ""; ?>">
+                               value="<?php echo $where['soyadi'] ? $where['soyadi'] : ""; ?>">
                     </div>
                     <div class="form-group col-md-4">
                         <label>Vatandaşlık No.</label>
@@ -62,7 +63,7 @@
                     <div class="form-group col-md-4">
                         <label for="datetimepicker2">İlk Tarih</label>
                         <br>
-                        <input value="<?php echo ($set_ilktarih) ? $set_ilktarih : ""; ?>"
+                        <input value="<?php echo $where['s.updatedAt >='] ? get_readable_onlydate($where['s.updatedAt >=']) : ""; ?>"
                                type="text"
                                class="form-control"
                                name="ilktarih"
@@ -73,7 +74,7 @@
                     <div class="form-group col-md-4">
                         <label for="datetimepicker2">Son Tarih</label>
                         <br>
-                        <input value="<?php echo ($set_sontarih) ? $set_sontarih : ""; ?>"
+                        <input value="<?php echo $where['s.updatedAt <='] ? get_readable_onlydate($where['s.updatedAt <=']) : ""; ?>"
                                type="text"
                                class="form-control"
                                name="sontarih"
