@@ -449,7 +449,7 @@ class Anket extends CI_Controller
                 $tuzlakart = "I";
                 $memnuniyet = "C";
             } elseif ($durum == "T") {
-                $gorusulen = NULL;
+                $gorusulen = $this->input->post("gorusulen");
                 $memnuniyet = $this->input->post("memnuniyetoptions");
                 $tuzlakart = "T";
             }

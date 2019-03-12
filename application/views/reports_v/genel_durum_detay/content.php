@@ -1,6 +1,5 @@
 <?php $where = $this->session->userdata("where"); ?>
 <?php $formatter = new NumberFormatter('tr_tr', NumberFormatter::PERCENT) ?>
-<pre><?php print_r($where); ?></pre>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">

@@ -509,63 +509,10 @@ order by
 
         $data = $this->dbutil->csv_from_result($query, $delimiter, $newline, $enclosure);
 
-//        echo "<pre>";
-//        print_r($data);
-//        echo "</pre>";
-//
-//        die();
-
-
-        if (!write_file('/tmp/Genel Durum.csv', $data)) {
+        if (!write_file('Genel Durum.csv', $data)) {
             echo 'Unable to write the file';
         } else {
-            force_download('/tmp/Genel Durum.csv', $data);
+            force_download('Genel Durum.csv', $data);
         }
     }
-
-//        $fileName = "GENEL DURUM " . date("YmdHi") . ".csv";
-//
-//        header('Content-type:text/csv');
-//        header('Content-Disposition:attachment;filename=' . $fileName);
-//        header('Cache-Control:no-store, no-cache, must-revalidate');
-//        header('Cache-Control:post-check=0, pre-check=0');
-//        header('Pragma:no-cache');
-//        header('Expires:0');
-//
-//        $handle = fopen('php://output', 'w');
-//
-//        fputcsv($handle, array(
-//            'ADI',
-//            'SOYADI',
-//            'T.C. KİMLİK NO.',
-//            'CEP TELEFONU 1',
-//            'CEP TELEFONU 2',
-//            'EPOSTA ADRESİ',
-//            'MAHALLE',
-//            'SOKAK',
-//            'KAPI NO.',
-//            'DAİRE NO.',
-//            'GÖRÜŞME DURUMU',
-//            'TUZLAKART TESLİM DURUMU',
-//            'MEMNUNİYET',
-//            'TESLİM EDİLEN',
-//            'TARİH',
-//            'ANKETÖR'
-//        ));
-//
-//        $data['rapor'] = $this->report_model->gdd_detay(
-//            $condition ? $condition : "s.updatedAt is not null"
-//        );
-//
-//        foreach ($data['rapor'] as $as => $row) {
-//            foreach ($row as $key => $value)
-//            {
-//                fwrite($handle, ucfirst($key) . ": $value\r\n");
-//            }
-//            fwrite($handle, "\r\n");
-//        }
-//        fclose($handle);
-//        exit;
-//    }
-
 }
