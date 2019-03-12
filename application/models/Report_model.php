@@ -125,7 +125,7 @@ class Report_model extends CI_Model
     /** The method of returning all row's with limit for pagination */
     public function gdd_detay($where = array(""), $order = "s.updatedAt DESC")
     {
-        return $this->db->select("s.adi 'adi',
+        $this->db->select("s.adi 'adi',
 	s.soyadi 'soyadi',
 	s.tckimlikno 'tckimlikno',
 	s.gsm1 'gsm1',
@@ -164,13 +164,13 @@ class Report_model extends CI_Model
 		when '1' then '+'
 	end 'gorusulen',
 	DATE_FORMAT(s.updatedAt, '%d/%m/%Y') 'updatedAt',
-	u.full_name 'full_name'")
-            ->join("mahalle m", "m.id = s.mahalle", "inner")
-            ->join("sokak sk", "s.sokak = sk.id", "inner")
-            ->join("users u", "s.updatedBy = u.id", "inner")
-            ->where($where)
-            ->order_by($order)
-            ->get("secmen s")
-            ->result_array();
+	u.full_name 'full_name'");
+            $this->db->join("mahalle m", "m.id = s.mahalle", "inner");
+            $this->db->join("sokak sk", "s.sokak = sk.id", "inner");
+            $this->db->join("users u", "s.updatedBy = u.id", "inner");
+            $this->db->where($where);
+            $this->db->order_by($order);
+            $query = $this->db->get("secmen s");
+            return $query->result_array();
     }
 }

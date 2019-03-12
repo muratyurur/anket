@@ -85,7 +85,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <a class="btn btn-outline btn-success btn-md pull-right"
-                           href="<?php echo base_url("reports/gdd_csv"); ?>">
+                           href="<?php echo base_url("reports/exportData"); ?>">
                             <i class="fa fa-file-excel-o"></i> Excel (CSV)
                         </a>
                         <a href="<?php echo base_url("reports/clear_session"); ?>">

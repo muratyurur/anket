@@ -283,19 +283,19 @@ class Reports extends CI_Controller
     {
         $condition = $this->session->userdata("where");
 
+        // get data
+        $items = $this->report_model->gdd_detay();
+
+        // file name
         $fileName = "GENEL DURUM " . date("YmdHi") . ".csv";
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=$fileName");
+        header("Content-Type: application/csv; ");
 
-        header('Content-type:text/csv');
-        header('Content-Disposition:attachment;filename=' . $fileName);
-        header('Cache-Control:no-store, no-cache, must-revalidate');
-        header('Cache-Control:post-check=0, pre-check=0');
-        header('Pragma:no-cache');
-        header('Expires:0');
+        // file creation
+        $file = fopen('php://output', 'w');
 
-        $handle = fopen('php://output', 'w');
-
-        fputcsv($handle, array(
-            'ADI',
+        $header = array('ADI',
             'SOYADI',
             'T.C. KİMLİK NO.',
             'CEP TELEFONU 1',
@@ -310,19 +310,101 @@ class Reports extends CI_Controller
             'MEMNUNİYET',
             'TESLİM EDİLEN',
             'TARİH',
-            'ANKETÖR'
-        ));
+            'ANKETÖR');
+        fputcsv($file, $header);
 
-        $data['rapor'] = $this->report_model->gdd_detay(
-            $condition ? $condition : "updatedAt is not null"
-        );
-
-        foreach ($data['rapor'] as $key => $row) {
-            fputcsv($handle, $row);
+        foreach ($items as $item) {
+            fputcsv($file,
+                array(
+                    $item->adi,
+                    $item->soyadi,
+                    $item->tckimlikno,
+                    $item->gsm1,
+                    $item->gsm2,
+                    $item->eposta,
+                    $item->mahalle,
+                    $item->sokak,
+                    $item->kapi,
+                    $item->daire,
+                    $item->durum,
+                    $item->tuzlakart,
+                    $item->memnuniyet,
+                    $item->gorusulen,
+                    $item->updatedAt,
+                    $item->full_name,
+                ));
         }
 
-        fclose($handle);
+        fclose($file);
         exit;
     }
+
+    public function exportData()
+    {
+        $fileName = "GENEL DURUM " . date("YmdHi") . ".csv";
+
+        $this->load->dbutil();
+
+        $query = $this->db->query("SELECT * FROM mahalle");
+
+        $delimiter = ";";
+        $newline = "\r\n";
+        $enclosure = '"';
+
+        $data = $this->dbutil->csv_from_result($query, $delimiter, $newline, $enclosure);
+
+        $this->load->helper('file');
+
+        if (!write_file('/tmp/' . $fileName . '.csv', $data)) {
+            echo 'Unable to write the file';
+        } else {
+            echo 'File written!';
+        }
+    }
+
+//        $fileName = "GENEL DURUM " . date("YmdHi") . ".csv";
+//
+//        header('Content-type:text/csv');
+//        header('Content-Disposition:attachment;filename=' . $fileName);
+//        header('Cache-Control:no-store, no-cache, must-revalidate');
+//        header('Cache-Control:post-check=0, pre-check=0');
+//        header('Pragma:no-cache');
+//        header('Expires:0');
+//
+//        $handle = fopen('php://output', 'w');
+//
+//        fputcsv($handle, array(
+//            'ADI',
+//            'SOYADI',
+//            'T.C. KİMLİK NO.',
+//            'CEP TELEFONU 1',
+//            'CEP TELEFONU 2',
+//            'EPOSTA ADRESİ',
+//            'MAHALLE',
+//            'SOKAK',
+//            'KAPI NO.',
+//            'DAİRE NO.',
+//            'GÖRÜŞME DURUMU',
+//            'TUZLAKART TESLİM DURUMU',
+//            'MEMNUNİYET',
+//            'TESLİM EDİLEN',
+//            'TARİH',
+//            'ANKETÖR'
+//        ));
+//
+//        $data['rapor'] = $this->report_model->gdd_detay(
+//            $condition ? $condition : "s.updatedAt is not null"
+//        );
+//
+//        foreach ($data['rapor'] as $as => $row) {
+//            foreach ($row as $key => $value)
+//            {
+//                fwrite($handle, ucfirst($key) . ": $value\r\n");
+//            }
+//            fwrite($handle, "\r\n");
+//        }
+//        fclose($handle);
+//        exit;
+//    }
 
 }
