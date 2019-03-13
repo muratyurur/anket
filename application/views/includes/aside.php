@@ -142,12 +142,6 @@ $user = $t->session->userdata("user");
                         </a>
                         <ul class="submenu" id="report-submenu">
                             <li>
-                                <a href="<?php echo base_url("performans"); ?>">
-                                    <span class="menu-text">Performans Raporu</span><br>
-                                    <small><i class="zmdi zmdi-alarm-check"></i> Yapım Aşamasında</small>
-                                </a>
-                            </li>
-                            <li>
                                 <a href="<?php echo base_url("reports/genel_durum_ozet"); ?>">
                                     <span class="menu-text">Genel Durum (Özet)</span>
                                 </a>
@@ -155,6 +149,11 @@ $user = $t->session->userdata("user");
                             <li>
                                 <a href="<?php echo base_url("reports/genel_durum_detay"); ?>">
                                     <span class="menu-text">Genel Durum (Detay)</span><br>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url("performans"); ?>">
+                                    <span class="menu-text">Performans Raporu</span><br>
                                     <small><i class="zmdi zmdi-alarm-check"></i> Yapım Aşamasında</small>
                                 </a>
                             </li>
