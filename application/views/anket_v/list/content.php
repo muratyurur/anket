@@ -153,6 +153,7 @@
                     <thead>
                     <th class="w20"></th>
                     <th class="w20"></th>
+                    <th class="w20"></th>
                     <th class="w20">#id</th>
                     <th class="w200">Adı</th>
                     <th class="w200">Soyadı</th>
@@ -165,13 +166,13 @@
                     <th class="w125">Görüşme Durumu</th>
                     </thead>
                     <tbody>
-                    <?php 
-						foreach ($items as $item) { 
-							if($item->durum=="G") $styleColor = 'style="color:#00C568;" ';
-							else if($item->durum=="B") $styleColor = 'style="color:#FFC54E;" ';
-							else if($item->durum=="R") $styleColor = 'style="color:#FF515A;" ';
-							else $styleColor = '';
-					?>
+                    <?php
+                    foreach ($items as $item) {
+                        if ($item->durum == "G") $styleColor = 'style="color:#00C568;" ';
+                        else if ($item->durum == "B") $styleColor = 'style="color:#FFC54E;" ';
+                        else if ($item->durum == "R") $styleColor = 'style="color:#FF515A;" ';
+                        else $styleColor = '';
+                        ?>
                         <tr>
                             <td class="text-center" <?php echo $styleColor; ?> >
                                 <a href="<?php echo base_url("anket/update_form/$item->id"); ?>">
@@ -182,6 +183,16 @@
                                 <td class="text-center">
                                     <span class="fa-stack fa-lg">
                                         <i class="fa fa-star fa-stack-1x text-warning"></i>
+                                        <i class="fa fa-star-o fa-stack-1x text-muted"></i>
+                                    </span>
+                                </td>
+                            <?php } else { ?>
+                                <td class="text-center"></td>
+                            <?php } ?>
+                            <?php if ($item->tuzlakart == "V") { ?>
+                                <td class="text-center">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-star fa-stack-1x text-primary"></i>
                                         <i class="fa fa-star-o fa-stack-1x text-muted"></i>
                                     </span>
                                 </td>

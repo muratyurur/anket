@@ -1,6 +1,10 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
+            <span class="fa-stack">
+                <i class="fa fa-star fa-stack-1x text-primary"></i>
+                <i class="fa fa-star-o fa-stack-1x text-muted"></i>
+            </span>
             <b><?php echo $item->adi . " " . $item->soyadi; ?></b> adlı seçmene ait bilgileri düzenliyorsunuz...
             <a class="btn btn-outline btn-primary btn-sm pull-right"
                href="<?php echo base_url("anket"); ?>">
@@ -353,6 +357,7 @@
                 <thead>
                 <th class="w20"></th>
                 <th class="w20">Teslim</th>
+                <th class="w20">TuzlaKart</th>
                 <th class="w200">Adı</th>
                 <th class="w200">Soyadı</th>
                 <th class="w150">Vatandaşlık No</th>
@@ -373,6 +378,16 @@
                             <td class="text-center">
 		                                    <span class="fa-stack fa-lg">
 		                                        <i class="fa fa-star fa-stack-1x text-warning"></i>
+		                                        <i class="fa fa-star-o fa-stack-1x text-muted"></i>
+		                                    </span>
+                            </td>
+                        <?php } else { ?>
+                            <td class="text-center"></td>
+                        <?php } ?>
+                        <?php if ($birey->tuzlakart == "V") { ?>
+                            <td class="text-center">
+                                <span class="fa-stack fa-lg">
+		                                        <i class="fa fa-star fa-stack-1x text-primary"></i>
 		                                        <i class="fa fa-star-o fa-stack-1x text-muted"></i>
 		                                    </span>
                             </td>
